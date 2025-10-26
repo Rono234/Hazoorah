@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RiddleGrid - Sample Level</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f7f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    #clues {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+
+    #grid {
+      display: flex;
+      gap: 10px;
+      margin: 20px;
+    }
+
+    .slot {
+      width: 100px;
+      height: 100px;
+      background: #e6e6e6;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      border: 2px dashed #bbb;
+    }
+
+    .item {
+      width: 90px;
+      height: 90px;
+      background: #aad4f5;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      font-size: 90px;
+      font-weight: bold;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    .item:active {
+      cursor: grabbing;
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin: 15px;
+      color: #444;
+    }
+
+    #submitBtn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #submitBtn:hover {
+      background: #43a047;
+    }
+
+    #attempts {
+      margin-top: 5px;
+      color: #777;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Hazoora - Level 1</h1>
+
+  <div id="clues">
+    <p><strong>Clues:</strong></p>
+    <ul>
+      <li>The dog is to the left of the mouse.</li>
+      <li>The cat is not on the right.</li>
+    </ul>
+  </div>
+
+  <div id="grid">
+    <div class="slot" data-position="1"></div>
+    <div class="slot" data-position="2"></div>
+    <div class="slot" data-position="3"></div>
+  </div>
+
+  <div id="items">
+    <div class="item" draggable="true" data-color="cat" style="background:transparent;">🐱</div>
+    <div class="item" draggable="true" data-color="mouse" style="background:transparent;">🐭</div>
+    <div class="item" draggable="true" data-color="dog" style="background: transparent;">🐶</div>
+  </div>
+
+  <button id="submitBtn">Submit Answer</button>
+  <div id="feedback"></div>
+  <div id="attempts">Attempts left: <span id="attemptCount">3</span></div>
+
+  <script>
+    const slots = document.querySelectorAll('.slot');
+    const items = document.querySelectorAll('.item');
+    const feedback = document.getElementById('feedback');
+    const attemptCount = document.getElementById('attemptCount');
+    const submitBtn = document.getElementById('submitBtn');
+    let draggedItem = null;
+    let attemptsLeft = 3;
+
+    // Correct answer order: Red, Green, Blue
+    const correctOrder = ['cat', 'dog', 'mouse'];
+
+    // Drag and drop logic
+    items.forEach(item => {
+      item.addEventListener('dragstart', () => {
+        draggedItem = item;
+        setTimeout(() => item.style.display = 'none', 0);
+      });
+
+      item.addEventListener('dragend', () => {
+        setTimeout(() => {
+          item.style.display = 'flex';
+          draggedItem = null;
+        }, 0);
+      });
+    });
+
+    slots.forEach(slot => {
+      slot.addEventListener('dragover', e => e.preventDefault());
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        if (draggedItem) {
+          if (slot.firstChild) {
+            // Swap if already occupied
+            const existing = slot.firstChild;
+            document.getElementById('items').appendChild(existing);
+          }
+          slot.appendChild(draggedItem);
+        }
+      });
+    });
+
+    // Submit logic
+    submitBtn.addEventListener('click', () => {
+      const userOrder = Array.from(slots).map(slot => 
+        slot.firstChild ? slot.firstChild.dataset.color : null
+      );
+
+      if (userOrder.includes(null)) {
+        feedback.textContent = "Place all houses before submitting!";
+        feedback.style.color = "orange";
+        return;
+      }
+
+      if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+        feedback.textContent = "✅ Correct! You solved the riddle!";
+        feedback.style.color = "green";
+        submitBtn.disabled = true;
+      } else {
+        attemptsLeft--;
+        attemptCount.textContent = attemptsLeft;
+        feedback.textContent = attemptsLeft > 0 
+          ? "❌ Not quite right! Try again."
+          : "❌ Out of attempts! The correct order was Red, Green, Blue.";
+        feedback.style.color = attemptsLeft > 0 ? "red" : "darkred";
+
+        if (attemptsLeft === 0) submitBtn.disabled = true;
+      }
+    });
+  </script>
+</body>
+</html>
