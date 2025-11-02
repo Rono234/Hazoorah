@@ -277,6 +277,7 @@ function generatePuzzle(level, itemsData, order, title, clues) {
         hintBtn.disabled = true;
         shufBtn.disabled = true;
       }
+    }
   };
 
   clearBtn.onclick = () => {
@@ -360,3 +361,4 @@ function loadPuzzle(index) {
 // =========================
 
 loadPuzzle(currentPuzzleIndex);
+
