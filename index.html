@@ -87,6 +87,31 @@
     #submitBtn:hover {
       background: #43a047;
     }
+    
+  /* Styles for the circular buttons */
+  .circle-button {
+    width: 60px;  /* Set the size of the button */
+    height: 60px;
+    border-radius: 50%; /* Makes the button circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+  }
+
+    #shufBtn:hover {
+      transform: scale(1.1);
+      border-color: #999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow on hover */
+    }
+
+    /* Icon inside shuffle button (could be used for any buttons in future) */
+    .icon {
+      width: 100%;        /* Icon will take 70% of the button's size */
+      height: 100%;
+      object-fit: contain; /* Ensures the icon scales proportionally */
+    }
 
     #attempts {
       margin-top: 5px;
@@ -122,12 +147,18 @@
   <div id="feedback"></div>
   <div id="attempts">Attempts left: <span id="attemptCount">3</span></div>
 
+  <!--Added shuffle button-->
+  <button id="shufBtn" class="circle-button"> 
+    <img src="Graphics/shuffleBtn.png" alt="Shuffle" class="icon">
+  </button>
+
   <script>
     const slots = document.querySelectorAll('.slot');
     const items = document.querySelectorAll('.item');
     const feedback = document.getElementById('feedback');
     const attemptCount = document.getElementById('attemptCount');
     const submitBtn = document.getElementById('submitBtn');
+    const shufBtn = document.getElementById('shufBtn');
     let draggedItem = null;
     let attemptsLeft = 3;
 
@@ -164,6 +195,59 @@
       });
     });
 
+    //Logic for shuffle button
+    let animalArr = ['cat', 'mouse', 'dog'];
+    
+      //Fisher-yates shuffle algorithm
+    function shuffArr(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function updateAnimalDisplay() {
+      const itemsContainer = document.getElementById('items');
+      itemsContainer.innerHTML = '';
+
+      // Get list of animals currently in slots (so that we don't duplicate animals)
+      const slotsAnimals = Array.from(slots).map(slot => 
+        slot.firstChild ? slot.firstChild.dataset.color : null
+      ).filter(animal => animal !== null);
+
+      // Only create elements for animals that aren't in slots
+      animalArr.forEach(animal => {
+        if (!slotsAnimals.includes(animal)) {
+          const emoji = animal === 'cat' ? '🐱' : animal === 'mouse' ? '🐭' : '🐶';
+          const div = document.createElement('div');
+          div.className = 'item';
+          div.draggable = true;
+          div.dataset.color = animal;
+          div.style.background = 'transparent';
+          div.innerHTML = emoji;
+
+          // Reattach drag event listeners
+          div.addEventListener('dragstart', () => {
+            draggedItem = div;
+            setTimeout(() => div.style.display = 'none', 0);
+          });
+          div.addEventListener('dragend', () => {
+            setTimeout(() => {
+              div.style.display = 'flex';
+              draggedItem = null;
+            }, 0);
+          });
+          itemsContainer.appendChild(div);
+        }
+      });
+    }
+
+    shufBtn.addEventListener('click', () => {
+      shuffArr(animalArr);
+      updateAnimalDisplay();
+    });
+    
     // Submit logic
     submitBtn.addEventListener('click', () => {
       const userOrder = Array.from(slots).map(slot => 
