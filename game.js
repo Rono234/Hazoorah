@@ -1,120 +1,220 @@
-const slots = document.querySelectorAll('.slot');
-const items = document.querySelectorAll('.item');
-const feedback = document.getElementById('feedback');
-const attemptCount = document.getElementById('attemptCount');
-const submitBtn = document.getElementById('submitBtn');
-const shufBtn = document.getElementById('shufBtn');
+// game.js
+
+// =========================
+// 🎮 Global Variables
+// =========================
 let draggedItem = null;
 let attemptsLeft = 3;
+let correctOrder = [];
+let currentPuzzleIndex = 0;
 
-// Correct answer order: Red, Green, Blue
-const correctOrder = ['cat', 'dog', 'mouse'];
-
-// Drag and drop logic
-items.forEach(item => {
-  item.addEventListener('dragstart', () => {
-    draggedItem = item;
-    setTimeout(() => item.style.display = 'none', 0);
-  });
-
-  item.addEventListener('dragend', () => {
-    setTimeout(() => {
-      item.style.display = 'flex';
-      draggedItem = null;
-    }, 0);
-  });
-});
-
-slots.forEach(slot => {
-  slot.addEventListener('dragover', e => e.preventDefault());
-  slot.addEventListener('drop', e => {
-    e.preventDefault();
-    if (draggedItem) {
-      if (slot.firstChild) {
-        // Swap if already occupied
-        const existing = slot.firstChild;
-        document.getElementById('items').appendChild(existing);
-      }
-      slot.appendChild(draggedItem);
-    }
-  });
-});
-
-//Logic for shuffle button
-let animalArr = ['cat', 'mouse', 'dog'];
-
-//Fisher-yates shuffle algorithm
-function shuffArr(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+// =========================
+// 🧩 Puzzle Data
+// =========================
+const puzzles = [
+  {
+    level: 'easy',
+    title: 'Level 1 - level title',
+    clues: ['clues will go here', 'commas will separate them'],
+    items: [
+      { id: 'cat', img: 'images/cat.png' },
+      { id: 'dog', img: 'images/dog.png' },
+      { id: 'mouse', img: 'images/mouse.png' }
+    ],
+    correctOrder: ['dog', 'mouse', 'cat']
+  },
+  {
+    level: 'medium',
+    title: 'Level 2',
+    clues: ['clues will go here', 'commas will separate them'],
+    items: [
+      { id: 'bird', img: 'images/bird.png' },
+      { id: 'rabbit', img: 'images/rabbit.png' },
+      { id: 'turtle', img: 'images/turtle.png' },
+      { id: 'fish', img: 'images/fish.png' },
+      { id: 'hamster', img: 'images/hamster.png' },
+      { id: 'lizard', img: 'images/lizard.png' }
+    ],
+    correctOrder: ['bird', 'rabbit', 'turtle', 'fish', 'hamster', 'lizard']
+  },
+  {
+    level: 'hard',
+    title: 'Level 3',
+    clues: ['clues will go here', 'commas will separate them'],
+    items: [
+      { id: 'cat', img: 'images/cat.png' },
+      { id: 'dog', img: 'images/dog.png' },
+      { id: 'mouse', img: 'images/mouse.png' },
+      { id: 'bird', img: 'images/bird.png' },
+      { id: 'fish', img: 'images/fish.png' },
+      { id: 'hamster', img: 'images/hamster.png' },
+      { id: 'rabbit', img: 'images/rabbit.png' },
+      { id: 'turtle', img: 'images/turtle.png' },
+      { id: 'lizard', img: 'images/lizard.png' }
+    ],
+    correctOrder: ['cat', 'dog', 'mouse', 'bird', 'fish', 'hamster', 'rabbit', 'turtle', 'lizard']
   }
-  return arr;
-}
+];
 
-function updateAnimalDisplay() {
-  // Clear all slots and items container
-  slots.forEach(slot => slot.innerHTML = '');
-  document.getElementById('items').innerHTML = '';
+// =========================
+// ⚙️ Puzzle Generation
+// =========================
+function generatePuzzle(level, itemsData, order, title, clues) {
+  const board = document.getElementById('board');
+  const itemsContainer = document.getElementById('items');
+  const feedback = document.getElementById('feedback');
+  const submitBtn = document.getElementById('submitBtn');
+  const attemptCount = document.getElementById('attemptCount');
+  const h1 = document.querySelector('h1');
+  const cluesDiv = document.getElementById('clues');
+  const itemTray = document.getElementById('itemTray');
 
-  // Shuffle the animals
-  shuffArr(animalArr);
+  // --- Reset UI ---
+  board.innerHTML = '';
+  itemsContainer.innerHTML = '';
+  feedback.textContent = '';
+  attemptsLeft = 3;
+  attemptCount.textContent = attemptsLeft;
+  submitBtn.disabled = false;
+  correctOrder = order;
+  itemTray.scrollLeft = 0;
 
-  // Place animals directly in slots
-  slots.forEach((slot, index) => {
-    const animal = animalArr[index];
-    const emoji = animal === 'cat' ? '🐱' : animal === 'mouse' ? '🐭' : '🐶';
-    const div = document.createElement('div');
-    div.className = 'item';
-    div.draggable = true;
-    div.dataset.color = animal;
-    div.style.background = 'transparent';
-    div.innerHTML = emoji;
+  // --- Update Title and Clues ---
+  h1.textContent = title;
+  cluesDiv.innerHTML = `
+    <p><strong>Clues:</strong></p>
+    <ul>${clues.map(c => `<li>${c}</li>`).join('')}</ul>
+  `;
 
-    // Add drag event listeners
-    div.addEventListener('dragstart', () => {
-      draggedItem = div;
-      setTimeout(() => div.style.display = 'none', 0);
+  // --- Grid Layout ---
+  const gridSizes = { easy: [1, 3], medium: [2, 3], hard: [3, 3] };
+  const [rows, cols] = gridSizes[level] || [1, 3];
+
+  board.style.display = 'grid';
+  board.style.gridTemplateRows = `repeat(${rows}, 100px)`;
+  board.style.gridTemplateColumns = `repeat(${cols}, 100px)`;
+  board.style.gap = '10px';
+
+  // --- Create Slots ---
+  for (let i = 0; i < rows * cols; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    board.appendChild(slot);
+  }
+
+  // --- Create Items (shuffled) ---
+  const shuffledItems = [...itemsData].sort(() => Math.random() - 0.5);
+  shuffledItems.forEach(({ id, img }) => {
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'item';
+    itemDiv.draggable = true;
+    itemDiv.dataset.color = id;
+
+    const image = document.createElement('img');
+    Object.assign(image, {
+      src: img,
+      alt: id,
+      style: 'width: 100%; height: 100%; object-fit: contain;'
     });
-    div.addEventListener('dragend', () => {
+
+    itemDiv.appendChild(image);
+    itemsContainer.appendChild(itemDiv);
+  });
+
+  // --- Drag and Drop Logic ---
+  const items = document.querySelectorAll('.item');
+  const slots = document.querySelectorAll('.slot');
+
+  items.forEach(item => {
+    item.addEventListener('dragstart', () => {
+      draggedItem = item;
+      setTimeout(() => (item.style.display = 'none'), 0);
+    });
+
+    item.addEventListener('dragend', () => {
       setTimeout(() => {
-        div.style.display = 'flex';
+        item.style.display = 'flex';
         draggedItem = null;
       }, 0);
     });
-
-    slot.appendChild(div);
   });
+
+  slots.forEach(slot => {
+    slot.addEventListener('dragover', e => e.preventDefault());
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      if (!draggedItem) return;
+
+      // Swap item if slot is occupied
+      if (slot.firstChild) itemsContainer.appendChild(slot.firstChild);
+      slot.appendChild(draggedItem);
+    });
+  });
+
+  // --- Submit Button Logic ---
+  submitBtn.onclick = () => {
+    const userOrder = Array.from(slots).map(slot =>
+      slot.firstChild ? slot.firstChild.dataset.color : null
+    );
+
+    if (userOrder.includes(null)) {
+      setFeedback("⚠️ Fill all slots before submitting!", "orange");
+      return;
+    }
+
+    if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
+      setFeedback("✅ Correct! You solved the puzzle!", "green");
+      submitBtn.disabled = true;
+    } else {
+      attemptsLeft--;
+      attemptCount.textContent = attemptsLeft;
+
+      if (attemptsLeft > 0) {
+        setFeedback("❌ Not quite right! Try again.", "red");
+      } else {
+        setFeedback("❌ Out of attempts!", "darkred");
+        submitBtn.disabled = true;
+      }
+    }
+  };
+
+  // Helper function for feedback
+  function setFeedback(message, color) {
+    feedback.textContent = message;
+    feedback.style.color = color;
+  }
 }
 
-shufBtn.addEventListener('click', () => {
-  updateAnimalDisplay();
-});
-
-// Submit logic
-submitBtn.addEventListener('click', () => {
-  const userOrder = Array.from(slots).map(slot => 
-    slot.firstChild ? slot.firstChild.dataset.color : null
+// =========================
+// 🧭 Navigation
+// =========================
+function loadPuzzle(index) {
+  const puzzle = puzzles[index];
+  generatePuzzle(
+    puzzle.level,
+    puzzle.items,
+    puzzle.correctOrder,
+    puzzle.title,
+    puzzle.clues
   );
 
-  if (userOrder.includes(null)) {
-    feedback.textContent = "Place all houses before submitting!";
-    feedback.style.color = "orange";
-    return;
-  }
+  document.getElementById('puzzleIndicator').textContent =
+    `Puzzle ${index + 1} of ${puzzles.length}`;
 
-  if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
-    feedback.textContent = "✅ Correct! You solved the riddle!";
-    feedback.style.color = "green";
-    submitBtn.disabled = true;
-  } else {
-    attemptsLeft--;
-    attemptCount.textContent = attemptsLeft;
-    feedback.textContent = attemptsLeft > 0 
-      ? "❌ Not quite right! Try again."
-      : "❌ Out of attempts! The correct order was Red, Green, Blue.";
-    feedback.style.color = attemptsLeft > 0 ? "red" : "darkred";
+  document.getElementById('prevBtn').disabled = index === 0;
+  document.getElementById('nextBtn').disabled = index === puzzles.length - 1;
+}
 
-    if (attemptsLeft === 0) submitBtn.disabled = true;
-  }
+// --- Navigation Buttons ---
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if (currentPuzzleIndex > 0) loadPuzzle(--currentPuzzleIndex);
 });
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  if (currentPuzzleIndex < puzzles.length - 1) loadPuzzle(++currentPuzzleIndex);
+});
+
+// =========================
+// 🚀 Initialize First Puzzle
+// =========================
+loadPuzzle(currentPuzzleIndex);
