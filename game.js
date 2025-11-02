@@ -272,8 +272,11 @@ function generatePuzzle(level, itemsData, order, title, clues) {
         submitBtn.disabled = true;
       }
 
-      if (attemptsLeft === 0) submitBtn.disabled = true; hintBtn.disabled = true; shufBtn.disabled = true;
-    }
+        if (attemptsLeft === 0) {
+        submitBtn.disabled = true;
+        hintBtn.disabled = true;
+        shufBtn.disabled = true;
+      }
   };
 
   clearBtn.onclick = () => {
@@ -355,4 +358,5 @@ function loadPuzzle(index) {
 // =========================
 // 🚀 Initialize First Puzzle
 // =========================
+
 loadPuzzle(currentPuzzleIndex);
