@@ -10,20 +10,31 @@ let currentPuzzleIndex = 0;
 // =========================
 // 🧩 Puzzle Data
 // =========================
+
+const hintLimits = {
+  easy: 1,
+  medium: 2,
+  hard: 3
+};
 const puzzles = [
   {
     level: 'easy',
-    clues: ['clues will go here', 'commas will separate them'],
+    clues: ['The dog is somewhere to the left of the mouse.',
+       "The cat sits between the other two animals."] ,
+
     items: [
       { id: 'cat', img: 'images/cat.png' },
       { id: 'dog', img: 'images/dog.png' },
       { id: 'mouse', img: 'images/mouse.png' }
     ],
-    correctOrder: ['dog', 'mouse', 'cat']
+    correctOrder: ['dog', 'cat', 'mouse']
   },
   {
     level: 'medium',
-    clues: ['clues will go here', 'commas will separate them'],
+    clues: ['The lizard is at the far left and the bird sits between the fish and the rabbit.',
+      'The fish stands immediately to the right of the lizard.',
+      'The turtle stands immediately to the right of the rabbit, '
+    ],
     items: [
       { id: 'bird', img: 'images/bird.png' },
       { id: 'rabbit', img: 'images/rabbit.png' },
@@ -32,11 +43,14 @@ const puzzles = [
       { id: 'hamster', img: 'images/hamster.png' },
       { id: 'lizard', img: 'images/lizard.png' }
     ],
-    correctOrder: ['bird', 'rabbit', 'turtle', 'fish', 'hamster', 'lizard']
+    correctOrder: ['lizard','fish' ,'bird', 'rabbit', 'turtle','hamster']
   },
   {
     level: 'hard',
-    clues: ['clues will go here', 'commas will separate them'],
+    clues: ['The dog stands immediately to the right of the cat, and the mouse stands immediately to the right of the dog.'
+      ,'The bird stands immediately left of the fish, and the fish is somewhere to the left of the hamster.',
+      'The hamster stands immediately left of the rabbit, and the rabbit stands immediately left of the turtle.'
+],
     items: [
       { id: 'cat', img: 'images/cat.png' },
       { id: 'dog', img: 'images/dog.png' },
@@ -80,7 +94,23 @@ function initializeGame() {
 // =========================
 // 💡 Hint Function
 // =========================
+
+  // Track how many hints the player has used for the current puzzle
+let usedHints = 0;
+let maxHints = 0;
+
+// function that Initialize the hint system based on the current level.
+ 
+function initHintSystem(level) {
+  usedHints = 0;
+  maxHints = hintLimits[level] || 1;
+}
 function getHint(userArray, solutionArray) {
+
+  if (usedHints >= maxHints) {
+    return `🚫 No more hints left for this level! (${maxHints} used)`;
+  }
+
   function generatePositionNames(total) {
     const names = [];
     for (let i = 1; i <= total; i++) {
@@ -94,8 +124,8 @@ function getHint(userArray, solutionArray) {
   }
 
   const templates = [
-    'Hmm... something seems off with box #{index}',
-    'Take another look at the #{index} position - it doesn’t seem right',
+    'Check box #{index}, it might need #{correct}',
+    'I think box #{index} should have #{correct}',
     'Maybe the #{correct} belongs in box #{index}',
     'The item in box #{index} doesn’t look correct - what about #{correct}'
   ];
@@ -107,7 +137,11 @@ function getHint(userArray, solutionArray) {
       break;
     }
   }
+  if (misMatchIndex === -1) {
+    return "Everything looks good — no hints needed!";
+  }
 
+  usedHints++;
   const correct = solutionArray[misMatchIndex];
   const posNames = generatePositionNames(userArray.length);
   const indexLabel = posNames[misMatchIndex];
@@ -156,6 +190,7 @@ function updatePuzzleDisplay() {
 // =========================
 function generatePuzzle(level, itemsData, order, title, clues) {
   initializeGame();
+  initHintSystem(level);
 
   const board = document.getElementById('board');
   const itemsContainer = document.getElementById('items');
