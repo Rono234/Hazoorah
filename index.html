@@ -1,234 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Hazoora - Level 1</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f0f7f4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      margin: 0;
-      min-height: 100vh;
-    }
-
-    h1 {
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    /* --- Clues Box --- */
-    #clues {
-      background: white;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-      width: 320px;
-    }
-
-    /* --- Game Board --- */
-    #board {
-      display: flex;
-      gap: 10px;
-      margin: 20px;
-    }
-
-    .slot {
-      width: 100px;
-      height: 100px;
-      background: #e6e6e6;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 16px;
-      border: 2px dashed #bbb;
-    }
-
-    /* --- Item Tray --- */
-    #itemTray {
-      width: 340px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      white-space: nowrap;
-      background: white;
-      border-radius: 10px;
-      padding: 10px;
-      margin-top: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      scrollbar-width: thin;
-      scrollbar-color: #bbb #f5f5f5;
-    }
-
-    /* Scrollbar Styling */
-    #itemTray::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    #itemTray::-webkit-scrollbar-thumb {
-      background: #bbb;
-      border-radius: 4px;
-    }
-
-    #itemTray::-webkit-scrollbar-track {
-      background: #f5f5f5;
-    }
-
-    #items {
-      display: inline-flex;
-      gap: 10px;
-    }
-
-    .item {
-      flex: 0 0 auto;
-      width: 90px;
-      height: 90px;
-      background: #aad4f5;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 90px;
-      font-weight: bold;
-      cursor: grab;
-      user-select: none;
-      transition: transform 0.2s;
-    }
-
-    .item:active {
-      transform: scale(0.95);
-      cursor: grabbing;
-    }
-
-    /* --- Navigation --- */
-    #navigation {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    #navigation button {
-      background: #2196F3;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: background 0.3s;
-    }
-
-    #navigation button:hover {
-      background: #1976D2;
-    }
-
-    #navigation span {
-      font-weight: bold;
-      color: #333;
-    }
-
-    /* --- Controls --- */
-    #controls {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    #submitBtn {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-
-    #submitBtn:hover {
-      background: #43a047;
-    }
-
-     /* Styles for the circular buttons */
-  .circle-button {
-    width: 60px;  /* Set the size of the button */
-    height: 60px;
-    border-radius: 50%; /* Makes the button circular */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    padding: 0;
-  }
-
-    #shufBtn:hover {
-      transform: scale(1.1);
-      border-color: #999;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow on hover */
-    }
-
-    /* Icon inside shuffle button (could be used for any buttons in future) */
-    .icon {
-      width: 100%;        /* Icon will take 70% of the button's size */
-      height: 100%;
-      object-fit: contain; /* Ensures the icon scales proportionally */
-    }
-
-    #feedback {
-      font-weight: bold;
-      margin: 15px;
-      color: #444;
-    }
-
-    #attemptCount {
-      color: #777;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Hazoorah</title>
+    <link rel="icon" type="image/x.icon" href="images/transparentBear.PNG">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Hazoora - Level 1</h1>
+    <img class="bg" src="images/plainBackground.PNG" alt="">
 
-  <div id="clues">
-    <p><strong>Clues:</strong></p>
-    <ul>
-      <li>The dog is to the left of the mouse.</li>
-      <li>The cat is not on the right.</li>
-    </ul>
-  </div>
+    <h1>
+        <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="300">
+    </h1>
 
-  <div id="gameContainer">
-    <div id="board" class="board"></div>
+    <h2>
+        <img src="images/Banner.png" alt="Level Banner" width="550">
+        <div class="level">LEVEL: 1</div>
+    </h2>
 
-    <div id="itemTray">
-      <div id="items" class="items"></div>
+    <div id="clues">
+        <p><strong>Clues:</strong></p>
+        <ul>
+            <li>The dog is to the left of the mouse.</li>
+            <li>The cat is not on the right.</li>
+        </ul>
     </div>
-  </div>
 
-  <div id="navigation">
-    <button id="prevBtn">⬅ Previous</button>
-    <span id="puzzleIndicator">Puzzle 1 of 3</span>
-    <button id="nextBtn">Next ➡</button>
-  </div>
+    <div id="gameContainer">
+        <div id="board" class="board"></div>
 
-  <div id="controls">
-    <button id="submitBtn">Submit</button>
-    <p id="feedback"></p>
-    <p>Attempts left: <span id="attemptCount">3</span></p>
-  </div>
+        <div id="itemTray">
+            <div id="items" class="items"></div>
+        </div>
+    </div>
 
-    <!--Added shuffle button-->
-  <button id="shufBtn" class="circle-button"> 
-    <img src="Graphics/shuffleBtn.png" alt="Shuffle" class="icon">
-  </button>
+    <div id="navigation">
+        <button id="prevBtn">⬅ Previous</button>
+        <span id="puzzleIndicator">Puzzle 1 of 3</span>
+        <button id="nextBtn">Next ➡</button>
+    </div>
 
-  <script src="game.js"></script>
-  <script src="shuffle.js"></script>
+    <div id="controls">
+        <button id="submitBtn">SUBMIT</button>
+        <p id="feedback"></p>
+        <p>Attempts Left: <span id="attemptCount">3</span></p>
+    </div>
+
+    <div id = "buttons">
+        <button id="clearBtn">
+            <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
+        </button>
+
+        <button id="hintBtn">
+            <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
+        </button>
+        
+        <button id="shufBtn">
+            <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
+        </button>
+    </div>
+
+    <script src="game.js"></script>
+
 </body>
 </html>
