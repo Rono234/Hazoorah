@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <img class="bg" src="images/Background.png" alt="">
+    <img class="bg" src="images/plainBackground.PNG" alt="">
 
     <h1>
         <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="300">
@@ -19,36 +19,63 @@
         <img src="images/Banner.png" alt="Level Banner" width="550">
         <div class="level">LEVEL: 1</div>
     </h2>
-    
+
+    <div class="stopwatch">
+        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit' id="seconds">00</span>
+    </div>
+
     <div id="clues">
         <p><strong>Clues:</strong></p>
-
         <ul>
-        <li>The dog is to the left of the mouse.</li>
-        <li>The cat is not on the right.</li>
+            <li>The dog is to the left of the mouse.</li>
+            <li>The cat is not on the right.</li>
         </ul>
     </div>
 
-    <div id="grid">
-        <div class="slot" data-position="1"></div>
-        <div class="slot" data-position="2"></div>
-        <div class="slot" data-position="3"></div>
+    <div id="gameContainer">
+        <div id="board" class="board"></div>
+
+        <div id="itemTray">
+            <div id="items" class="items"></div>
+        </div>
     </div>
 
-    <div id="items">
-        <div class="item" draggable="true" data-color="cat" style="background:transparent;">🐱</div>
-        <div class="item" draggable="true" data-color="mouse" style="background:transparent;">🐭</div>
-        <div class="item" draggable="true" data-color="dog" style="background: transparent;">🐶</div>
+    <div id="navigation">
+        <button id="prevBtn">⬅ Previous</button>
+        <span id="puzzleIndicator">Puzzle 1 of 3</span>
+        <button id="nextBtn">Next ➡</button>
     </div>
 
-    <button id="submitBtn">SUBMIT</button>
-    <button id="clearBtn">
-        <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
-    </button>
-    
-    <div id="feedback"></div>
-    <div id="attempts">Attempts Left: <span id="attemptCount">3</span></div>
+    <div id="controls">
+        <button id="submitBtn">SUBMIT</button>
+        <p id="feedback"></p>
+        <p>Attempts Left: <span id="attemptCount">3</span></p>
+    </div>
 
-    <script src = "script.js"></script>
+    <div id = "buttons">
+        <button id="clearBtn">
+            <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
+        </button>
+
+        <button id="hintBtn">
+            <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
+        </button>
+        
+        <button id="shufBtn">
+            <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
+        </button>
+    </div>
+
+    <div id="timerControls">
+        <button id="startTimer">
+            Start Timer
+        </button>
+        <button id="pauseBtn">
+            <img src="images/pauseBtn.png" alt="pause button" width="50" height="50">
+        </button>
+    </div>
+
+    <script src="game.js"></script>
+
 </body>
 </html>
