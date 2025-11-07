@@ -19,52 +19,89 @@ const hintLimits = {
 const puzzles = [
   {
     level: 'easy',
-    clues: ['The dog is somewhere to the left of the mouse.',
-       "The cat sits between the other two animals."] ,
+    clues: ['The cow eats after the chicken.',
+       "The pig is always fed last."] ,
 
     items: [
-      { id: 'cat', img: 'images/cat.png' },
-      { id: 'dog', img: 'images/dog.png' },
-      { id: 'mouse', img: 'images/mouse.png' }
+      { id: 'cow', img: 'images/cow.png' },
+      { id: 'chicken', img: 'images/chicken.png' },
+      { id: 'pig', img: 'images/pig.png' }
     ],
-    correctOrder: ['dog', 'cat', 'mouse']
+    correctOrder: ['chicken', 'cow', 'pig']
+  },
+  {
+    level: 'easy',
+    clues: ['The carrot basket weighs more than the apples.',
+       "The corn basket is not the lightest.",
+       "The apples are lighter than both other baskets."] ,
+
+    items: [
+      { id: 'carrot', img: 'images/carrot.png' },
+      { id: 'corn', img: 'images/corn.png' },
+      { id: 'apple', img: 'images/apple.png' }
+    ],
+    correctOrder: ['apple', 'carrot', 'corn']
   },
   {
     level: 'medium',
-    clues: ['The lizard is at the far left and the bird sits between the fish and the rabbit.',
-      'The fish stands immediately to the right of the lizard.',
-      'The turtle stands immediately to the right of the rabbit, '
+    clues: ['The engine is in the middle of the setup.',
+      'The axle must come before the wheel.',
+      'The lever is right before the exhaust.',
+      'The seat comes immediately after the engine.',
+      'The axle and lever are not next to each other.'
     ],
     items: [
-      { id: 'bird', img: 'images/bird.png' },
-      { id: 'rabbit', img: 'images/rabbit.png' },
-      { id: 'turtle', img: 'images/turtle.png' },
-      { id: 'fish', img: 'images/fish.png' },
-      { id: 'hamster', img: 'images/hamster.png' },
-      { id: 'lizard', img: 'images/lizard.png' }
+      { id: 'wheel', img: 'images/wheel.png' },
+      { id: 'axle', img: 'images/axle.png' },
+      { id: 'engine', img: 'images/engine.png' },
+      { id: 'seat', img: 'images/seat.png' },
+      { id: 'lever', img: 'images/lever.png' },
+      { id: 'exhaust', img: 'images/exhaust.png' }
     ],
-    correctOrder: ['lizard','fish' ,'bird', 'rabbit', 'turtle','hamster']
+    correctOrder: ['axle','wheel','engine','seat','lever','exhaust']
+  },
+  {
+    level: 'medium',
+    clues: ['Daisy(white) stands between Misty(brown) and Luna(gray).',
+      'Hazel(ginger) is farthest to the right.',
+      'Clover(bald) is left of Misty.',
+      'Poppy(black) is next to Hazel.',
+      'Luna is right of Daisy.'
+    ],
+    items: [
+      { id: 'Daisy', img: 'images/Daisy.png' },
+      { id: 'Misty', img: 'images/misty.png' },
+      { id: 'Luna', img: 'images/Luna.png' },
+      { id: 'Poppy', img: 'images/poppy.png' },
+      { id: 'Hazel', img: 'images/hazel.png' },
+      { id: 'Clover', img: 'images/clover.png' }
+    ],
+    correctOrder: ['Clover', 'Misty', 'Daisy', 'Luna', 'Poppy', 'Hazel']
   },
   {
     level: 'hard',
-    clues: ['The dog stands immediately to the right of the cat, and the mouse stands immediately to the right of the dog.'
-      ,'The bird stands immediately left of the fish, and the fish is somewhere to the left of the hamster.',
-      'The hamster stands immediately left of the rabbit, and the rabbit stands immediately left of the turtle.'
+    clues: ['Wheat is directly above Rice.',
+      'Cabbage grows earlier than peanuts and Wheat.',
+      'Peas are planted to the right of Tomatoes.',
+      'Potatoes are in the bottom-right corner.',
+      'Corn grows below peanuts .',
+      'Beans are right of Wheat.'
+
 ],
     items: [
-      { id: 'cat', img: 'images/cat.png' },
-      { id: 'dog', img: 'images/dog.png' },
-      { id: 'mouse', img: 'images/mouse.png' },
-      { id: 'bird', img: 'images/bird.png' },
-      { id: 'fish', img: 'images/fish.png' },
-      { id: 'hamster', img: 'images/hamster.png' },
-      { id: 'rabbit', img: 'images/rabbit.png' },
-      { id: 'turtle', img: 'images/turtle.png' },
-      { id: 'lizard', img: 'images/lizard.png' }
+      { id: 'wheat', img: 'images/wheat.png' },
+      { id: 'corn', img: 'images/corn.png' },
+      { id: 'peanut', img: 'images/peanut.png' },
+      { id: 'rice', img: 'images/rice.png' },
+      { id: 'bean', img: 'images/bean.png' },
+      { id: 'tomato', img: 'images/tomato.png' },
+      { id: 'cabbage', img: 'images/cabbage.png' },
+      { id: 'pea', img: 'images/pea.png' },
+      { id: 'potato', img: 'images/potato.png' }
     ],
     correctOrder: [
-      'cat', 'dog', 'mouse', 'bird', 'fish',
-      'hamster', 'rabbit', 'turtle', 'lizard'
+      'cabbage', 'tomato', 'pea', 'peanut', 'wheat',
+      'bean', 'corn', 'rice', 'potato'
     ]
   }
 ];
