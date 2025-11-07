@@ -9,6 +9,13 @@
 </head>
 
 <body>
+    <div class="header">
+        <!-- Enable Sound CTA (shown when autoplay is blocked) -->
+        <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>
+        <button id="settBtn">
+            <img src="images/settingBtn.png" alt="shuffle button" width="50" height="50">
+        </button>
+    </div>
     <img class="bg" src="images/plainBackground.PNG" alt="">
 
     <h1>
@@ -60,9 +67,56 @@
         <button id="shufBtn">
             <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
         </button>
+
+        
     </div>
 
-    <script src="game.js"></script>
+    
+        <!-- Settings Dialog -->
+        <dialog id="settingsDialog">
+            <form method="dialog">
+                <h3>Settings</h3>
+            
+                <!-- Settings Options -->
+                <div class="settings-content">
+                    <!-- Sound Effects -->
+                    <div class="settings-group">
+                        <label for="soundToggle">Sound Effects</label>
+                        <div class="volume-control">
+                            <input type="checkbox" id="soundToggle">
+                            <input type="range" id="soundVolume" min="0" max="100" value="100">
+                        </div>
+                    </div>
 
+                    <!-- Background Music -->
+                    <div class="settings-group">
+                        <label for="musicToggle">Background Music</label>
+                        <div class="volume-control">
+                            <input type="checkbox" id="musicToggle">
+                            <input type="range" id="musicVolume" min="0" max="100" value="100">
+                        </div>
+                    </div>
+                    <h4>*Adjust volume bar after turning audio on</h4>
+                </div>
+            
+                <!-- Dialog Buttons -->
+                <div class="dialog-buttons">
+                    <button type="button" id="saveSettingsBtn">Save</button>
+                    <button type="button" id="closeSettingsBtn">Close</button>
+                </div>
+            </form>
+        </dialog>
+
+        <!-- Background music (hidden player) -->
+        <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
+            <source src="Audio/BG Music/background1.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+        </audio>
+
+    
+
+    <script src="game.js"></script>
+    <script src="settings.js"></script>
+    <script src="soundfx.js"></script>
 </body>
 </html>

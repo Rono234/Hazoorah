@@ -288,6 +288,10 @@ function generatePuzzle(level, itemsData, order, title, clues) {
 
     if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
       setFeedback('✅ Correct! You solved the puzzle!', 'green');
+      // Play ding sound effect for correct answer, respecting user SFX settings
+      if (typeof playSfx === 'function') {
+        playSfx('Audio/Sound FX/ding.mp3');
+      }
       submitBtn.disabled = hintBtn.disabled = shufBtn.disabled = true;
     } else {
       attemptsLeft--;
@@ -364,3 +368,5 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 // 🚀 Initialize First Puzzle
 // =========================
 loadPuzzle(currentPuzzleIndex);
+
+
