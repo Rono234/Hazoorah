@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Hazoorah</title>
-    <link rel="icon" type="image/x.icon" href="images/transparentBear.PNG">
+    <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,110 +12,127 @@
     <div class="header">
         <!-- Enable Sound CTA (shown when autoplay is blocked) -->
         <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>
-        <button id="settBtn">
-            <img src="images/settingBtn.png" alt="shuffle button" width="50" height="50">
+        <button id="settBtn" aria-label="Open settings">
+            <img src="images/settingBtn.png" alt="Settings" width="50" height="50">
         </button>
     </div>
-    <img class="bg" src="images/plainBackground.PNG" alt="">
+    <img class="bg" src="images/plainBackground.PNG" alt="Background">
 
-    <h1>
-        <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="300">
-    </h1>
+    <div class="headerContainer" style="align-items: center;">
+        <header class="title">
+            <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="300">
+        </header>
 
-    <h2>
-        <img src="images/Banner.png" alt="Level Banner" width="550">
-        <div class="level">LEVEL: 1</div>
-    </h2>
-
-    <div id="clues">
-        <p><strong>Clues:</strong></p>
-        <ul>
-            <li>The dog is to the left of the mouse.</li>
-            <li>The cat is not on the right.</li>
-        </ul>
+        <!-- Level Banner -->
+        <section class="level-banner">
+            <img src="images/Banner.png" alt="Level Banner" width="550">
+            <span class="level">LEVEL: 1</span>
+        </section>
     </div>
 
-    <div id="gameContainer">
-        <div id="board" class="board"></div>
+    <!-- Clues Section -->
+    <section id="clues">
+        <div id="storySentence">
+            <p><strong>Story Sentence:</strong></p>
+        </div>
+        <div id="cluesContent">
+            <p><strong>Clues:</strong></p>
+            <ul>
+                <li>The dog is to the left of the mouse.</li>
+                <li>The cat is not on the right.</li>
+            </ul>
+        </div>
+    </section>
 
+    <main id="gameContainer">
+        <div id="board" class="board"></div>
         <div id="itemTray">
             <div id="items" class="items"></div>
         </div>
-    </div>
+    </main>
 
-    <div id="navigation">
+    <nav id="navigation">
         <button id="prevBtn">⬅ Previous</button>
         <span id="puzzleIndicator">Puzzle 1 of 3</span>
         <button id="nextBtn">Next ➡</button>
-    </div>
+    </nav>
 
-    <div id="controls">
+    <section id="controls">
         <button id="submitBtn">SUBMIT</button>
         <p id="feedback"></p>
         <p>Attempts Left: <span id="attemptCount">3</span></p>
-    </div>
+    </section>
 
-    <div id = "buttons">
-        <button id="clearBtn">
-            <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
-        </button>
+    <!-- Notes -->
+    <section id="notesContainer">
+        <div id="notesChild">
+            <h3>Level Notes</h3>
+            <textarea id="levelNotes" placeholder="Write notes for this level..."></textarea>
+            <div class="noteButtons">
+                <button id="clearNoteBtn">Clear Note</button>
+            </div>
+            <p id="noteStatus" aria-live="polite"></p>
+        </div>
+    </section>
 
-        <button id="hintBtn">
-            <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
+    <section id="buttons">
+        <button id="clearBtn" aria-label="Clear Board">
+            <img src="images/clearBtn.png" alt="Clear Board" width="50" height="50">
         </button>
-        
-        <button id="shufBtn">
-            <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
+        <button id="hintBtn" aria-label="Get Hint">
+            <img src="images/hintBtn.png" alt="Get Hint" width="50" height="50">
         </button>
-
-        
-    </div>
+        <button id="shufBtn" aria-label="Shuffle">
+            <img src="images/shuffleBtn.png" alt="Shuffle" width="50" height="50">
+        </button>
+    </section>
 
     
-        <!-- Settings Dialog -->
-        <dialog id="settingsDialog">
-            <form method="dialog">
-                <h3>Settings</h3>
-            
-                <!-- Settings Options -->
-                <div class="settings-content">
-                    <!-- Sound Effects -->
-                    <div class="settings-group">
-                        <label for="soundToggle">Sound Effects</label>
-                        <div class="volume-control">
-                            <input type="checkbox" id="soundToggle">
-                            <input type="range" id="soundVolume" min="0" max="100" value="100">
-                        </div>
+    <!-- Settings Dialog -->
+    <dialog id="settingsDialog">
+        <form method="dialog">
+            <h3>Settings</h3>
+        
+            <!-- Settings Options -->
+            <div class="settings-content">
+                <!-- Sound Effects -->
+                <div class="settings-group">
+                    <label for="soundToggle">Sound Effects</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="soundToggle">
+                        <input type="range" id="soundVolume" min="0" max="100" value="100">
                     </div>
+                </div>
 
-                    <!-- Background Music -->
-                    <div class="settings-group">
-                        <label for="musicToggle">Background Music</label>
-                        <div class="volume-control">
-                            <input type="checkbox" id="musicToggle">
-                            <input type="range" id="musicVolume" min="0" max="100" value="100">
-                        </div>
+                <!-- Background Music -->
+                <div class="settings-group">
+                    <label for="musicToggle">Background Music</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="musicToggle">
+                        <input type="range" id="musicVolume" min="0" max="100" value="100">
                     </div>
-                    <h4>*Adjust volume bar after turning audio on</h4>
                 </div>
-            
-                <!-- Dialog Buttons -->
-                <div class="dialog-buttons">
-                    <button type="button" id="saveSettingsBtn">Save</button>
-                    <button type="button" id="closeSettingsBtn">Close</button>
-                </div>
-            </form>
-        </dialog>
+                <h4>*Adjust volume bar after turning audio on</h4>
+            </div>
+        
+            <!-- Dialog Buttons -->
+            <div class="dialog-buttons">
+                <button type="button" id="saveSettingsBtn">Save</button>
+                <button type="button" id="closeSettingsBtn">Close</button>
+            </div>
+        </form>
+    </dialog>
 
-        <!-- Background music (hidden player) -->
-        <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
-            <source src="Audio/BG Music/background1.mp3" type="audio/mpeg">
-        Your browser does not support audio playback.
-        </audio>
+    <!-- Background music (hidden player) -->
+    <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
+        <source src="Audio/BG Music/background1.mp3" type="audio/mpeg">
+    Your browser does not support audio playback.
+    </audio>
 
     
 
     <script src="game.js"></script>
+    <script src="notes.js"></script>
     <script src="settings.js"></script>
     <script src="soundfx.js"></script>
 </body>

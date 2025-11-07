@@ -19,8 +19,9 @@ const hintLimits = {
 const puzzles = [
   {
     level: 'easy',
+    story:'Jerrold needs to feed his farm animals. Put them in order from first fed to last fed.',
     clues: ['The cow eats after the chicken.',
-       "The pig is always fed last."] ,
+       "The pig is always fed last."],
 
     items: [
       { id: 'cow', img: 'images/cow.png' },
@@ -31,6 +32,7 @@ const puzzles = [
   },
   {
     level: 'easy',
+    story:'Jerrold is creating harvest baskets for his friends. Order the veggies from lightest to heaviest basket.',
     clues: ['The carrot basket weighs more than the apples.',
        "The corn basket is not the lightest.",
        "The apples are lighter than both other baskets."] ,
@@ -44,6 +46,7 @@ const puzzles = [
   },
   {
     level: 'medium',
+    story:'Jerrold needs to fix his tractor for plowing! Order the parts based on how they fit in the tractor.',
     clues: ['The engine is in the middle of the setup.',
       'The axle must come before the wheel.',
       'The lever is right before the exhaust.',
@@ -62,6 +65,7 @@ const puzzles = [
   },
   {
     level: 'medium',
+    story:'Jerrold wants to take a family photo of his lovely sheep. Order them from oldest to youngest.',
     clues: ['Daisy(white) stands between Misty(brown) and Luna(gray).',
       'Hazel(ginger) is farthest to the right.',
       'Clover(bald) is left of Misty.',
@@ -80,6 +84,7 @@ const puzzles = [
   },
   {
     level: 'hard',
+    story:'Before Jerrold can plant his new crops, he wants to map out where they will go.',
     clues: ['Wheat is directly above Rice.',
       'Cabbage grows earlier than peanuts and Wheat.',
       'Peas are planted to the right of Tomatoes.',
@@ -225,7 +230,7 @@ function updatePuzzleDisplay() {
 // =========================
 // ⚙️ Puzzle Generation
 // =========================
-function generatePuzzle(level, itemsData, order, title, clues) {
+function generatePuzzle(level, itemsData, order, title, clues, story) {
   initializeGame();
   initHintSystem(level);
 
@@ -238,8 +243,9 @@ function generatePuzzle(level, itemsData, order, title, clues) {
   const clearBtn = document.getElementById('clearBtn');
   const shufBtn = document.getElementById('shufBtn');
   const attemptCount = document.getElementById('attemptCount');
-  const h1 = document.querySelector('h1');
-  const cluesDiv = document.getElementById('clues');
+  // New structured clue + story containers from integrated layout
+  const storyDiv = document.getElementById('storySentence');
+  const cluesContentDiv = document.getElementById('cluesContent');
   const itemTray = document.getElementById('itemTray');
 
   board.innerHTML = '';
@@ -251,11 +257,18 @@ function generatePuzzle(level, itemsData, order, title, clues) {
   correctOrder = order;
   itemTray.scrollLeft = 0;
 
-  h1.textContent = title;
-  cluesDiv.innerHTML = `
-    <p><strong>Clues:</strong></p>
-    <ul>${clues.map(c => `<li>${c}</li>`).join('')}</ul>
-  `;
+  // Populate story (if any) and clues into their dedicated containers.
+  if (storyDiv) {
+    storyDiv.innerHTML = story
+      ? `<p><strong>Story Sentence:</strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
+      : '<p><strong>Story Sentence:</strong></p>';
+  }
+  if (cluesContentDiv) {
+    cluesContentDiv.innerHTML = `
+      <p><strong>Clues:</strong></p>
+      <ul>${clues.map(c => `<li>${c}</li>`).join('')}</ul>
+    `;
+  }
 
   const gridSizes = { easy: [1, 3], medium: [2, 3], hard: [3, 3] };
   const [rows, cols] = gridSizes[level] || [1, 3];
@@ -374,10 +387,12 @@ function generatePuzzle(level, itemsData, order, title, clues) {
 // 🧭 Navigation
 // =========================
 function loadPuzzle(index) {
-  const logo = document.querySelector('h1 img');
+  // Adjusted selector: logo now resides in .title img (no longer inside an <h1>)
+  const logo = document.querySelector('.title img');
   if (logo) {
     logo.src = 'images/titleLogo.PNG';
-    logo.alt = puzzles[index].title || 'Hazoorah';
+    // Optional: alt could reflect level or a static title.
+    logo.alt = 'Hazoorah Logo';
   }
 
   const level = document.querySelector('.level');
@@ -387,7 +402,7 @@ function loadPuzzle(index) {
   if (indicator) indicator.textContent = `Puzzle ${index + 1} of ${puzzles.length}`;
 
   const puzzle = puzzles[index];
-  generatePuzzle(puzzle.level, puzzle.items, puzzle.correctOrder, puzzle.title, puzzle.clues);
+  generatePuzzle(puzzle.level, puzzle.items, puzzle.correctOrder, puzzle.title, puzzle.clues, puzzle.story);
 
   document.getElementById('prevBtn').disabled = index === 0;
   document.getElementById('nextBtn').disabled = index === puzzles.length - 1;

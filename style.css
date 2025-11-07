@@ -1,3 +1,68 @@
+/* ==============================
+   GLOBAL STYLES
+============================== */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+.bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* ==============================
+   TITLE & LEVEL BANNER
+============================== */
+.title {
+    margin: 0 0 10px 0;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+.title img {
+    width: 300px;
+    height: auto;
+}
+
+.level-banner {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    z-index: 1;
+}
+
+.level-banner .level {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 700;
+    font-size: 40px;
+}
+.level-banner img {
+    width: 437px;
+    height: auto;
+}
+
+
 /* Header bar: place Enable Sound on left and Settings on right */
 .header {
     display: flex;
@@ -493,4 +558,159 @@ dialog#settingsDialog::backdrop {
 
 #enableSoundBtn:hover {
     background: #43a047;
+}
+
+/* ==============================
+   Integrated styles from Raneen variant
+   (Header bar and Settings dialog above are preserved)
+============================== */
+
+/* Override: Clues panel styling */
+#clues {
+    position: absolute;
+    left: 130px;
+    top: 80px;
+    width: 270px;
+    height: 650px;
+    padding: 15px;
+    background: url(images/hintSection.png) no-repeat center center;
+    background-size: contain;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    z-index: 4000;
+    overflow: visible;
+    box-shadow: 2px 5px 10px #b0b7bd;
+}
+
+#cluesContent {
+    padding: 15px;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Override: Submit button styling */
+#submitBtn {
+    background: #9ACF7C;
+    color: white;
+    border: none;
+    padding: 4px 18px;
+    margin-top: 20px;
+    border-radius: 11px;
+    cursor: pointer;
+    font-size: 28px;
+    font-family: 'Arial Rounded MT Bold';
+    box-shadow: 2px 5px 10px #4c5661;
+    transition: background 0.3s;
+}
+
+#submitBtn:hover {
+    background: #43a047;
+}
+
+/* Tool buttons container */
+#buttons button {
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid gray;
+    padding: 1px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#buttons button:hover {
+    background-color: lightgray;
+}
+
+#buttons img {
+    display: block;
+    margin: 0;
+}
+
+/* Notes panel */
+#notesContainer {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 100px;
+    top: 125px;
+    width: 288px;
+    max-width: 35vw;
+    padding: 12px;
+    background: url(images/notesBackground.png) no-repeat center center;
+    background-size: cover;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+#notesChild {
+    margin-right: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 6px;
+    width: 80%;
+}
+
+#notesContainer h3 {
+    font-family: 'Jack Armstrong';
+    font-size: 18px;
+    margin: 10px;
+    color: #333;
+}
+
+#levelNotes {
+    width: 100%;
+    min-height: 400px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    resize: vertical;
+    font-family: 'Jack Armstrong';
+}
+
+.noteButtons {
+    margin-top: 8px;
+}
+
+.noteButtons button {
+    background-color: #aabed7;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 6px 10px;
+    margin-right: 8px;
+    font-size: 15px;
+    font-family: 'Arial Rounded MT Bold';
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.noteButtons button:hover {
+    background-color: #8fa7c0;
+}
+
+#noteStatus {
+    margin-top: 6px;
+    color: #2b7a2b;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments for notes */
+@media (max-width: 900px) {
+    #notesContainer {
+        position: static;
+        width: auto;
+        max-width: none;
+        max-height: none;
+        margin: 12px;
+        background: url(images/notesBackground.png) no-repeat center center;
+        background-size: cover;
+    }
 }
