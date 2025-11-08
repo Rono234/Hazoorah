@@ -30,9 +30,9 @@ const puzzles = [
        "The white daisies are on the left."] ,
 
     items: [
-      { id: 'purple dahlias', img: 'images/purple-dahlias.png' },
-      { id: 'white daisies', img: 'images/white-daisies.png' },
-      { id: 'orange hibiscuses', img: 'images/orange-hibiscuses.png' }
+      { id: 'purple dahlias', img: 'images/purple-dahlias.PNG' },
+      { id: 'white daisies', img: 'images/white-daisies.PNG' },
+      { id: 'orange hibiscuses', img: 'images/orange-hibiscuses.PNG' }
     ],
     correctOrder: ['white daisies', 'orange hibiscuses', 'purple dahlias']
   },
@@ -43,9 +43,9 @@ const puzzles = [
        "The red roses are next to the yellow tulips.", "The yellow tulips are on the right."] ,
 
     items: [
-      { id: 'green hydrangeas', img: 'images/green-hydrangeas.png' },
-      { id: 'red roses', img: 'images/red-roses.png' },
-      { id: 'yellow tulips', img: 'images/yellow-tulips.png' }
+      { id: 'green hydrangeas', img: 'images/green-hydrangeas.PNG' },
+      { id: 'red roses', img: 'images/red-roses.PNG' },
+      { id: 'yellow tulips', img: 'images/yellow-tulips.PNG' }
     ],
     correctOrder: ['green hydrangeas', 'red roses', 'yellow tulips']
   },
@@ -57,12 +57,12 @@ const puzzles = [
       'The white roses are on top of all other types of roses.'
     ],
     items: [
-      { id: 'purple roses', img: 'images/purple-roses.png' },
-      { id: 'white roses', img: 'images/white-roses.png' },
-      { id: 'pink daisies', img: 'images/pink-daisies.png' },
-      { id: 'orange daisies', img: 'images/orange-daisies.png' },
-      { id: 'red dahlias', img: 'images/red-dahlias.png' },
-      { id: 'blue dahlias', img: 'images/blue-dahlias.png' }
+      { id: 'purple roses', img: 'images/purple-roses.PNG' },
+      { id: 'white roses', img: 'images/white-roses.PNG' },
+      { id: 'pink daisies', img: 'images/pink-daisies.PNG' },
+      { id: 'orange daisies', img: 'images/orange-daisies.PNG' },
+      { id: 'red dahlias', img: 'images/red-dahlias.PNG' },
+      { id: 'blue dahlias', img: 'images/blue-dahlias.PNG' }
     ],
     correctOrder: ['red dahlias','white roses' ,'pink daisies', 'orange daisies', 'purple roses','blue dahlias']
   },
@@ -75,11 +75,11 @@ const puzzles = [
       'The purple tulips are not on the left.'
     ],
     items: [
-      { id: 'pink hydrangeas', img: 'images/pink-hydrangeas.png' },
-      { id: 'blue hydrangeas', img: 'images/blue-hydrangeas.png' },
-      { id: 'black hibiscuses', img: 'images/black-hibiscuses.png' },
-      { id: 'yellow hibiscuses', img: 'images/yellow-hibiscuses.png' },
-      { id: 'orange tulips', img: 'images/orange-tulips.png' },
+      { id: 'pink hydrangeas', img: 'images/pink-hydrangeas.PNG' },
+      { id: 'blue hydrangeas', img: 'images/blue-hydrangeas.PNG' },
+      { id: 'black hibiscuses', img: 'images/black-hibiscuses.PNG' },
+      { id: 'yellow hibiscuses', img: 'images/yellow-hibiscuses.PNG' },
+      { id: 'orange tulips', img: 'images/orange-tulips.PNG' },
       { id: 'purple tulips', img: 'images/purple-tulips.png' }
     ],
     correctOrder: ['pink hydrangeas', 'blue hydrangeas', 'black hibiscuses', 'orange tulips', 'yellow hibiscuses', 'purple tulips']
@@ -95,15 +95,15 @@ const puzzles = [
       'The purple hydrangeas are on the bottom right, near the yellow daisies.'
 ],
     items: [
-      { id: 'red roses', img: 'images/red-roses.png' },
-      { id: 'green hydrangeas', img: 'images/green-hydrangeas.png' },
-      { id: 'blue daisies', img: 'images/blue-daisies.png' },
-      { id: 'gray roses', img: 'images/gray-roses.png' },
-      { id: 'orange daisies', img: 'images/orange-daisies.png' },
-      { id: 'yellow daisies', img: 'images/yellow-daisies.png' },
-      { id: 'white hydrangeas', img: 'images/white-hydrangeas.png' },
-      { id: 'black roses', img: 'images/black-roses.png' },
-      { id: 'purple hydrangeas', img: 'images/purple-hydrangeas.png' }
+      { id: 'red roses', img: 'images/red-roses.PNG' },
+      { id: 'green hydrangeas', img: 'images/green-hydrangeas.PNG' },
+      { id: 'blue daisies', img: 'images/blue-daisies.PNG' },
+      { id: 'gray roses', img: 'images/gray-roses.PNG' },
+      { id: 'orange daisies', img: 'images/orange-daisies.PNG' },
+      { id: 'yellow daisies', img: 'images/yellow-daisies.PNG' },
+      { id: 'white hydrangeas', img: 'images/white-hydrangeas.PNG' },
+      { id: 'black roses', img: 'images/black-roses.PNG' },
+      { id: 'purple hydrangeas', img: 'images/purple-hydrangeas.PNG' }
     ],
     correctOrder: [
       'gray roses', 'black roses', 'white hydrangeas', 'blue daisies', 'red roses',
@@ -118,9 +118,9 @@ const puzzles = [
        "The pigs are always fed last."] ,
 
     items: [
-      { id: 'cows', img: 'images/Cow.png' },
-      { id: 'pigs', img: 'images/Pig.png' },
-      { id: 'chicken', img: 'images/Chicken.png' }
+      { id: 'cows', img: 'images/Cow.PNG' },
+      { id: 'pigs', img: 'images/Pig.PNG' },
+      { id: 'chicken', img: 'images/Chicken.PNG' }
     ],
     correctOrder: ['chicken', 'cows', 'pigs']
   },
@@ -132,9 +132,9 @@ const puzzles = [
        "The corn basket is not the lightest.", "The apples are lighter than both other baskets."] ,
 
     items: [
-      { id: 'carrots', img: 'images/Carrot.png' },
-      { id: 'apples', img: 'images/Apple.png' },
-      { id: 'corns', img: 'images/Corn.png' }
+      { id: 'carrots', img: 'images/Carrot.PNG' },
+      { id: 'apples', img: 'images/Apple.PNG' },
+      { id: 'corns', img: 'images/Corn.PNG' }
     ],
     correctOrder: ['apples', 'carrots', 'corns']
   },
@@ -149,12 +149,12 @@ const puzzles = [
       'The axle and lever are not next to each other.'
     ],
     items: [
-      { id: 'wheels', img: 'images/purple-roses.png' },
-      { id: 'axles', img: 'images/white-roses.png' },
-      { id: 'engines', img: 'images/pink-daisies.png' },
-      { id: 'seats', img: 'images/orange-daisies.png' },
-      { id: 'levers', img: 'images/red-dahlias.png' },
-      { id: 'exhausts', img: 'images/blue-dahlias.png' }
+      { id: 'wheels', img: 'images/purple-roses.PNG' },
+      { id: 'axles', img: 'images/white-roses.PNG' },
+      { id: 'engines', img: 'images/pink-daisies.PNG' },
+      { id: 'seats', img: 'images/orange-daisies.PNG' },
+      { id: 'levers', img: 'images/red-dahlias.PNG' },
+      { id: 'exhausts', img: 'images/blue-dahlias.PNG' }
     ],
     correctOrder: ['wheels','axles' ,'engines', 'seats', 'levers','exhausts']
   },
@@ -169,12 +169,12 @@ const puzzles = [
       'Luna is right of Daisy.'
     ],
     items: [
-      { id: 'Clover', img: 'images/SheepRed.png' },
-      { id: 'Misty', img: 'images/SheepBlue.png' },
-      { id: 'Daisy', img: 'images/SheepYellow.png' },
-      { id: 'Luna', img: 'images/SheepBlack.png' },
-      { id: 'Poppy', img: 'images/SheepWhite.png' },
-      { id: 'Hazel', img: 'images/SheepBrown.png' }
+      { id: 'Clover', img: 'images/SheepRed.PNG' },
+      { id: 'Misty', img: 'images/SheepBlue.PNG' },
+      { id: 'Daisy', img: 'images/SheepYellow.PNG' },
+      { id: 'Luna', img: 'images/SheepBlack.PNG' },
+      { id: 'Poppy', img: 'images/SheepWhite.PNG' },
+      { id: 'Hazel', img: 'images/SheepBrown.PNG' }
     ],
     correctOrder: ['Clover', 'Misty', 'Daisy', 'Luna', 'Poppy', 'Hazel']
   },
@@ -190,15 +190,15 @@ const puzzles = [
       'Beans are right of wheat.'
 ],
     items: [
-      { id: 'cabbage', img: 'images/Cabbage.png' },
-      { id: 'tomatoes', img: 'images/green-hydrangeas.png' },
-      { id: 'peas', img: 'images/blue-daisies.png' },
-      { id: 'peanuts', img: 'images/Peanuts.png' },
-      { id: 'wheat', img: 'images/Wheat.png' },
-      { id: 'beans', img: 'images/yellow-daisies.png' },
-      { id: 'corn', img: 'images/Corn.png' },
-      { id: 'rice', img: 'images/Rice.png' },
-      { id: 'potatoes', img: 'images/purple-hydrangeas.png' }
+      { id: 'cabbage', img: 'images/Cabbage.PNG' },
+      { id: 'tomatoes', img: 'images/green-hydrangeas.PNG' },
+      { id: 'peas', img: 'images/blue-daisies.PNG' },
+      { id: 'peanuts', img: 'images/Peanuts.PNG' },
+      { id: 'wheat', img: 'images/Wheat.PNG' },
+      { id: 'beans', img: 'images/yellow-daisies.PNG' },
+      { id: 'corn', img: 'images/Corn.PNG' },
+      { id: 'rice', img: 'images/Rice.PNG' },
+      { id: 'potatoes', img: 'images/purple-hydrangeas.PNG' }
     ],
     correctOrder: [
       'cabbage', 'tomatoes', 'peas', 'peanuts', 'wheat',
@@ -623,3 +623,4 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 // 🚀 Initialize First Puzzle
 // =========================
 loadPuzzle(currentPuzzleIndex);
+
