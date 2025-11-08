@@ -12,6 +12,7 @@ let minute = 0;
 let second = 0;
 let timer = false;
 let timerInterval = null;
+let timerFeatureEnabled = true; // reflects settings timer toggle
 
 // =========================
 // 🧩 Puzzle Data
@@ -26,60 +27,155 @@ const hintLimits = {
 const puzzles = [
   {
     level: 'easy',
+    story: 'All the supplies in the art room are scattered! Gerold needs to place them neatly back on the shelf in the correct order before the students come to class.',
+    clues: ['The colored pencils are not next to the crayons.',
+       "The colored pencils are not next to the crayons."],
+
+    items: [
+      { id: 'crayons', img: 'images/purple-dahlias.PNG' },
+      { id: 'paint brushes', img: 'images/white-daisies.PNG' },
+      { id: 'colored pencils', img: 'images/orange-hibiscuses.PNG' }
+    ],
+    correctOrder: ['crayons', 'paint brushes', 'colored pencils']
+  },
+
+  {
+    level: 'easy',
+    story: 'Help Gerold set the experiment materials correctly before the science teacher arrives.',
+    clues: ['The microscopes should be on the far right.',
+       "The beakers are between the other two items."],
+
+    items: [
+      { id: 'test tubes', img: 'images/green-hydrangeas.PNG' },
+      { id: 'beakers', img: 'images/red-roses.PNG' },
+      { id: 'microscopes', img: 'images/yellow-tulips.PNG' }
+    ],
+    correctOrder: ['test tubes', 'beakers', 'microscopes']
+  },
+
+  {
+    level: 'medium',
+    story: 'When Gerold checks the library, he finds that all the books are misplaced! Help him return them to their proper shelves before the librarian arrives.',
+    clues: ['The math books should be before the science books.',
+      'The story books are between science and art books.',
+      'The geography books belong at the far right.'
+    ],
+    items: [
+      { id: 'math books', img: 'images/purple-roses.PNG' },
+      { id: 'science books', img: 'images/white-roses.PNG' },
+      { id: 'story books', img: 'images/pink-daisies.PNG' },
+      { id: 'art books', img: 'images/orange-daisies.PNG' },
+      { id: 'history books', img: 'images/red-dahlias.PNG' },
+      { id: 'geography books', img: 'images/blue-dahlias.PNG' }
+    ],
+    correctOrder: ['math books','science books' ,'story books', 'art books', 'history books','geography books']
+  },
+
+  {
+    level: 'medium',
+    story: 'Gerold opens the supply closet and finds everything mixed up! He needs to organize the school essentials before the teachers get there.',
+    clues: ['The chalks are between the erasers and the pieces of paper.',
+      'The glues are at the far right.',
+      'The notebooks come before the markers.'
+    ],
+    items: [
+      { id: 'erasers', img: 'images/pink-hydrangeas.PNG' },
+      { id: 'chalks', img: 'images/blue-hydrangeas.PNG' },
+      { id: 'pieces of paper', img: 'images/black-hibiscuses.PNG' },
+      { id: 'notebooks', img: 'images/yellow-hibiscuses.PNG' },
+      { id: 'markers', img: 'images/orange-tulips.PNG' },
+      { id: 'glues', img: 'images/purple-tulips.png' }
+    ],
+    correctOrder: ['erasers', 'chalks', 'pieces of paper', 'notebooks', 'markers', 'glues']
+  },
+
+  {
+    level: 'hard',
+    story: "Principal Gerold finally reaches the school doors, but they’re locked! The keypad to open them isn’t broken… it's just missing the right code.To open the school and begin the new semester, help him solve the math puzzle that reveals the secret 3×3 code!",
+    clues: ["The number in the center of all codes are 5's",
+      "The sum of each row, column, and diagonal are the same",
+      "The number in the bottom-left of all codes are 8's",
+      "The number above the bottom-right corner of all codes are 7's",
+      "The bottom-left number is double the top-left number."
+    ],
+
+    items: [
+      { id: "4's", img: 'images/red-roses.PNG' },
+      { id: "9's", img: 'images/green-hydrangeas.PNG' },
+      { id: "2's", img: 'images/blue-daisies.PNG' },
+      { id: "3's", img: 'images/gray-roses.PNG' },
+      { id: "5's", img: 'images/orange-daisies.PNG' },
+      { id: "7's", img: 'images/yellow-daisies.PNG' },
+      { id: "8's", img: 'images/white-hydrangeas.PNG' },
+      { id: "1's", img: 'images/black-roses.PNG' },
+      { id: "6's", img: 'images/purple-hydrangeas.PNG' }
+    ],
+    correctOrder: [
+      "4's", "9's", "2's", "3's", "5's",
+      "7's", "8's", "1's", "6's"
+    ]
+  },
+
+  {
+    level: 'easy',
+    story: "These are some of Haroldene’s rarest flowers. Ease her mind by planting them in order!",
     clues: ['The purple dahlias should be planted far away from the white daisies.',
        "The white daisies are on the left."] ,
 
     items: [
-      { id: 'purple dahlias', img: 'images/purple-dahlias.png' },
-      { id: 'white daisies', img: 'images/white-daisies.png' },
-      { id: 'orange hibiscuses', img: 'images/orange-hibiscuses.png' }
+      { id: 'purple dahlias', img: 'images/purple-dahlias.PNG' },
+      { id: 'white daisies', img: 'images/white-daisies.PNG' },
+      { id: 'orange hibiscuses', img: 'images/orange-hibiscuses.PNG' }
     ],
     correctOrder: ['white daisies', 'orange hibiscuses', 'purple dahlias']
   },
 
   {
     level: 'easy',
+    story: 'Help Haroldene arrange her favorite flowers!',
     clues: ['The green hydrangeas are not in the second box.',
        "The red roses are next to the yellow tulips.", "The yellow tulips are on the right."] ,
 
     items: [
-      { id: 'green hydrangeas', img: 'images/green-hydrangeas.png' },
-      { id: 'red roses', img: 'images/red-roses.png' },
-      { id: 'yellow tulips', img: 'images/yellow-tulips.png' }
+      { id: 'green hydrangeas', img: 'images/green-hydrangeas.PNG' },
+      { id: 'red roses', img: 'images/red-roses.PNG' },
+      { id: 'yellow tulips', img: 'images/yellow-tulips.PNG' }
     ],
     correctOrder: ['green hydrangeas', 'red roses', 'yellow tulips']
   },
 
   {
     level: 'medium',
+    story: 'Roses are red, violets are blue, these flowers are messed up, but at least Haroldene has you!',
     clues: ['The colors of the first two boxes combined make the color in the third box.',
       'The red dahlias are furthest away from the blue dahlias.',
       'The white roses are on top of all other types of roses.'
     ],
     items: [
-      { id: 'purple roses', img: 'images/purple-roses.png' },
-      { id: 'white roses', img: 'images/white-roses.png' },
-      { id: 'pink daisies', img: 'images/pink-daisies.png' },
-      { id: 'orange daisies', img: 'images/orange-daisies.png' },
-      { id: 'red dahlias', img: 'images/red-dahlias.png' },
-      { id: 'blue dahlias', img: 'images/blue-dahlias.png' }
+      { id: 'purple roses', img: 'images/purple-roses.PNG' },
+      { id: 'white roses', img: 'images/white-roses.PNG' },
+      { id: 'pink daisies', img: 'images/pink-daisies.PNG' },
+      { id: 'orange daisies', img: 'images/orange-daisies.PNG' },
+      { id: 'red dahlias', img: 'images/red-dahlias.PNG' },
+      { id: 'blue dahlias', img: 'images/blue-dahlias.PNG' }
     ],
     correctOrder: ['red dahlias','white roses' ,'pink daisies', 'orange daisies', 'purple roses','blue dahlias']
   },
 
   {
     level: 'medium',
+    story: 'These flowers were gifted to Haroldene by her grandmother. Please help her put them in the correct spots!',
     clues: ['The hydrangeas are directly next to each other with the reddish color first.',
       'There are no tulips in the first row.',
       'The black hibiscuses are on the right and diagonally adjacent with the other hibiscuses.', 
       'The purple tulips are not on the left.'
     ],
     items: [
-      { id: 'pink hydrangeas', img: 'images/pink-hydrangeas.png' },
-      { id: 'blue hydrangeas', img: 'images/blue-hydrangeas.png' },
-      { id: 'black hibiscuses', img: 'images/black-hibiscuses.png' },
-      { id: 'yellow hibiscuses', img: 'images/yellow-hibiscuses.png' },
-      { id: 'orange tulips', img: 'images/orange-tulips.png' },
+      { id: 'pink hydrangeas', img: 'images/pink-hydrangeas.PNG' },
+      { id: 'blue hydrangeas', img: 'images/blue-hydrangeas.PNG' },
+      { id: 'black hibiscuses', img: 'images/black-hibiscuses.PNG' },
+      { id: 'yellow hibiscuses', img: 'images/yellow-hibiscuses.PNG' },
+      { id: 'orange tulips', img: 'images/orange-tulips.PNG' },
       { id: 'purple tulips', img: 'images/purple-tulips.png' }
     ],
     correctOrder: ['pink hydrangeas', 'blue hydrangeas', 'black hibiscuses', 'orange tulips', 'yellow hibiscuses', 'purple tulips']
@@ -87,6 +183,7 @@ const puzzles = [
 
   {
     level: 'hard',
+    story: 'Oh no..! Midnight is approaching soon, quick, finish arranging the last bit of flowers!',
     clues: ['The red roses are in the middle of the grid.',
       'The neighbors of the purple and green hydrangeas are never the roses.',
       'All the roses are near each other on the top left with the black ones away from the corner.',
@@ -95,15 +192,15 @@ const puzzles = [
       'The purple hydrangeas are on the bottom right, near the yellow daisies.'
 ],
     items: [
-      { id: 'red roses', img: 'images/red-roses.png' },
-      { id: 'green hydrangeas', img: 'images/green-hydrangeas.png' },
-      { id: 'blue daisies', img: 'images/blue-daisies.png' },
-      { id: 'gray roses', img: 'images/gray-roses.png' },
-      { id: 'orange daisies', img: 'images/orange-daisies.png' },
-      { id: 'yellow daisies', img: 'images/yellow-daisies.png' },
-      { id: 'white hydrangeas', img: 'images/white-hydrangeas.png' },
-      { id: 'black roses', img: 'images/black-roses.png' },
-      { id: 'purple hydrangeas', img: 'images/purple-hydrangeas.png' }
+      { id: 'red roses', img: 'images/red-roses.PNG' },
+      { id: 'green hydrangeas', img: 'images/green-hydrangeas.PNG' },
+      { id: 'blue daisies', img: 'images/blue-daisies.PNG' },
+      { id: 'gray roses', img: 'images/gray-roses.PNG' },
+      { id: 'orange daisies', img: 'images/orange-daisies.PNG' },
+      { id: 'yellow daisies', img: 'images/yellow-daisies.PNG' },
+      { id: 'white hydrangeas', img: 'images/white-hydrangeas.PNG' },
+      { id: 'black roses', img: 'images/black-roses.PNG' },
+      { id: 'purple hydrangeas', img: 'images/purple-hydrangeas.PNG' }
     ],
     correctOrder: [
       'gray roses', 'black roses', 'white hydrangeas', 'blue daisies', 'red roses',
@@ -118,11 +215,11 @@ const puzzles = [
        "The pigs are always fed last."] ,
 
     items: [
-      { id: 'cows', img: 'images/Cow.png' },
-      { id: 'pigs', img: 'images/Pig.png' },
-      { id: 'chicken', img: 'images/Chicken.png' }
+      { id: 'cows', img: 'images/Cow.PNG' },
+      { id: 'pigs', img: 'images/Pig.PNG' },
+      { id: 'chickens', img: 'images/Chicken.PNG' }
     ],
-    correctOrder: ['chicken', 'cows', 'pigs']
+    correctOrder: ['chickens', 'cows', 'pigs']
   },
 
   {
@@ -132,9 +229,9 @@ const puzzles = [
        "The corn basket is not the lightest.", "The apples are lighter than both other baskets."] ,
 
     items: [
-      { id: 'carrots', img: 'images/Carrot.png' },
-      { id: 'apples', img: 'images/Apple.png' },
-      { id: 'corns', img: 'images/Corn.png' }
+      { id: 'carrots', img: 'images/Carrot.PNG' },
+      { id: 'apples', img: 'images/Apple.PNG' },
+      { id: 'corns', img: 'images/Corn.PNG' }
     ],
     correctOrder: ['apples', 'carrots', 'corns']
   },
@@ -149,12 +246,12 @@ const puzzles = [
       'The axle and lever are not next to each other.'
     ],
     items: [
-      { id: 'wheels', img: 'images/purple-roses.png' },
-      { id: 'axles', img: 'images/white-roses.png' },
-      { id: 'engines', img: 'images/pink-daisies.png' },
-      { id: 'seats', img: 'images/orange-daisies.png' },
-      { id: 'levers', img: 'images/red-dahlias.png' },
-      { id: 'exhausts', img: 'images/blue-dahlias.png' }
+      { id: 'wheels', img: 'images/purple-roses.PNG' },
+      { id: 'axles', img: 'images/white-roses.PNG' },
+      { id: 'engines', img: 'images/pink-daisies.PNG' },
+      { id: 'seats', img: 'images/orange-daisies.PNG' },
+      { id: 'levers', img: 'images/red-dahlias.PNG' },
+      { id: 'exhausts', img: 'images/blue-dahlias.PNG' }
     ],
     correctOrder: ['wheels','axles' ,'engines', 'seats', 'levers','exhausts']
   },
@@ -162,47 +259,47 @@ const puzzles = [
   {
     level: 'medium',
     story:'Jerrold is arranging his sheep for a farm show. Arrange them from left to right based on the clues.',
-    clues: ['Daisy stands between Misty and Luna.',
-      'Hazel is farthest to the right.',
-      'Hazel is farthest to the right.', 
-      'Poppy is next to Hazel',
-      'Luna is right of Daisy.'
+    clues: ['The yellow sheeps stand between the blue sheeps and the black sheeps.',
+      'The brown sheeps are furthest to the right.',
+      'The red sheeps are left of the blue sheeps.',
+      'The white sheeps are next to the brown sheeps.',
+      'The black sheeps are right of the yellow sheeps.'
     ],
     items: [
-      { id: 'Clover', img: 'images/SheepRed.png' },
-      { id: 'Misty', img: 'images/SheepBlue.png' },
-      { id: 'Daisy', img: 'images/SheepYellow.png' },
-      { id: 'Luna', img: 'images/SheepBlack.png' },
-      { id: 'Poppy', img: 'images/SheepWhite.png' },
-      { id: 'Hazel', img: 'images/SheepBrown.png' }
+      { id: 'red sheeps', img: 'images/SheepRed.PNG' },
+      { id: 'blue sheeps', img: 'images/SheepBlue.PNG' },
+      { id: 'yellow sheeps', img: 'images/SheepYellow.PNG' },
+      { id: 'black sheeps', img: 'images/SheepBlack.PNG' },
+      { id: 'white sheeps', img: 'images/SheepWhite.PNG' },
+      { id: 'brown sheeps', img: 'images/SheepBrown.PNG' }
     ],
-    correctOrder: ['Clover', 'Misty', 'Daisy', 'Luna', 'Poppy', 'Hazel']
+    correctOrder: ['red sheeps', 'blue sheeps', 'yellow sheeps', 'black sheeps', 'white sheeps', 'brown sheeps']
   },
 
   {
     level: 'hard',
-    story:'Jerrold is planting his crops in a 3x3 grid. Arrange the crops based on the clues provided.',
-    clues: ['Wheat is directly above rice.',
-      'Cabbage grows earlier than peanuts and wheat.',
-      'Peas are planted to the right of tomatoes.',
+    story:'Jerrold is planting his crops on a 3x3 grid. Arrange the crops based on the clues provided.',
+    clues: ['The wheats are directly above the rices.',
+      'Cabbages grows earlier than the peanuts and wheats.',
+      'Peas are planted to the right of the tomatoes.',
       'Potatoes are in the bottom-right corner.',
-      'Corn grows below peanuts.',
-      'Beans are right of wheat.'
+      'Corn cobs grows below the peanuts.',
+      'Beans are right of the wheats.'
 ],
     items: [
-      { id: 'cabbage', img: 'images/Cabbage.png' },
-      { id: 'tomatoes', img: 'images/green-hydrangeas.png' },
-      { id: 'peas', img: 'images/blue-daisies.png' },
-      { id: 'peanuts', img: 'images/Peanuts.png' },
-      { id: 'wheat', img: 'images/Wheat.png' },
-      { id: 'beans', img: 'images/yellow-daisies.png' },
-      { id: 'corn', img: 'images/Corn.png' },
-      { id: 'rice', img: 'images/Rice.png' },
-      { id: 'potatoes', img: 'images/purple-hydrangeas.png' }
+      { id: 'cabbages', img: 'images/Cabbage.PNG' },
+      { id: 'tomatoes', img: 'images/Tomatoes.PNG' },
+      { id: 'peas', img: 'images/Peas.PNG' },
+      { id: 'peanuts', img: 'images/Peanuts.PNG' },
+      { id: 'wheats', img: 'images/Wheat.PNG' },
+      { id: 'beans', img: 'images/Beans.PNG' },
+      { id: 'corn cobs', img: 'images/Corn.PNG' },
+      { id: 'rices', img: 'images/Rice.PNG' },
+      { id: 'potatoes', img: 'images/Potatoes.PNG' }
     ],
     correctOrder: [
-      'cabbage', 'tomatoes', 'peas', 'peanuts', 'wheat',
-      'beans', 'corn', 'rice', 'potatoes'
+      'cabbages', 'tomatoes', 'peas', 'peanuts', 'wheats',
+      'beans', 'corn cobs', 'rices', 'potatoes'
     ]
   }
 ];
@@ -227,7 +324,91 @@ function initializeGame() {
     const btn = document.getElementById(id);
     if (btn) btn.disabled = false;
   });
+
+  // Apply global hint gating (default off until user enables)
+  const hintBtn = document.getElementById('hintBtn');
+  if (hintBtn) {
+    const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
+    const enabled = settings.hintEnabled ?? false;
+    if (!enabled) {
+      hintBtn.disabled = true;
+      hintBtn.dataset.forceDisabled = 'hint-off';
+    } else {
+      delete hintBtn.dataset.forceDisabled;
+    }
+  }
+
+  // Stop any running timer if feature disabled
+  if (!timerFeatureEnabled && timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 }
+
+// React to settings changes (e.g., hint toggle) without overriding end-of-puzzle disables
+window.addEventListener('settings:hint', (e) => {
+  const hintBtn = document.getElementById('hintBtn');
+  if (!hintBtn) return;
+  // If puzzle already ended or timer paused, don't re-enable.
+  const puzzleEnded = hintBtn.disabled && !hintBtn.dataset.forceDisabled && document.getElementById('submitBtn')?.disabled;
+  if (puzzleEnded) return;
+  const enabled = e.detail.enabled;
+  if (enabled) {
+    // Only enable if not paused and timer started (clearBtn is proxy for active play)
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn && !clearBtn.disabled) {
+      hintBtn.disabled = false;
+      delete hintBtn.dataset.forceDisabled;
+    }
+  } else {
+    hintBtn.disabled = true;
+    hintBtn.dataset.forceDisabled = 'hint-off';
+  }
+});
+
+// React to timer feature enable/disable
+window.addEventListener('settings:timer', (e) => {
+  timerFeatureEnabled = e.detail.enabled;
+  const startBtn = document.getElementById('startTimer');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const hintBtn = document.getElementById('hintBtn');
+  if (!timerFeatureEnabled) {
+    // Stop timer and reset values
+    timer = false;
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    hour = minute = second = 0;
+    const h = document.getElementById('hours');
+    const m = document.getElementById('minutes');
+    const s = document.getElementById('seconds');
+    if (h) h.textContent = '00';
+    if (m) m.textContent = '00';
+    if (s) s.textContent = '00';
+    if (startBtn) startBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = true;
+    // Remove overlay if it was shown via pause
+    const overlay = document.querySelector('.overlay');
+    if (overlay) overlay.remove();
+    // Re-enable non-timer controls if puzzle still active
+    const submitBtn = document.getElementById('submitBtn');
+    const shufBtn = document.getElementById('shufBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    if (submitBtn && !submitBtn.disabled) {
+      if (shufBtn) shufBtn.disabled = false;
+      if (clearBtn) clearBtn.disabled = false;
+      // Hint respects its own setting
+      const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
+      const hintEnabled = settings.hintEnabled ?? false;
+      if (hintBtn && hintEnabled && !hintBtn.dataset.forceDisabled) hintBtn.disabled = false;
+    }
+  } else {
+    if (startBtn) startBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = false;
+    // Leave others as-is; they'll be managed on Start/Pause
+  }
+});
 
 // =========================
 // 💡 Hint Function
@@ -355,9 +536,13 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   pauseBtn.disabled = false;
 
   startTimer.onclick = () => {
+    if (!timerFeatureEnabled) return; // guard if timer hidden
     timer = true;
     clearBtn.disabled = false;
-    hintBtn.disabled = false;
+    // Only enable hint if user setting allows
+    const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
+    const hintEnabled = settings.hintEnabled ?? false;
+    hintBtn.disabled = !hintEnabled;
     shufBtn.disabled = false;
     pauseBtn.disabled = false;
 
@@ -372,6 +557,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   };
 
   pauseBtn.onclick = () => {
+    if (!timerFeatureEnabled) return;
     timer = false;
     clearBtn.disabled = true;
     hintBtn.disabled = true;
@@ -427,7 +613,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
   if (storyDiv) {
     storyDiv.innerHTML = story
-      ? `<p><strong>Story Sentence:</strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
+      ? `<p><strong></strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
       : '<p><strong>Story Sentence:</strong></p>';
   }
   if (cluesContentDiv) {
@@ -505,6 +691,10 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
     if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
       setFeedback('✅ Correct! You solved the puzzle!', 'green');
+      // Play success ding only (no generic click SFX for submit)
+      if (window.playSfx) {
+        window.playSfx('audio/SoundFX/Ding.mp3');
+      }
 
       if(timerInterval) {
         clearInterval(timerInterval);
@@ -513,6 +703,10 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
       submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
       
     } else {
+      // Wrong answer: play bubble click feedback
+      if (window.playSfx) {
+        window.playSfx('audio/SoundFX/Bubble.mp3');
+      }
       attemptsLeft--;
       attemptCount.textContent = attemptsLeft;
 

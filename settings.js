@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const musicVolume = document.getElementById('musicVolume');
   const enableSoundBtn = document.getElementById('enableSoundBtn');
   const bgAudio = document.getElementById('bgMusic');
+  const hintToggle = document.getElementById('hintToggle');
+  const timerToggle = document.getElementById('timerToggle');
 
   if (!dialog || !settBtn) return;
 
@@ -25,6 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     musicToggle.checked = settings.musicEnabled ?? true;
     musicVolume.value = settings.musicVolume ?? 100;
     musicVolume.disabled = !musicToggle.checked;
+    // Default hints OFF until user enables (per requirement)
+    if (hintToggle) hintToggle.checked = settings.hintEnabled ?? false;
+    applyHintSetting();
+    // Default timer ON to preserve current behavior
+    if (timerToggle) timerToggle.checked = settings.timerEnabled ?? true;
+    applyTimerSetting();
     return settings;
   };
 
@@ -36,8 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
       soundEnabled: soundToggle.checked,
       soundVolume: soundVolume.value,
       musicEnabled: musicToggle.checked,
-      musicVolume: musicVolume.value
+      musicVolume: musicVolume.value,
+      hintEnabled: hintToggle ? hintToggle.checked : false,
+      timerEnabled: timerToggle ? timerToggle.checked : true
     }));
+    applyHintSetting();
+    applyTimerSetting();
   };
 
   // Enable Sound CTA helpers
@@ -79,6 +91,45 @@ document.addEventListener('DOMContentLoaded', () => {
       bgAudio && bgAudio.play().catch(() => {});
     }
   });
+
+  // Hint toggle gating
+  function applyHintSetting() {
+    const hintBtn = document.getElementById('hintBtn');
+    if (!hintBtn) return;
+    const enabled = hintToggle ? !!hintToggle.checked : (JSON.parse(localStorage.getItem('gameSettings') || '{}').hintEnabled ?? false);
+    // Let the game logic decide final state based on timer, attempts, and puzzle status
+    window.dispatchEvent(new CustomEvent('settings:hint', { detail: { enabled } }));
+  }
+
+  if (hintToggle) {
+    hintToggle.addEventListener('change', () => {
+      applyHintSetting();
+    });
+  }
+
+  // Timer toggle show/hide
+  function applyTimerSetting() {
+    const enabled = timerToggle ? !!timerToggle.checked : (JSON.parse(localStorage.getItem('gameSettings') || '{}').timerEnabled ?? true);
+    const stopwatch = document.querySelector('.stopwatch');
+    const timerControls = document.getElementById('timerControls');
+    const startBtn = document.getElementById('startTimer');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const settBtn = document.getElementById('settBtn');
+    if (stopwatch) stopwatch.style.display = enabled ? '' : 'none';
+    // Keep the settings button visible at all times; only toggle Start/Pause visibility
+    if (startBtn) startBtn.style.display = enabled ? '' : 'none';
+    if (pauseBtn) pauseBtn.style.display = enabled ? '' : 'none';
+    // Ensure the container remains visible so settings stays accessible
+    if (timerControls) timerControls.style.display = '';
+    // Inform game logic to stop timer/clear overlay if disabled
+    window.dispatchEvent(new CustomEvent('settings:timer', { detail: { enabled } }));
+  }
+
+  if (timerToggle) {
+    timerToggle.addEventListener('change', () => {
+      applyTimerSetting();
+    });
+  }
 
   // Dialog buttons
   saveBtn.addEventListener('click', () => {
@@ -127,6 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
       installGestureFallback();
     });
   }
+  // Ensure hint gating applies on load (after initial puzzle render).
+  applyHintSetting();
+  // Ensure timer visibility applies on load
+  applyTimerSetting();
 
   // Install one-time gesture fallback to play music on any user interaction
   function installGestureFallback() {

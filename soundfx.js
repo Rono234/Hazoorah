@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = e.target && e.target.closest ? e.target.closest('button') : null;
     if (!btn) return;
     if (btn.disabled) return;
+    // Don't play the generic click sound for the Submit button;
+    // game.js will play Ding/Bubble based on correctness.
+    if (btn.id === 'submitBtn') return;
     // Use shared playSfx so volume & enable state reflect current settings
     playSfx('audio/SoundFX/Bubble.mp3');
   });
