@@ -1,4 +1,3 @@
-
 (function () {
     const notesKeyPrefix = 'hazoora_note_level_';
     const textarea = document.getElementById('levelNotes');

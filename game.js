@@ -7,6 +7,12 @@ let attemptsLeft = 3;
 let correctOrder = [];
 let currentPuzzleIndex = 0;
 
+let hour = 0;
+let minute = 0;
+let second = 0;
+let timer = false;
+let timerInterval = null;
+
 // =========================
 // 🧩 Puzzle Data
 // =========================
@@ -16,97 +22,187 @@ const hintLimits = {
   medium: 2,
   hard: 3
 };
+
 const puzzles = [
   {
     level: 'easy',
-    story:'Jerrold needs to feed his farm animals. Put them in order from first fed to last fed.',
-    clues: ['The cow eats after the chicken.',
-       "The pig is always fed last."],
+    clues: ['The purple dahlias should be planted far away from the white daisies.',
+       "The white daisies are on the left."] ,
 
     items: [
-      { id: 'cow', img: 'images/cow.png' },
-      { id: 'chicken', img: 'images/chicken.png' },
-      { id: 'pig', img: 'images/pig.png' }
+      { id: 'purple dahlias', img: 'images/purple-dahlias.png' },
+      { id: 'white daisies', img: 'images/white-daisies.png' },
+      { id: 'orange hibiscuses', img: 'images/orange-hibiscuses.png' }
     ],
-    correctOrder: ['chicken', 'cow', 'pig']
+    correctOrder: ['white daisies', 'orange hibiscuses', 'purple dahlias']
   },
+
+  {
+    level: 'easy',
+    clues: ['The green hydrangeas are not in the second box.',
+       "The red roses are next to the yellow tulips.", "The yellow tulips are on the right."] ,
+
+    items: [
+      { id: 'green hydrangeas', img: 'images/green-hydrangeas.png' },
+      { id: 'red roses', img: 'images/red-roses.png' },
+      { id: 'yellow tulips', img: 'images/yellow-tulips.png' }
+    ],
+    correctOrder: ['green hydrangeas', 'red roses', 'yellow tulips']
+  },
+
+  {
+    level: 'medium',
+    clues: ['The colors of the first two boxes combined make the color in the third box.',
+      'The red dahlias are furthest away from the blue dahlias.',
+      'The white roses are on top of all other types of roses.'
+    ],
+    items: [
+      { id: 'purple roses', img: 'images/purple-roses.png' },
+      { id: 'white roses', img: 'images/white-roses.png' },
+      { id: 'pink daisies', img: 'images/pink-daisies.png' },
+      { id: 'orange daisies', img: 'images/orange-daisies.png' },
+      { id: 'red dahlias', img: 'images/red-dahlias.png' },
+      { id: 'blue dahlias', img: 'images/blue-dahlias.png' }
+    ],
+    correctOrder: ['red dahlias','white roses' ,'pink daisies', 'orange daisies', 'purple roses','blue dahlias']
+  },
+
+  {
+    level: 'medium',
+    clues: ['The hydrangeas are directly next to each other with the reddish color first.',
+      'There are no tulips in the first row.',
+      'The black hibiscuses are on the right and diagonally adjacent with the other hibiscuses.', 
+      'The purple tulips are not on the left.'
+    ],
+    items: [
+      { id: 'pink hydrangeas', img: 'images/pink-hydrangeas.png' },
+      { id: 'blue hydrangeas', img: 'images/blue-hydrangeas.png' },
+      { id: 'black hibiscuses', img: 'images/black-hibiscuses.png' },
+      { id: 'yellow hibiscuses', img: 'images/yellow-hibiscuses.png' },
+      { id: 'orange tulips', img: 'images/orange-tulips.png' },
+      { id: 'purple tulips', img: 'images/purple-tulips.png' }
+    ],
+    correctOrder: ['pink hydrangeas', 'blue hydrangeas', 'black hibiscuses', 'orange tulips', 'yellow hibiscuses', 'purple tulips']
+  },
+
+  {
+    level: 'hard',
+    clues: ['The red roses are in the middle of the grid.',
+      'The neighbors of the purple and green hydrangeas are never the roses.',
+      'All the roses are near each other on the top left with the black ones away from the corner.',
+      'The daisies are never in the corner.',
+      'The white hydrangeas are on the corner on the right next to the orange daisies.',
+      'The purple hydrangeas are on the bottom right, near the yellow daisies.'
+],
+    items: [
+      { id: 'red roses', img: 'images/red-roses.png' },
+      { id: 'green hydrangeas', img: 'images/green-hydrangeas.png' },
+      { id: 'blue daisies', img: 'images/blue-daisies.png' },
+      { id: 'gray roses', img: 'images/gray-roses.png' },
+      { id: 'orange daisies', img: 'images/orange-daisies.png' },
+      { id: 'yellow daisies', img: 'images/yellow-daisies.png' },
+      { id: 'white hydrangeas', img: 'images/white-hydrangeas.png' },
+      { id: 'black roses', img: 'images/black-roses.png' },
+      { id: 'purple hydrangeas', img: 'images/purple-hydrangeas.png' }
+    ],
+    correctOrder: [
+      'gray roses', 'black roses', 'white hydrangeas', 'blue daisies', 'red roses',
+      'orange daisies', 'green hydrangeas', 'yellow daisies', 'purple hydrangeas'
+    ]
+  },
+
+  {
+    level: 'easy',
+    story:'Jerrold needs to feed his farm animals. Put them in order from first fed to last fed.',
+    clues: ['The cows eat after the chicken.',
+       "The pigs are always fed last."] ,
+
+    items: [
+      { id: 'cows', img: 'images/Cow.png' },
+      { id: 'pigs', img: 'images/Pig.png' },
+      { id: 'chicken', img: 'images/Chicken.png' }
+    ],
+    correctOrder: ['chicken', 'cows', 'pigs']
+  },
+
   {
     level: 'easy',
     story:'Jerrold is creating harvest baskets for his friends. Order the veggies from lightest to heaviest basket.',
     clues: ['The carrot basket weighs more than the apples.',
-       "The corn basket is not the lightest.",
-       "The apples are lighter than both other baskets."] ,
+       "The corn basket is not the lightest.", "The apples are lighter than both other baskets."] ,
 
     items: [
-      { id: 'carrot', img: 'images/carrot.png' },
-      { id: 'corn', img: 'images/corn.png' },
-      { id: 'apple', img: 'images/apple.png' }
+      { id: 'carrots', img: 'images/Carrot.png' },
+      { id: 'apples', img: 'images/Apple.png' },
+      { id: 'corns', img: 'images/Corn.png' }
     ],
-    correctOrder: ['apple', 'carrot', 'corn']
+    correctOrder: ['apples', 'carrots', 'corns']
   },
+
   {
     level: 'medium',
     story:'Jerrold needs to fix his tractor for plowing! Order the parts based on how they fit in the tractor.',
     clues: ['The engine is in the middle of the setup.',
-      'The axle must come before the wheel.',
+      'The wheel must come before the axle.',
       'The lever is right before the exhaust.',
       'The seat comes immediately after the engine.',
       'The axle and lever are not next to each other.'
     ],
     items: [
-      { id: 'wheel', img: 'images/wheel.png' },
-      { id: 'axle', img: 'images/axle.png' },
-      { id: 'engine', img: 'images/engine.png' },
-      { id: 'seat', img: 'images/seat.png' },
-      { id: 'lever', img: 'images/lever.png' },
-      { id: 'exhaust', img: 'images/exhaust.png' }
+      { id: 'wheels', img: 'images/purple-roses.png' },
+      { id: 'axles', img: 'images/white-roses.png' },
+      { id: 'engines', img: 'images/pink-daisies.png' },
+      { id: 'seats', img: 'images/orange-daisies.png' },
+      { id: 'levers', img: 'images/red-dahlias.png' },
+      { id: 'exhausts', img: 'images/blue-dahlias.png' }
     ],
-    correctOrder: ['axle','wheel','engine','seat','lever','exhaust']
+    correctOrder: ['wheels','axles' ,'engines', 'seats', 'levers','exhausts']
   },
+
   {
     level: 'medium',
-    story:'Jerrold wants to take a family photo of his lovely sheep. Order them from oldest to youngest.',
-    clues: ['Daisy(white) stands between Misty(brown) and Luna(gray).',
-      'Hazel(ginger) is farthest to the right.',
-      'Clover(bald) is left of Misty.',
-      'Poppy(black) is next to Hazel.',
+    story:'Jerrold is arranging his sheep for a farm show. Arrange them from left to right based on the clues.',
+    clues: ['Daisy stands between Misty and Luna.',
+      'Hazel is farthest to the right.',
+      'Hazel is farthest to the right.', 
+      'Poppy is next to Hazel',
       'Luna is right of Daisy.'
     ],
     items: [
-      { id: 'Daisy', img: 'images/Daisy.png' },
-      { id: 'Misty', img: 'images/misty.png' },
-      { id: 'Luna', img: 'images/Luna.png' },
-      { id: 'Poppy', img: 'images/poppy.png' },
-      { id: 'Hazel', img: 'images/hazel.png' },
-      { id: 'Clover', img: 'images/clover.png' }
+      { id: 'Clover', img: 'images/SheepRed.png' },
+      { id: 'Misty', img: 'images/SheepBlue.png' },
+      { id: 'Daisy', img: 'images/SheepYellow.png' },
+      { id: 'Luna', img: 'images/SheepBlack.png' },
+      { id: 'Poppy', img: 'images/SheepWhite.png' },
+      { id: 'Hazel', img: 'images/SheepBrown.png' }
     ],
     correctOrder: ['Clover', 'Misty', 'Daisy', 'Luna', 'Poppy', 'Hazel']
   },
+
   {
     level: 'hard',
-    story:'Before Jerrold can plant his new crops, he wants to map out where they will go.',
-    clues: ['Wheat is directly above Rice.',
-      'Cabbage grows earlier than peanuts and Wheat.',
-      'Peas are planted to the right of Tomatoes.',
+    story:'Jerrold is planting his crops in a 3x3 grid. Arrange the crops based on the clues provided.',
+    clues: ['Wheat is directly above rice.',
+      'Cabbage grows earlier than peanuts and wheat.',
+      'Peas are planted to the right of tomatoes.',
       'Potatoes are in the bottom-right corner.',
-      'Corn grows below peanuts .',
-      'Beans are right of Wheat.'
-
+      'Corn grows below peanuts.',
+      'Beans are right of wheat.'
 ],
     items: [
-      { id: 'wheat', img: 'images/wheat.png' },
-      { id: 'corn', img: 'images/corn.png' },
-      { id: 'peanut', img: 'images/peanut.png' },
-      { id: 'rice', img: 'images/rice.png' },
-      { id: 'bean', img: 'images/bean.png' },
-      { id: 'tomato', img: 'images/tomato.png' },
-      { id: 'cabbage', img: 'images/cabbage.png' },
-      { id: 'pea', img: 'images/pea.png' },
-      { id: 'potato', img: 'images/potato.png' }
+      { id: 'cabbage', img: 'images/Cabbage.png' },
+      { id: 'tomatoes', img: 'images/green-hydrangeas.png' },
+      { id: 'peas', img: 'images/blue-daisies.png' },
+      { id: 'peanuts', img: 'images/Peanuts.png' },
+      { id: 'wheat', img: 'images/Wheat.png' },
+      { id: 'beans', img: 'images/yellow-daisies.png' },
+      { id: 'corn', img: 'images/Corn.png' },
+      { id: 'rice', img: 'images/Rice.png' },
+      { id: 'potatoes', img: 'images/purple-hydrangeas.png' }
     ],
     correctOrder: [
-      'cabbage', 'tomato', 'pea', 'peanut', 'wheat',
-      'bean', 'corn', 'rice', 'potato'
+      'cabbage', 'tomatoes', 'peas', 'peanuts', 'wheat',
+      'beans', 'corn', 'rice', 'potatoes'
     ]
   }
 ];
@@ -147,8 +243,8 @@ function initHintSystem(level) {
   usedHints = 0;
   maxHints = hintLimits[level] || 1;
 }
-function getHint(userArray, solutionArray) {
 
+function getHint(userArray, solutionArray) {
   if (usedHints >= maxHints) {
     return `🚫 No more hints left for this level! (${maxHints} used)`;
   }
@@ -166,10 +262,12 @@ function getHint(userArray, solutionArray) {
   }
 
   const templates = [
-    'Check box #{index}, it might need #{correct}',
-    'I think box #{index} should have #{correct}',
-    'Maybe the #{correct} belongs in box #{index}',
-    'The item in box #{index} doesn’t look correct - what about #{correct}'
+    'Check again! The #{index} box might need the #{correct}.',
+    'Hmmm... I think the #{index} box should have the #{correct}.',
+    'Maybe the #{correct} belong in the #{index} box?',
+    'The item in the #{index} box doesn’t look correct. How about the #{correct}?',
+    'Something seems off with the #{index} box. Could it be the #{correct}?',
+    'If I were you, I would put the #{correct} in the #{index} box.'
   ];
 
   let misMatchIndex = -1;
@@ -179,11 +277,13 @@ function getHint(userArray, solutionArray) {
       break;
     }
   }
+
   if (misMatchIndex === -1) {
     return "Everything looks good — no hints needed!";
   }
 
   usedHints++;
+
   const correct = solutionArray[misMatchIndex];
   const posNames = generatePositionNames(userArray.length);
   const indexLabel = posNames[misMatchIndex];
@@ -243,10 +343,76 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   const clearBtn = document.getElementById('clearBtn');
   const shufBtn = document.getElementById('shufBtn');
   const attemptCount = document.getElementById('attemptCount');
-  // New structured clue + story containers from integrated layout
   const storyDiv = document.getElementById('storySentence');
   const cluesContentDiv = document.getElementById('cluesContent');
+  const h1 = document.querySelector('h1');
+  const cluesDiv = document.getElementById('clues');
   const itemTray = document.getElementById('itemTray');
+  const startTimer = document.getElementById('startTimer');
+  const pauseBtn = document.getElementById('pauseBtn'); 
+
+  startTimer.disabled = false;
+  pauseBtn.disabled = false;
+
+  startTimer.onclick = () => {
+    timer = true;
+    clearBtn.disabled = false;
+    hintBtn.disabled = false;
+    shufBtn.disabled = false;
+    pauseBtn.disabled = false;
+
+    const overlay = document.querySelector('.overlay');
+    if (overlay) {
+      overlay.remove();
+    }
+
+    if(!timerInterval) {
+      timerInterval = setInterval(stopwatch, 1000);
+    }
+  };
+
+  pauseBtn.onclick = () => {
+    timer = false;
+    clearBtn.disabled = true;
+    hintBtn.disabled = true;
+    shufBtn.disabled = true;
+    pauseBtn.disabled = true;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
+
+    if(timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  };
+
+  function updateTimerDisplay() {
+    const hrStr = hour.toString().padStart(2, '0');
+    const minStr = minute.toString().padStart(2, '0');
+    const secStr = second.toString().padStart(2, '0');
+
+    document.getElementById('hours').textContent = hrStr;
+    document.getElementById('minutes').textContent = minStr;
+    document.getElementById('seconds').textContent = secStr;
+  }
+
+  function stopwatch() {
+    second++;
+
+    if (second == 60) {
+      minute++;
+      second = 0;
+    }
+
+    if (minute == 60) {
+      hour++;
+      minute = 0;
+    }
+
+    updateTimerDisplay();
+  }
 
   board.innerHTML = '';
   itemsContainer.innerHTML = '';
@@ -257,7 +423,8 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   correctOrder = order;
   itemTray.scrollLeft = 0;
 
-  // Populate story (if any) and clues into their dedicated containers.
+  // h1.textContent = title;
+
   if (storyDiv) {
     storyDiv.innerHTML = story
       ? `<p><strong>Story Sentence:</strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
@@ -338,23 +505,31 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
     if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
       setFeedback('✅ Correct! You solved the puzzle!', 'green');
-      // Play ding sound effect for correct answer, respecting user SFX settings
-      if (typeof playSfx === 'function') {
-        playSfx('Audio/Sound FX/ding.mp3');
+
+      if(timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
       }
-      submitBtn.disabled = hintBtn.disabled = shufBtn.disabled = true;
+      submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
+      
     } else {
       attemptsLeft--;
       attemptCount.textContent = attemptsLeft;
 
       if (attemptsLeft > 0) setFeedback('❌ Not quite right! Try again.', 'red');
       else {
+        if(timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
         setFeedback('❌ Out of attempts!', 'darkred');
-        submitBtn.disabled = hintBtn.disabled = shufBtn.disabled = true;
+        submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
       }
+
     }
   };
 
+  // Clear Button Logic
   clearBtn.onclick = () => {
     const slots = document.querySelectorAll('.slot');
     const itemContainer = document.getElementById('items');
@@ -366,6 +541,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
     hintBox.textContent = '';
   };
 
+  // Hint Button Logic
   hintBtn.onclick = () => {
     const userOrder = Array.from(slots).map(slot =>
       slot.firstChild ? slot.firstChild.dataset.color : null
@@ -375,7 +551,10 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
     feedback.style.color = '#0077cc';
   };
 
-  shufBtn.onclick = () => updatePuzzleDisplay();
+  // Shuffle Button Logic
+  shufBtn.onclick = () => {
+    updatePuzzleDisplay();
+  };
 
   function setFeedback(message, color) {
     feedback.textContent = message;
@@ -387,7 +566,6 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 // 🧭 Navigation
 // =========================
 function loadPuzzle(index) {
-  // Adjusted selector: logo now resides in .title img (no longer inside an <h1>)
   const logo = document.querySelector('.title img');
   if (logo) {
     logo.src = 'images/titleLogo.PNG';
@@ -403,6 +581,31 @@ function loadPuzzle(index) {
 
   const puzzle = puzzles[index];
   generatePuzzle(puzzle.level, puzzle.items, puzzle.correctOrder, puzzle.title, puzzle.clues, puzzle.story);
+
+  hour = 0;
+  minute = 0;
+  second = 0;
+
+  const hourElement = document.getElementById('hours');
+  const minuteElement = document.getElementById('minutes');
+  const secondElement = document.getElementById('seconds');
+
+  if (hourElement) {
+    hourElement.textContent = '00';
+  }
+
+  if (minuteElement) {
+    minuteElement.textContent = '00';
+  }
+
+  if (secondElement) {
+    secondElement.textContent = '00';
+  }
+
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 
   document.getElementById('prevBtn').disabled = index === 0;
   document.getElementById('nextBtn').disabled = index === puzzles.length - 1;
@@ -420,5 +623,3 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 // 🚀 Initialize First Puzzle
 // =========================
 loadPuzzle(currentPuzzleIndex);
-
-

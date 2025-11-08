@@ -1,17 +1,26 @@
-/* ==============================
-   GLOBAL STYLES
-============================== */
-html,
-body {
+@font-face {
+    font-family: 'Arial Rounded MT Bold';
+    src: url('fonts/arialroundedmtbold.ttf');
+}
+
+@font-face {
+    font-family: 'Jack Armstrong';
+    src: url('fonts/Jack Armstrong.ttf');
+}
+
+html{
     height: 100%;
-    margin: 0;
-    padding: 20px;
+}
+
+body {
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     min-height: 100vh;
+    margin: 0;
+    padding: 20px;
 }
 
 .bg {
@@ -57,11 +66,11 @@ body {
     font-weight: 700;
     font-size: 40px;
 }
+
 .level-banner img {
     width: 437px;
     height: auto;
 }
-
 
 /* Header bar: place Enable Sound on left and Settings on right */
 .header {
@@ -69,29 +78,6 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-}
-html{
-    height: 100%;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-}
-
-.bg {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
 }
 
 h1 {
@@ -107,20 +93,24 @@ h1 img{
     height: auto;
 }
 
-h2{
+h2 {
     position: relative;
-    display: inline-block;
-    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     line-height: 0;
 }
 
 h2 img{
     display: block;
-    width: 550px;
+    width: 500px;
     height: auto;
 }
 
-#gameContainer{
+#gameContainer {
+    display: flex;
+    align-items: flex-start;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -136,9 +126,10 @@ h2 img{
     margin: 0 auto;
     justify-content: center;
     align-content: center;
+    margin-bottom: 10px;
 }
 
-.level{
+.level {
     position: absolute;
     inset: 0;
     display: flex;
@@ -146,18 +137,68 @@ h2 img{
     justify-content: center;
     color: white;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 36px;
     text-align: center;
-
+    font-family: 'Arial Rounded MT Bold';
 }
 
 #clues {
-    background: white;
+    position: absolute;
+    left: 50px;
+    top: 80px;
+    width: 250px;
+    height: 615px;
+    padding: 0 30px;
+
+    background: url(images/hintSection.png) no-repeat center center;
+    background-size: cover;
+    background-color: transparent;
     border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    width: 320px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    z-index: 4000;
+    overflow: visible;
+    box-shadow: 2px 5px 10px #b0b7bd;
+    font-family: 'Arial Rounded MT Bold';
+}
+
+#storySentence {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 180px;
+    font-size: 11px;
+}
+
+#cluesContent {
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    width: 180px;
+    text-align: left;
+}
+
+#cluesContent p {
+    text-decoration: underline;
+    margin: 5px 0 5px 0;
+    font-size: 14.5px;
+    width: 100%;
+    margin: 5px 0 5px 10px;
+    text-align: center;
+}
+
+#cluesContent ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+#cluesContent li {
+    margin-bottom: 6px;
+    font-size: 14.5px;
 }
 
 #grid {
@@ -221,7 +262,7 @@ h2 img{
     flex: 0 0 auto;
     width: 90px;
     height: 90px;
-    background: #aad4f5;
+    background: #ffffff;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -295,14 +336,16 @@ h2 img{
 }
 
 #submitBtn {
-    background: #4CAF50;
+    background: #9ACF7C;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 4px 18px;
     margin-top: 20px;
-    border-radius: 8px;
+    border-radius: 11px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 28px;
+    font-family: 'Arial Rounded MT Bold';
+    box-shadow: 2px 5px 10px #4c5661;
 }
 
 #submitBtn:hover {
@@ -314,6 +357,21 @@ h2 img{
     color: #ffffff;
 }
 
+#settBtn{
+     /* Keep the circular layout but make it borderless and transparent */
+     border-radius: 50%;
+     background: transparent; /* no background color */
+     border: none;            /* no border */
+     padding: 0;
+     margin: 0;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: background-color 0.2s ease;
+}
+
+
 #clearBtn, #hintBtn, #shufBtn {
     margin-left: auto;
     background-color: white;
@@ -322,22 +380,6 @@ h2 img{
     padding: 1px 1px;
     margin-top: 20px;
     cursor: pointer;
-}
-
- #settBtn{
-     margin-left: auto;
-     /* Keep the circular layout but make it borderless and transparent */
-     border-radius: 50%;
-     background: transparent; /* no background color */
-     border: none;            /* no border */
-     padding: 0;
-     margin-top: 20px;
-     cursor: pointer;
-     /*width: 50px;  */           /* match the icon size used in HTML (50px image + small padding) */
-     /*height: 50px;*/
-     /*display: inline-flex;*/    /* center the image inside */
-     /*align-items: center;*/
-     /*justify-content: center;*/
 }
 
 #clearBtn:hover, #hintBtn:hover, #shufBtn:hover, #settBtn:hover {
@@ -560,100 +602,89 @@ dialog#settingsDialog::backdrop {
     background: #43a047;
 }
 
-/* ==============================
-   Integrated styles from Raneen variant
-   (Header bar and Settings dialog above are preserved)
-============================== */
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(1px);
+    z-index: 5000;
+    transition: all 0.3s ease;
+}
 
-/* Override: Clues panel styling */
-#clues {
+#timerControls{
     position: absolute;
-    left: 130px;
-    top: 80px;
-    width: 270px;
-    height: 650px;
-    padding: 15px;
-    background: url(images/hintSection.png) no-repeat center center;
-    background-size: contain;
-    border-radius: 12px;
+    top: 16px;
+    right: 16px;
     display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    z-index: 4000;
-    overflow: visible;
-    box-shadow: 2px 5px 10px #b0b7bd;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
 }
 
-#cluesContent {
-    padding: 15px;
-    color: #333;
-    font-size: 16px;
-}
-
-/* Override: Submit button styling */
-#submitBtn {
-    background: #9ACF7C;
-    color: white;
+#pauseBtn{
+    cursor: pointer;
+    margin-left: 0;
+    background-color: transparent;
     border: none;
-    padding: 4px 18px;
-    margin-top: 20px;
-    border-radius: 11px;
+    padding: 3px;
+    position: static;
+}
+
+#pauseBtn:hover {
+    opacity: 0.7;
+}
+
+#startTimer{
     cursor: pointer;
-    font-size: 28px;
-    font-family: 'Arial Rounded MT Bold';
-    box-shadow: 2px 5px 10px #4c5661;
-    transition: background 0.3s;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 8px;
+    border: gray 1px solid;
+    padding: 8px 12px;
+    font-size: medium;
+    position: static;
 }
 
-#submitBtn:hover {
-    background: #43a047;
+#startTimer:hover {
+    background-color: indigo;
 }
 
-/* Tool buttons container */
-#buttons button {
-    background-color: white;
-    border-radius: 50%;
-    border: 1px solid gray;
-    padding: 1px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.stopwatch {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+    margin-bottom: 5px;
 }
 
-#buttons button:hover {
-    background-color: lightgray;
-}
-
-#buttons img {
-    display: block;
-    margin: 0;
+.digit{
+    font-size: 24px;
+    color: black;
+    font-family: monospace
 }
 
 /* Notes panel */
 #notesContainer {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;
     position: absolute;
-    right: 100px;
-    top: 125px;
-    width: 288px;
+    right: 50px;
+    top: 100px;
+    margin-top: 40px;
+
+    width: 270px;
     max-width: 35vw;
+    overflow: auto;
+    box-sizing: border-box;
     padding: 12px;
     background: url(images/notesBackground.png) no-repeat center center;
     background-size: cover;
     border-radius: 8px;
     z-index: 1000;
-}
-
-#notesChild {
-    margin-right: 13px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border-radius: 6px;
-    width: 80%;
 }
 
 #notesContainer h3 {
@@ -663,14 +694,56 @@ dialog#settingsDialog::backdrop {
     color: #333;
 }
 
+#notesChild {
+    margin-right: 13px;
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 6px;
+    width: 80%;
+}
+
+
+/* Add a semi-transparent overlay to ensure text is readable
+#notesContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 8px;
+} */
+
+/* Update textarea style to be more transparent */
+#levelNotes {
+    background: transparent;
+    border: none;
+}
+
+/* Update small-screen fallback */
+@media (max-width: 900px) {
+    #notesContainer {
+        position: static;
+        width: auto;
+        max-width: none;
+        max-height: none;
+        margin: 12px;
+        background: url('images/notesBackground.png') no-repeat center center;
+        background-size: cover;
+    }
+}
+
 #levelNotes {
     width: 100%;
     min-height: 400px;
     padding: 8px;
     box-sizing: border-box;
     border-radius: 4px;
-    border: none;
-    background: transparent;
     resize: vertical;
     font-family: 'Jack Armstrong';
 }
@@ -680,37 +753,18 @@ dialog#settingsDialog::backdrop {
 }
 
 .noteButtons button {
-    background-color: #aabed7;
     color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 6px 10px;
     margin-right: 8px;
+    padding: 6px 10px;
+    background-color: #aabed7;
+    border-radius: 30px;
     font-size: 15px;
+    border: none;
     font-family: 'Arial Rounded MT Bold';
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.noteButtons button:hover {
-    background-color: #8fa7c0;
 }
 
 #noteStatus {
     margin-top: 6px;
     color: #2b7a2b;
     font-size: 0.9rem;
-}
-
-/* Responsive adjustments for notes */
-@media (max-width: 900px) {
-    #notesContainer {
-        position: static;
-        width: auto;
-        max-width: none;
-        max-height: none;
-        margin: 12px;
-        background: url(images/notesBackground.png) no-repeat center center;
-        background-size: cover;
-    }
 }
