@@ -26,7 +26,98 @@ const hintLimits = {
 const puzzles = [
   {
     level: 'easy',
-    story: 'These are some of Haroldene’s rarest flowers. Ease her mind by planting them in order!',
+    story: 'All the supplies in the art room are scattered! Gerold needs to place them neatly back on the shelf in the correct order before the students come to class.',
+    clues: ['The colored pencils are not next to the crayons.',
+       "The colored pencils are not next to the crayons."],
+
+    items: [
+      { id: 'crayons', img: 'images/purple-dahlias.PNG' },
+      { id: 'paint brushes', img: 'images/white-daisies.PNG' },
+      { id: 'colored pencils', img: 'images/orange-hibiscuses.PNG' }
+    ],
+    correctOrder: ['crayons', 'paint brushes', 'colored pencils']
+  },
+
+  {
+    level: 'easy',
+    story: 'Help Gerold set the experiment materials correctly before the science teacher arrives.',
+    clues: ['The microscopes should be on the far right.',
+       "The beakers are between the other two items."],
+
+    items: [
+      { id: 'test tubes', img: 'images/green-hydrangeas.PNG' },
+      { id: 'beakers', img: 'images/red-roses.PNG' },
+      { id: 'microscopes', img: 'images/yellow-tulips.PNG' }
+    ],
+    correctOrder: ['test tubes', 'beakers', 'microscopes']
+  },
+
+  {
+    level: 'medium',
+    story: 'When Gerold checks the library, he finds that all the books are misplaced! Help him return them to their proper shelves before the librarian arrives.',
+    clues: ['The math books should be before the science books.',
+      'The story books are between science and art books.',
+      'The geography books belong at the far right.'
+    ],
+    items: [
+      { id: 'math books', img: 'images/purple-roses.PNG' },
+      { id: 'science books', img: 'images/white-roses.PNG' },
+      { id: 'story books', img: 'images/pink-daisies.PNG' },
+      { id: 'art books', img: 'images/orange-daisies.PNG' },
+      { id: 'history books', img: 'images/red-dahlias.PNG' },
+      { id: 'geography books', img: 'images/blue-dahlias.PNG' }
+    ],
+    correctOrder: ['math books','science books' ,'story books', 'art books', 'history books','geography books']
+  },
+
+  {
+    level: 'medium',
+    story: 'Gerold opens the supply closet and finds everything mixed up! He needs to organize the school essentials before the teachers get there.',
+    clues: ['The chalks are between the erasers and the pieces of paper.',
+      'The glues are at the far right.',
+      'The notebooks come before the markers.'
+    ],
+    items: [
+      { id: 'erasers', img: 'images/pink-hydrangeas.PNG' },
+      { id: 'chalks', img: 'images/blue-hydrangeas.PNG' },
+      { id: 'pieces of paper', img: 'images/black-hibiscuses.PNG' },
+      { id: 'notebooks', img: 'images/yellow-hibiscuses.PNG' },
+      { id: 'markers', img: 'images/orange-tulips.PNG' },
+      { id: 'glues', img: 'images/purple-tulips.png' }
+    ],
+    correctOrder: ['erasers', 'chalks', 'pieces of paper', 'notebooks', 'markers', 'glues']
+  },
+
+  {
+    level: 'hard',
+    story: "Principal Gerold finally reaches the school doors, but they’re locked! The keypad to open them isn’t broken… it's just missing the right code.To open the school and begin the new semester, help him solve the math puzzle that reveals the secret 3×3 code!",
+    clues: ["The number in the center of all codes are 5's",
+      "The sum of each row, column, and diagonal are the same",
+      "The number in the bottom-left of all codes are 8's",
+      "The number above the bottom-right corner of all codes are 7's",
+      "The bottom-left number is double the top-left number."
+    ],
+
+    items: [
+      { id: "4's", img: 'images/red-roses.PNG' },
+      { id: "9's", img: 'images/green-hydrangeas.PNG' },
+      { id: "2's", img: 'images/blue-daisies.PNG' },
+      { id: "3's", img: 'images/gray-roses.PNG' },
+      { id: "5's", img: 'images/orange-daisies.PNG' },
+      { id: "7's", img: 'images/yellow-daisies.PNG' },
+      { id: "8's", img: 'images/white-hydrangeas.PNG' },
+      { id: "1's", img: 'images/black-roses.PNG' },
+      { id: "6's", img: 'images/purple-hydrangeas.PNG' }
+    ],
+    correctOrder: [
+      "4's", "9's", "2's", "3's", "5's",
+      "7's", "8's", "1's", "6's"
+    ]
+  },
+
+  {
+    level: 'easy',
+    story: "These are some of Haroldene’s rarest flowers. Ease her mind by planting them in order!",
     clues: ['The purple dahlias should be planted far away from the white daisies.',
        "The white daisies are on the left."] ,
 
@@ -432,7 +523,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
   if (storyDiv) {
     storyDiv.innerHTML = story
-      ? `<p><strong>Story Sentence:</strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
+      ? `<p><strong></strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
       : '<p><strong>Story Sentence:</strong></p>';
   }
   if (cluesContentDiv) {
