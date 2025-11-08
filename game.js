@@ -26,6 +26,7 @@ const hintLimits = {
 const puzzles = [
   {
     level: 'easy',
+    story: 'These are some of Haroldene’s rarest flowers. Ease her mind by planting them in order!',
     clues: ['The purple dahlias should be planted far away from the white daisies.',
        "The white daisies are on the left."] ,
 
@@ -39,6 +40,7 @@ const puzzles = [
 
   {
     level: 'easy',
+    story: 'Help Haroldene arrange her favorite flowers!',
     clues: ['The green hydrangeas are not in the second box.',
        "The red roses are next to the yellow tulips.", "The yellow tulips are on the right."] ,
 
@@ -52,6 +54,7 @@ const puzzles = [
 
   {
     level: 'medium',
+    story: 'Roses are red, violets are blue, these flowers are messed up, but at least Haroldene has you!',
     clues: ['The colors of the first two boxes combined make the color in the third box.',
       'The red dahlias are furthest away from the blue dahlias.',
       'The white roses are on top of all other types of roses.'
@@ -69,6 +72,7 @@ const puzzles = [
 
   {
     level: 'medium',
+    story: 'These flowers were gifted to Haroldene by her grandmother. Please help her put them in the correct spots!',
     clues: ['The hydrangeas are directly next to each other with the reddish color first.',
       'There are no tulips in the first row.',
       'The black hibiscuses are on the right and diagonally adjacent with the other hibiscuses.', 
@@ -87,6 +91,7 @@ const puzzles = [
 
   {
     level: 'hard',
+    story: 'Oh no..! Midnight is approaching soon, quick, finish arranging the last bit of flowers!',
     clues: ['The red roses are in the middle of the grid.',
       'The neighbors of the purple and green hydrangeas are never the roses.',
       'All the roses are near each other on the top left with the black ones away from the corner.',
@@ -120,9 +125,9 @@ const puzzles = [
     items: [
       { id: 'cows', img: 'images/Cow.PNG' },
       { id: 'pigs', img: 'images/Pig.PNG' },
-      { id: 'chicken', img: 'images/Chicken.PNG' }
+      { id: 'chickens', img: 'images/Chicken.PNG' }
     ],
-    correctOrder: ['chicken', 'cows', 'pigs']
+    correctOrder: ['chickens', 'cows', 'pigs']
   },
 
   {
@@ -162,47 +167,47 @@ const puzzles = [
   {
     level: 'medium',
     story:'Jerrold is arranging his sheep for a farm show. Arrange them from left to right based on the clues.',
-    clues: ['Daisy stands between Misty and Luna.',
-      'Hazel is farthest to the right.',
-      'Hazel is farthest to the right.', 
-      'Poppy is next to Hazel',
-      'Luna is right of Daisy.'
+    clues: ['The yellow sheeps stand between the blue sheeps and the black sheeps.',
+      'The brown sheeps are furthest to the right.',
+      'The red sheeps are left of the blue sheeps.',
+      'The white sheeps are next to the brown sheeps.',
+      'The black sheeps are right of the yellow sheeps.'
     ],
     items: [
-      { id: 'Clover', img: 'images/SheepRed.PNG' },
-      { id: 'Misty', img: 'images/SheepBlue.PNG' },
-      { id: 'Daisy', img: 'images/SheepYellow.PNG' },
-      { id: 'Luna', img: 'images/SheepBlack.PNG' },
-      { id: 'Poppy', img: 'images/SheepWhite.PNG' },
-      { id: 'Hazel', img: 'images/SheepBrown.PNG' }
+      { id: 'red sheeps', img: 'images/SheepRed.PNG' },
+      { id: 'blue sheeps', img: 'images/SheepBlue.PNG' },
+      { id: 'yellow sheeps', img: 'images/SheepYellow.PNG' },
+      { id: 'black sheeps', img: 'images/SheepBlack.PNG' },
+      { id: 'white sheeps', img: 'images/SheepWhite.PNG' },
+      { id: 'brown sheeps', img: 'images/SheepBrown.PNG' }
     ],
-    correctOrder: ['Clover', 'Misty', 'Daisy', 'Luna', 'Poppy', 'Hazel']
+    correctOrder: ['red sheeps', 'blue sheeps', 'yellow sheeps', 'black sheeps', 'white sheeps', 'brown sheeps']
   },
 
   {
     level: 'hard',
-    story:'Jerrold is planting his crops in a 3x3 grid. Arrange the crops based on the clues provided.',
-    clues: ['Wheat is directly above rice.',
-      'Cabbage grows earlier than peanuts and wheat.',
-      'Peas are planted to the right of tomatoes.',
+    story:'Jerrold is planting his crops on a 3x3 grid. Arrange the crops based on the clues provided.',
+    clues: ['The wheats are directly above the rices.',
+      'Cabbages grows earlier than the peanuts and wheats.',
+      'Peas are planted to the right of the tomatoes.',
       'Potatoes are in the bottom-right corner.',
-      'Corn grows below peanuts.',
-      'Beans are right of wheat.'
+      'Corn cobs grows below the peanuts.',
+      'Beans are right of the wheats.'
 ],
     items: [
-      { id: 'cabbage', img: 'images/Cabbage.PNG' },
-      { id: 'tomatoes', img: 'images/green-hydrangeas.PNG' },
-      { id: 'peas', img: 'images/blue-daisies.PNG' },
+      { id: 'cabbages', img: 'images/Cabbage.PNG' },
+      { id: 'tomatoes', img: 'images/Tomatoes.PNG' },
+      { id: 'peas', img: 'images/Peas.PNG' },
       { id: 'peanuts', img: 'images/Peanuts.PNG' },
-      { id: 'wheat', img: 'images/Wheat.PNG' },
-      { id: 'beans', img: 'images/yellow-daisies.PNG' },
-      { id: 'corn', img: 'images/Corn.PNG' },
-      { id: 'rice', img: 'images/Rice.PNG' },
-      { id: 'potatoes', img: 'images/purple-hydrangeas.PNG' }
+      { id: 'wheats', img: 'images/Wheat.PNG' },
+      { id: 'beans', img: 'images/Beans.PNG' },
+      { id: 'corn cobs', img: 'images/Corn.PNG' },
+      { id: 'rices', img: 'images/Rice.PNG' },
+      { id: 'potatoes', img: 'images/Potatoes.PNG' }
     ],
     correctOrder: [
-      'cabbage', 'tomatoes', 'peas', 'peanuts', 'wheat',
-      'beans', 'corn', 'rice', 'potatoes'
+      'cabbages', 'tomatoes', 'peas', 'peanuts', 'wheats',
+      'beans', 'corn cobs', 'rices', 'potatoes'
     ]
   }
 ];
@@ -623,4 +628,3 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 // 🚀 Initialize First Puzzle
 // =========================
 loadPuzzle(currentPuzzleIndex);
-
