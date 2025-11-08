@@ -1,0 +1,192 @@
+@font-face {
+font-family: 'Jack Armstrong';
+src: url('font/Jack Armstrong.ttf') format('truetype');
+font-weight: 400;
+font-style: normal;
+font-display: swap;
+}
+
+/* levelstyles.css - Overrides specific to levels.html page */
+
+/* Scope all overrides to .levels-page to avoid affecting index.html */
+.levels-page .header {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* bear | flexible center | settings */
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+/* Bear image stays left */
+.levels-page .header > img {
+  justify-self: start;
+}
+
+/* Center banner: let it auto-size but center itself */
+.levels-page .header > .level-banner {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* keep inner .level absolute positioning if desired */
+  left: auto; /* neutralize style.css transform hack */
+  transform: none;
+  margin: 0; /* remove auto centering margins from base styles */
+}
+
+/* Settings button on right */
+.levels-page .header > #settBtn {
+  justify-self: end;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Optional: shrink banner width on smaller screens */
+@media (max-width: 900px) {
+  .levels-page .header {
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+  }
+  .levels-page .header > .level-banner img {
+    width: 420px;
+  }
+}
+
+/* Ensure header does not get centered by global body flex constraints */
+.levels-page body, .levels-page {
+  align-items: stretch; /* allow full-width header */
+}
+
+/* Levels grid: 2 rows x 3 columns, but only 5 buttons (one placeholder) */
+.levels-page #levelsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+  gap: 20px;
+}
+
+/* Pagination controls - positioned outside grid */
+.levels-page #levelsPagination {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  pointer-events: none; /* allow clicks through except on buttons */
+  z-index: 100;
+}
+
+.levels-page #levelsPagination button {
+  pointer-events: auto; /* re-enable clicks on buttons */
+  background: #FFC517;
+  color: #fff;
+  border: none;
+  min-width: 110px;
+  height: 56px;
+  padding: 0 24px;
+  cursor: pointer;
+  font-size: 20px; /* show text */
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.1s, opacity 0.2s, box-shadow 0.2s;
+  position: relative;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* Uniform style for Prev and Next buttons now (rounded rectangles) */
+.levels-page #prevPageBtn,
+.levels-page #nextPageBtn {
+  clip-path: none;
+}
+
+.levels-page #levelsPagination button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(80,127,137,0.35);
+}
+
+.levels-page #levelsPagination button:hover:not(:disabled) {
+  background: #8bc06d;
+  transform: scale(1.05);
+}
+
+.levels-page #levelsPagination button:disabled {
+  background: #ddd;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.levels-page #pageIndicator {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: 18px;
+  color: #507F89;
+  font-weight: 600;
+  /* Hide indicator since it's visually awkward between fixed side buttons */
+  display: none;
+}
+
+.levels-page #levelsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 180px));
+  justify-content: center; /* center the 3 columns block */
+  gap: 16px 20px; /* row gap, column gap */
+}
+
+.levels-page .levelBtn,
+.levels-page .levelBtn.placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* square */
+  border-radius: 16px; /* rounded square */
+}
+
+.levels-page .levelBtn {
+  border: 12px solid #9ACF7C;
+  background: #FFFCF2;
+  /* background: linear-gradient(180deg, #ffffff, #eaf6ff); */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.levels-page .levelBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+}
+
+.levels-page .levelBtn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.35);
+}
+
+.levels-page .levelBtnLabel {
+  font-family: 'Jack Armstrong', sans-serif;
+  font-size: 40px;
+  color: #507F89;
+}
+
+.levels-page .levelBtn.placeholder {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .levels-page #levelsGrid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr)); /* fall back to 2 cols on small screens */
+  }
+}
