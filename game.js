@@ -12,6 +12,7 @@ let minute = 0;
 let second = 0;
 let timer = false;
 let timerInterval = null;
+let timerFeatureEnabled = true; // reflects settings timer toggle
 
 // =========================
 // 🧩 Puzzle Data
@@ -323,7 +324,91 @@ function initializeGame() {
     const btn = document.getElementById(id);
     if (btn) btn.disabled = false;
   });
+
+  // Apply global hint gating (default off until user enables)
+  const hintBtn = document.getElementById('hintBtn');
+  if (hintBtn) {
+    const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
+    const enabled = settings.hintEnabled ?? false;
+    if (!enabled) {
+      hintBtn.disabled = true;
+      hintBtn.dataset.forceDisabled = 'hint-off';
+    } else {
+      delete hintBtn.dataset.forceDisabled;
+    }
+  }
+
+  // Stop any running timer if feature disabled
+  if (!timerFeatureEnabled && timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 }
+
+// React to settings changes (e.g., hint toggle) without overriding end-of-puzzle disables
+window.addEventListener('settings:hint', (e) => {
+  const hintBtn = document.getElementById('hintBtn');
+  if (!hintBtn) return;
+  // If puzzle already ended or timer paused, don't re-enable.
+  const puzzleEnded = hintBtn.disabled && !hintBtn.dataset.forceDisabled && document.getElementById('submitBtn')?.disabled;
+  if (puzzleEnded) return;
+  const enabled = e.detail.enabled;
+  if (enabled) {
+    // Only enable if not paused and timer started (clearBtn is proxy for active play)
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn && !clearBtn.disabled) {
+      hintBtn.disabled = false;
+      delete hintBtn.dataset.forceDisabled;
+    }
+  } else {
+    hintBtn.disabled = true;
+    hintBtn.dataset.forceDisabled = 'hint-off';
+  }
+});
+
+// React to timer feature enable/disable
+window.addEventListener('settings:timer', (e) => {
+  timerFeatureEnabled = e.detail.enabled;
+  const startBtn = document.getElementById('startTimer');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const hintBtn = document.getElementById('hintBtn');
+  if (!timerFeatureEnabled) {
+    // Stop timer and reset values
+    timer = false;
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    hour = minute = second = 0;
+    const h = document.getElementById('hours');
+    const m = document.getElementById('minutes');
+    const s = document.getElementById('seconds');
+    if (h) h.textContent = '00';
+    if (m) m.textContent = '00';
+    if (s) s.textContent = '00';
+    if (startBtn) startBtn.disabled = true;
+    if (pauseBtn) pauseBtn.disabled = true;
+    // Remove overlay if it was shown via pause
+    const overlay = document.querySelector('.overlay');
+    if (overlay) overlay.remove();
+    // Re-enable non-timer controls if puzzle still active
+    const submitBtn = document.getElementById('submitBtn');
+    const shufBtn = document.getElementById('shufBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    if (submitBtn && !submitBtn.disabled) {
+      if (shufBtn) shufBtn.disabled = false;
+      if (clearBtn) clearBtn.disabled = false;
+      // Hint respects its own setting
+      const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
+      const hintEnabled = settings.hintEnabled ?? false;
+      if (hintBtn && hintEnabled && !hintBtn.dataset.forceDisabled) hintBtn.disabled = false;
+    }
+  } else {
+    if (startBtn) startBtn.disabled = false;
+    if (pauseBtn) pauseBtn.disabled = false;
+    // Leave others as-is; they'll be managed on Start/Pause
+  }
+});
 
 // =========================
 // 💡 Hint Function
@@ -451,9 +536,13 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   pauseBtn.disabled = false;
 
   startTimer.onclick = () => {
+    if (!timerFeatureEnabled) return; // guard if timer hidden
     timer = true;
     clearBtn.disabled = false;
-    hintBtn.disabled = false;
+    // Only enable hint if user setting allows
+    const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
+    const hintEnabled = settings.hintEnabled ?? false;
+    hintBtn.disabled = !hintEnabled;
     shufBtn.disabled = false;
     pauseBtn.disabled = false;
 
@@ -468,6 +557,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   };
 
   pauseBtn.onclick = () => {
+    if (!timerFeatureEnabled) return;
     timer = false;
     clearBtn.disabled = true;
     hintBtn.disabled = true;
@@ -601,6 +691,10 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
     if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
       setFeedback('✅ Correct! You solved the puzzle!', 'green');
+      // Play success ding only (no generic click SFX for submit)
+      if (window.playSfx) {
+        window.playSfx('audio/SoundFX/Ding.mp3');
+      }
 
       if(timerInterval) {
         clearInterval(timerInterval);
@@ -609,6 +703,10 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
       submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
       
     } else {
+      // Wrong answer: play bubble click feedback
+      if (window.playSfx) {
+        window.playSfx('audio/SoundFX/Bubble.mp3');
+      }
       attemptsLeft--;
       attemptCount.textContent = attemptsLeft;
 
