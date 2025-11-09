@@ -324,7 +324,7 @@ function initializeGame() {
     const btn = document.getElementById(id);
     if (btn) btn.disabled = false;
   });
-
+  
   // Apply global hint gating (default off until user enables)
   const hintBtn = document.getElementById('hintBtn');
   if (hintBtn) {
@@ -419,7 +419,6 @@ let usedHints = 0;
 let maxHints = 0;
 
 // function that Initialize the hint system based on the current level.
- 
 function initHintSystem(level) {
   usedHints = 0;
   maxHints = hintLimits[level] || 1;
@@ -530,13 +529,25 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   const cluesDiv = document.getElementById('clues');
   const itemTray = document.getElementById('itemTray');
   const startTimer = document.getElementById('startTimer');
-  const pauseBtn = document.getElementById('pauseBtn'); 
+  const pauseBtn = document.getElementById('pauseBtn');
+  
+  // const params = new URLSearchParams(window.location.search);
+  // const levelNumber = parseInt(params.get('level'), 10) || 1;
+  // const levelData = getLevelsData(levelNumber);
+
+  // if (!levelData) {
+  //   alert('Invalid level number. Loading level 1 instead.');
+  //   return;
+  // }
+
+  // const { levelItems, order, title, clues, story } = levelData;
+  // loadPuzzle(levelItems, order, title, clues, story);
+
 
   startTimer.disabled = false;
   pauseBtn.disabled = false;
 
   startTimer.onclick = () => {
-    if (!timerFeatureEnabled) return; // guard if timer hidden
     timer = true;
     clearBtn.disabled = false;
     // Only enable hint if user setting allows
@@ -557,7 +568,6 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   };
 
   pauseBtn.onclick = () => {
-    if (!timerFeatureEnabled) return;
     timer = false;
     clearBtn.disabled = true;
     hintBtn.disabled = true;
@@ -691,10 +701,6 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
     if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
       setFeedback('✅ Correct! You solved the puzzle!', 'green');
-      // Play success ding only (no generic click SFX for submit)
-      if (window.playSfx) {
-        window.playSfx('audio/SoundFX/Ding.mp3');
-      }
 
       if(timerInterval) {
         clearInterval(timerInterval);
@@ -703,10 +709,6 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
       submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
       
     } else {
-      // Wrong answer: play bubble click feedback
-      if (window.playSfx) {
-        window.playSfx('audio/SoundFX/Bubble.mp3');
-      }
       attemptsLeft--;
       attemptCount.textContent = attemptsLeft;
 

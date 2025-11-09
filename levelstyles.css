@@ -1,9 +1,9 @@
 @font-face {
-font-family: 'Jack Armstrong';
-src: url('fonts/Jack Armstrong.ttf') format('truetype');
-font-weight: 400;
-font-style: normal;
-font-display: swap;
+  font-family: 'Jack Armstrong';
+  src: url('font/Jack Armstrong.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* levelstyles.css - Overrides specific to levels.html page */
@@ -85,7 +85,7 @@ font-display: swap;
 
 .levels-page #levelsPagination button {
   pointer-events: auto; /* re-enable clicks on buttons */
-  background: #FFC517;
+  background: transparent;
   color: #fff;
   border: none;
   min-width: 110px;
@@ -189,4 +189,4 @@ font-display: swap;
   .levels-page #levelsGrid {
     grid-template-columns: repeat(2, minmax(120px, 1fr)); /* fall back to 2 cols on small screens */
   }
-}
+} 
