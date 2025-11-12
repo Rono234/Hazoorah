@@ -137,7 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDialog();
   });
 
-  closeBtn.addEventListener('click', closeDialog);
+  closeBtn.addEventListener('click', () => {
+    closeDialog()
+  });
 
   // Settings button opens dialog
   settBtn.addEventListener('click', () => {
@@ -203,3 +205,166 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //TO ADD AUTOPLAY TO EDGE BROWSER: EDGE SETTINGS > SITE PERMISSIONS > MEDIA AUTOPLAY > ALLOW (OR SPECIFIC SITES)
 // FOR GOOOGLE CHROME: GO TO chrome://settings/content/autoplay AND ALLOW SITES TO AUTOMATICALLY PLAY MEDIA 
+
+(function initGlobalSettingsUI() {
+  document.addEventListener('DOMContentLoaded', () => {
+    ensureSettingsUI();
+    wireSettingsEvents();
+    restoreSettingsFromStorage();
+  });
+
+  function ensureSettingsUI() {
+    // Inject settings dialog if missing
+    if (!document.getElementById('settingsDialog')) {
+      const dialog = document.createElement('dialog');
+      dialog.id = 'settingsDialog';
+      dialog.innerHTML = `
+        <form method="dialog">
+          <h3>Settings</h3>
+          <div class="settings-content">
+            <div class="settings-group">
+              <label for="soundToggle">Sound Effects</label>
+              <div class="volume-control">
+                <input type="checkbox" id="soundToggle">
+                <input type="range" id="soundVolume" min="0" max="100" value="100">
+              </div>
+            </div>
+            <div class="settings-group">
+              <label for="musicToggle">Background Music</label>
+              <div class="volume-control">
+                <input type="checkbox" id="musicToggle">
+                <input type="range" id="musicVolume" min="0" max="100" value="100">
+              </div>
+            </div>
+            <div class="settings-group">
+              <label for="hintToggle">Hints</label>
+              <div class="volume-control">
+                <input type="checkbox" id="hintToggle">
+              </div>
+            </div>
+            <div class="settings-group">
+              <label for="timerToggle">Timer</label>
+              <div class="volume-control">
+                <input type="checkbox" id="timerToggle" checked>
+              </div>
+            </div>
+            <h4>*Adjust volume bar after turning audio on</h4>
+          </div>
+          <div class="dialog-buttons">
+            <button type="button" id="saveSettingsBtn">Save</button>
+            <button type="button" id="closeSettingsBtn">Close</button>
+          </div>
+        </form>
+      `;
+      document.body.appendChild(dialog);
+    }
+
+    // Inject bg music if missing
+    if (!document.getElementById('bgMusic')) {
+      const audio = document.createElement('audio');
+      audio.id = 'bgMusic';
+      audio.loop = true;
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', '');
+      audio.setAttribute('webkit-playsinline', '');
+      audio.style.display = 'none';
+
+      const src = document.createElement('source');
+      src.src = 'audio/BGMusic/forest.mp3';
+      src.type = 'audio/mpeg';
+      audio.appendChild(src);
+
+      document.body.appendChild(audio);
+    }
+  }
+
+  function wireSettingsEvents() {
+    const dialog = document.getElementById('settingsDialog');
+    const settBtn = document.getElementById('settBtn');
+    const closeBtn = dialog?.querySelector('#closeSettingsBtn');
+    const saveBtn = dialog?.querySelector('#saveSettingsBtn');
+    const enableBtn = document.getElementById('enableSoundBtn');
+
+    if (settBtn && dialog) {
+      settBtn.addEventListener('click', () => {
+        try {
+          dialog.showModal();
+        } catch {
+          // Fallback if <dialog> not supported
+          dialog.setAttribute('open', '');
+        }
+      });
+    }
+    closeBtn?.addEventListener('click', () => closeDialog(dialog));
+    saveBtn?.addEventListener('click', () => {
+      saveSettingsToStorage();
+      applyAudioSettings();
+      closeDialog(dialog);
+    });
+
+    // Optional CTA to kickstart audio on browsers blocking autoplay
+    enableBtn?.addEventListener('click', async () => {
+      const bg = document.getElementById('bgMusic');
+      if (bg) {
+        try { await bg.play(); enableBtn.hidden = true; } catch {}
+      }
+    });
+
+    // Apply audio settings on page load (after wiring)
+    applyAudioSettings();
+  }
+
+  function closeDialog(dialog) {
+    try { dialog.close(); } catch { dialog.removeAttribute('open'); }
+  }
+
+  function saveSettingsToStorage() {
+    const settings = {
+      sfxEnabled: !!document.getElementById('soundToggle')?.checked,
+      sfxVolume: Number(document.getElementById('soundVolume')?.value ?? 100),
+      musicEnabled: !!document.getElementById('musicToggle')?.checked,
+      musicVolume: Number(document.getElementById('musicVolume')?.value ?? 100),
+      hintsEnabled: !!document.getElementById('hintToggle')?.checked,
+      timerEnabled: !!document.getElementById('timerToggle')?.checked,
+    };
+    localStorage.setItem('hazooraSettings', JSON.stringify(settings));
+  }
+
+  function restoreSettingsFromStorage() {
+    const raw = localStorage.getItem('hazooraSettings');
+    if (!raw) return;
+    try {
+      const s = JSON.parse(raw);
+      setIfPresent('soundToggle', 'checked', !!s.sfxEnabled);
+      setIfPresent('soundVolume', 'value', s.sfxVolume ?? 100);
+      setIfPresent('musicToggle', 'checked', !!s.musicEnabled);
+      setIfPresent('musicVolume', 'value', s.musicVolume ?? 100);
+      setIfPresent('hintToggle', 'checked', !!s.hintsEnabled);
+      setIfPresent('timerToggle', 'checked', !!s.timerEnabled);
+    } catch {}
+  }
+
+  function setIfPresent(id, prop, val) {
+    const el = document.getElementById(id);
+    if (el) el[prop] = val;
+  }
+
+  function applyAudioSettings() {
+    const bg = document.getElementById('bgMusic');
+    const musicEnabled = !!document.getElementById('musicToggle')?.checked;
+    const musicVolume = Number(document.getElementById('musicVolume')?.value ?? 100) / 100;
+
+    if (!bg) return;
+    bg.volume = Math.max(0, Math.min(1, musicVolume));
+
+    if (musicEnabled) {
+      // Attempt play; user gesture may still be required
+      bg.play().catch(() => {
+        const enableBtn = document.getElementById('enableSoundBtn');
+        if (enableBtn) enableBtn.hidden = false;
+      });
+    } else {
+      bg.pause();
+    }
+  }
+})();

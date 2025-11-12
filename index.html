@@ -25,7 +25,7 @@
         <!-- Level Banner -->
         <section class="level-banner">
             <img src="images/Banner.png" alt="Level Banner" width="550">
-            <span class="level">LEVEL: 1</span>
+            <span class="level" id="banner">LEVEL: 1</span>
         </section>
     </div>
 
@@ -103,7 +103,8 @@
             <img src="images/settingBtn.png" alt="Settings" width="50" height="40">
         </button>
     </div>
-<dialog id="settingsDialog">
+
+    <dialog id="settingsDialog">
         <form method="dialog">
             <h3>Settings</h3>
         
@@ -160,6 +161,21 @@
     Your browser does not support audio playback.
     </audio>
 
+    <!-- Level End Screen -->
+    <dialog id="levelEndDialog" class="level-end-dialog">
+        <form method="dialog">
+            <h2 id ='levelEndTitle'>Level Complete!</h2>
+            <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
+            
+            <div class="dialog-buttons">
+                <button type="button" id="endBtn" style="display:none;">Levels</button>
+                <button type="button" id="retryBtn" style="display:none;">Retry Level</button>
+                <button type="button" id="nextLevelBtn" style="display:none";>Next Level</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="puzzle.js"></script>
     <script src="game.js"></script>
     <script src="notes.js"></script>
     <script src="settings.js"></script>

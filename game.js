@@ -13,6 +13,26 @@ let second = 0;
 let timer = false;
 let timerInterval = null;
 let timerFeatureEnabled = true; // reflects settings timer toggle
+window.levelDialogOpen = false;
+
+const max_levels = 15;
+const params = new URLSearchParams(window.location.search);
+const currentTown = parseInt(params.get('town')) || 1;
+const currentLevel = parseInt(params.get('level')) || 1;
+
+function markTownLevelComplete(town, level) {
+  const townProgress = JSON.parse(localStorage.getItem('townProgress') || '{}');
+
+  if (!townProgress[`town${town}`]) {
+   townProgress[`town${town}`] = [];
+  }
+
+  if (!townProgress[`town${town}`].includes(level)) {
+   townProgress[`town${town}`].push(level);
+  }
+
+  localStorage.setItem('townProgress', JSON.stringify(townProgress));
+}
 
 // =========================
 // 🧩 Puzzle Data
@@ -28,7 +48,7 @@ const puzzles = [
   {
     level: 'easy',
     story: 'All the supplies in the art room are scattered! Gerold needs to place them neatly back on the shelf in the correct order before the students come to class.',
-    clues: ['The colored pencils are not next to the crayons.',
+    clues: ['The crayons should be on the far left.',
        "The colored pencils are not next to the crayons."],
 
     items: [
@@ -304,6 +324,30 @@ const puzzles = [
   }
 ];
 
+//Read the level from URL parameters
+function loadPuzzleURL() {
+  const params = new URLSearchParams(window.location.search);
+  let urlTown = parseInt(params.get('town'), 10);
+  let urlLevel = parseInt(params.get('level'), 10);
+
+  const safeTown = Math.max(1, Math.min(urlTown, 3));
+  const safeLevel = Math.max (1, Math.min(urlLevel, 5));
+
+  currentPuzzleIndex = (safeTown - 1) * 5 + (safeLevel - 1);
+
+  const newURL =  new URL(window.location);
+  newURL.searchParams.set('town', safeTown)
+  newURL.searchParams.set('level', safeLevel);
+  window.history.replaceState({}, '', newURL);
+
+  loadPuzzle(currentPuzzleIndex);
+  
+  const banner = document.getElementById('banner');
+  if (banner) {
+    banner.textContent = `LEVEL: ${safeLevel}`;
+  }
+}
+
 // =========================
 // ♻️ Initialize Game
 // =========================
@@ -507,255 +551,103 @@ function updatePuzzleDisplay() {
   });
 }
 
-// =========================
-// ⚙️ Puzzle Generation
-// =========================
-function generatePuzzle(level, itemsData, order, title, clues, story) {
-  initializeGame();
-  initHintSystem(level);
+function showLevelEndMessage(success, currentLevel, attemptsLeft) {
+  const screen = document.getElementById('levelEndDialog');
+  const title = document.getElementById('levelEndTitle')
+  const message = document.getElementById('levelEndMessage');
+  const endBtn = document.getElementById('endBtn');
+  const retryBtn = document.getElementById('retryBtn');
+  const nextLevelBtn = document.getElementById('nextLevelBtn');
 
-  const board = document.getElementById('board');
-  const itemsContainer = document.getElementById('items');
-  const feedback = document.getElementById('feedback');
-  const submitBtn = document.getElementById('submitBtn');
-  const hintBtn = document.getElementById('hintBtn');
-  const hintBox = document.getElementById('hintBox');
-  const clearBtn = document.getElementById('clearBtn');
-  const shufBtn = document.getElementById('shufBtn');
-  const attemptCount = document.getElementById('attemptCount');
-  const storyDiv = document.getElementById('storySentence');
-  const cluesContentDiv = document.getElementById('cluesContent');
-  const h1 = document.querySelector('h1');
-  const cluesDiv = document.getElementById('clues');
-  const itemTray = document.getElementById('itemTray');
-  const startTimer = document.getElementById('startTimer');
-  const pauseBtn = document.getElementById('pauseBtn');
-  
-  // const params = new URLSearchParams(window.location.search);
-  // const levelNumber = parseInt(params.get('level'), 10) || 1;
-  // const levelData = getLevelsData(levelNumber);
+  // if (attemptCount) attemptCount.textContent = attemptsLeft;
 
-  // if (!levelData) {
-  //   alert('Invalid level number. Loading level 1 instead.');
-  //   return;
-  // }
-
-  // const { levelItems, order, title, clues, story } = levelData;
-  // loadPuzzle(levelItems, order, title, clues, story);
-
-
-  startTimer.disabled = false;
-  pauseBtn.disabled = false;
-
-  startTimer.onclick = () => {
-    timer = true;
-    clearBtn.disabled = false;
-    // Only enable hint if user setting allows
-    const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
-    const hintEnabled = settings.hintEnabled ?? false;
-    hintBtn.disabled = !hintEnabled;
-    shufBtn.disabled = false;
-    pauseBtn.disabled = false;
-
-    const overlay = document.querySelector('.overlay');
-    if (overlay) {
-      overlay.remove();
-    }
-
-    if(!timerInterval) {
-      timerInterval = setInterval(stopwatch, 1000);
-    }
-  };
-
-  pauseBtn.onclick = () => {
-    timer = false;
-    clearBtn.disabled = true;
-    hintBtn.disabled = true;
-    shufBtn.disabled = true;
-    pauseBtn.disabled = true;
-
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    document.body.appendChild(overlay);
-
-    if(timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-  };
-
-  function updateTimerDisplay() {
-    const hrStr = hour.toString().padStart(2, '0');
-    const minStr = minute.toString().padStart(2, '0');
-    const secStr = second.toString().padStart(2, '0');
-
-    document.getElementById('hours').textContent = hrStr;
-    document.getElementById('minutes').textContent = minStr;
-    document.getElementById('seconds').textContent = secStr;
+  if (!screen) { 
+    console.log("❌ Couldn't find #levelEndDialog in HTML");
+    return;
   }
 
-  function stopwatch() {
-    second++;
-
-    if (second == 60) {
-      minute++;
-      second = 0;
-    }
-
-    if (minute == 60) {
-      hour++;
-      minute = 0;
-    }
-
-    updateTimerDisplay();
+  function ordinal(n){
+    const s = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
 
-  board.innerHTML = '';
-  itemsContainer.innerHTML = '';
-  feedback.textContent = '';
-  attemptsLeft = 3;
-  attemptCount.textContent = attemptsLeft;
-  submitBtn.disabled = false;
-  correctOrder = order;
-  itemTray.scrollLeft = 0;
+  const tries = 4 - attemptsLeft;
+  const tryTxt = ordinal(tries);
+  // const lvl = parseInt(level, 10) || 1;
+  // const maxLevel = max_levels
 
-  // h1.textContent = title;
+  if (success) {
+    title.textContent = '🎉 LEVEL COMPLETE 🎉';
+    message.textContent = `Congratulations! You completed the level on your ${tryTxt} try.`;
+    markTownLevelComplete(currentTown, currentLevel);
 
-  if (storyDiv) {
-    storyDiv.innerHTML = story
-      ? `<p><strong></strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
-      : '<p><strong>Story Sentence:</strong></p>';
-  }
-  if (cluesContentDiv) {
-    cluesContentDiv.innerHTML = `
-      <p><strong>Clues:</strong></p>
-      <ul>${clues.map(c => `<li>${c}</li>`).join('')}</ul>
-    `;
-  }
+    endBtn.style.display = 'inline-block';
+    retryBtn.style.display = "none";
 
-  const gridSizes = { easy: [1, 3], medium: [2, 3], hard: [3, 3] };
-  const [rows, cols] = gridSizes[level] || [1, 3];
-
-  board.style.display = 'grid';
-  board.style.gridTemplateRows = `repeat(${rows}, 100px)`;
-  board.style.gridTemplateColumns = `repeat(${cols}, 100px)`;
-  board.style.gap = '10px';
-
-  for (let i = 0; i < rows * cols; i++) {
-    const slot = document.createElement('div');
-    slot.className = 'slot';
-    board.appendChild(slot);
-  }
-
-  const shuffledItems = [...itemsData].sort(() => Math.random() - 0.5);
-  shuffledItems.forEach(({ id, img }) => {
-    const itemDiv = document.createElement('div');
-    itemDiv.className = 'item';
-    itemDiv.draggable = true;
-    itemDiv.dataset.color = id;
-
-    const image = document.createElement('img');
-    Object.assign(image, {
-      src: img,
-      alt: id,
-      style: 'width: 100%; height: 100%; object-fit: contain;'
-    });
-
-    itemDiv.appendChild(image);
-    itemsContainer.appendChild(itemDiv);
-  });
-
-  const items = document.querySelectorAll('.item');
-  const slots = document.querySelectorAll('.slot');
-
-  items.forEach(item => {
-    item.addEventListener('dragstart', () => {
-      draggedItem = item;
-      setTimeout(() => (item.style.display = 'none'), 0);
-    });
-
-    item.addEventListener('dragend', () => {
-      setTimeout(() => {
-        item.style.display = 'flex';
-        draggedItem = null;
-      }, 0);
-    });
-  });
-
-  slots.forEach(slot => {
-    slot.addEventListener('dragover', e => e.preventDefault());
-    slot.addEventListener('drop', e => {
-      e.preventDefault();
-      if (!draggedItem) return;
-      if (slot.firstChild) itemsContainer.appendChild(slot.firstChild);
-      slot.appendChild(draggedItem);
-    });
-  });
-
-  submitBtn.onclick = () => {
-    const userOrder = Array.from(slots).map(slot =>
-      slot.firstChild ? slot.firstChild.dataset.color : null
-    );
-
-    if (userOrder.includes(null)) return setFeedback('⚠️ Fill all slots before submitting!', 'orange');
-
-    if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
-      setFeedback('✅ Correct! You solved the puzzle!', 'green');
-
-      if(timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-      submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
-      
+    if (currentPuzzleIndex + 1 >= max_levels) {
+      nextLevelBtn.style.display = 'none';
     } else {
-      attemptsLeft--;
-      attemptCount.textContent = attemptsLeft;
+      nextLevelBtn.style.display = 'inline-block';
+    }
+  } else {
+    title.textContent = '❌ LEVEL FAILED ❌';
+    message.textContent = "Try Again! You ran out of attempts.";
 
-      if (attemptsLeft > 0) setFeedback('❌ Not quite right! Try again.', 'red');
-      else {
-        if(timerInterval) {
-          clearInterval(timerInterval);
-          timerInterval = null;
-        }
-        setFeedback('❌ Out of attempts!', 'darkred');
-        submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
+    endBtn.style.display = 'inline-block';
+    retryBtn.style.display = 'inline-block';
+    nextLevelBtn.style.display = "none";
+  }
+
+  try {
+    screen.showModal();
+  } catch {
+    screen.setAttribute('open', '')
+  }
+
+  window.levelDialogOpen = true;
+
+  document.querySelectorAll('button').forEach(btn => {
+    if (!["endBtn", 'retryBtn', 'nextLevelBtn', 'settBtn'].includes(btn.id)){
+      btn.disabled = true;
+    }
+  });
+
+  retryBtn.onclick = () => {
+    screen.close();
+    window.levelDialogOpen = false;
+    loadPuzzle(currentPuzzleIndex);
+  };
+
+  nextLevelBtn.onclick = () => {
+    screen.close();
+    window.levelDialogOpen = false;
+
+    if (currentPuzzleIndex < puzzles.length - 1) {
+      currentPuzzleIndex++;
+
+      const nextTown = Math.floor(currentPuzzleIndex / 5) + 1;
+      const nextLevel = (currentPuzzleIndex % 5) + 1;
+
+      //Saving the level Progress
+      const nextLevelNum = currentPuzzleIndex + 1;
+      const saved = parseInt(localStorage.getItem('lastLevel'), 10) || 0;
+      
+      if (nextLevelNum > saved) {
+        localStorage.setItem('lastLevel', nextLevelNum);
       }
 
+      markTownLevelComplete(nextTown, nextLevel);
+
+      window.location.href = `index.html?town=${nextTown}&level=${nextLevel}`;
     }
   };
 
-  // Clear Button Logic
-  clearBtn.onclick = () => {
-    const slots = document.querySelectorAll('.slot');
-    const itemContainer = document.getElementById('items');
-    slots.forEach(slot => {
-      const item = slot.querySelector('.item');
-      if (item) itemContainer.appendChild(item);
-    });
-    feedback.textContent = '';
-    hintBox.textContent = '';
+  endBtn.onclick = () => {
+    screen.close();
+    window.levelDialogOpen = false;
+    window.location.href = 'levels.html';
   };
-
-  // Hint Button Logic
-  hintBtn.onclick = () => {
-    const userOrder = Array.from(slots).map(slot =>
-      slot.firstChild ? slot.firstChild.dataset.color : null
-    );
-    const hint = getHint(userOrder, correctOrder);
-    feedback.textContent = `💡 Hint: ${hint}`;
-    feedback.style.color = '#0077cc';
-  };
-
-  // Shuffle Button Logic
-  shufBtn.onclick = () => {
-    updatePuzzleDisplay();
-  };
-
-  function setFeedback(message, color) {
-    feedback.textContent = message;
-    feedback.style.color = color;
-  }
 }
 
 // =========================
@@ -765,18 +657,32 @@ function loadPuzzle(index) {
   const logo = document.querySelector('.title img');
   if (logo) {
     logo.src = 'images/titleLogo.PNG';
-    // Optional: alt could reflect level or a static title.
     logo.alt = 'Hazoorah Logo';
   }
 
-  const level = document.querySelector('.level');
-  if (level) level.textContent = `LEVEL: ${index + 1}`;
+  const totalLevels = puzzles.length;
+  const town = Math.floor(index / 5) + 1;
+  const levelInTown = (index % 5) + 1;
 
   const indicator = document.getElementById('puzzleIndicator');
-  if (indicator) indicator.textContent = `Puzzle ${index + 1} of ${puzzles.length}`;
+  if (indicator) indicator.textContent = `Puzzle ${levelInTown} of ${puzzles.length / 3}`;
 
   const puzzle = puzzles[index];
   generatePuzzle(puzzle.level, puzzle.items, puzzle.correctOrder, puzzle.title, puzzle.clues, puzzle.story);
+
+  currentPuzzleIndex = index;
+
+  localStorage.setItem('lastLevel', currentPuzzleIndex + 1);
+
+  const newURL = new URL(window.location);
+  newURL.searchParams.set('town', town);
+  newURL.searchParams.set("level", levelInTown);
+  window.history.replaceState({}, "", newURL);
+
+  const banner = document.getElementById('banner');
+  if (banner) {
+    banner.textContent = `LEVEL: ${levelInTown}`;
+  }
 
   hour = 0;
   minute = 0;
@@ -818,4 +724,6 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 // =========================
 // 🚀 Initialize First Puzzle
 // =========================
-loadPuzzle(currentPuzzleIndex);
+document.addEventListener('DOMContentLoaded', () => {
+  loadPuzzleURL();
+});
