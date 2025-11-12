@@ -776,34 +776,77 @@ dialog#settingsDialog::backdrop {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
     max-width: 400px;
     margin: auto;
-    background: white;
+    background: #E0EDEF;
     text-align: center;
+}
+
+.level-end-dialog .dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .level-end-dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
 
+.level-end-dialog h1 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #00695C;
+    font-weight: bold;
+    font-size: 2em;
+    font-family: "Arial Rounded MT Bold";
+}
+
 .level-end-dialog h3 {
     margin: 0 0 20px 0;
-    color: #333;
-    font-size: 1.4em;
+    text-align: center;
+    color: #000000;
+    font-weight: normal;
+    font-size: 1.5em;
+    font-family: "Arial Rounded MT Bold";
 }
 
 .level-end-dialog button {
+    margin-top: 10px;
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 500;
     transition: background-color 0.2s, transform 0.1s;
-    background: #4CAF50;
     color: white;
+    font-family: "Arial Rounded MT Bold";
+    box-shadow: 2px 5px 10px #74777a;
 }
 
-.level-end-dialog button:hover {
-    background: #43a047;
+.level-end-dialog #endBtn {
+    background: #FFC517;
+}
+
+.level-end-dialog #endBtn:hover {
+    background: #d6a410;
+    transform: translateY(-1px);
+}
+
+.level-end-dialog #retryBtn {
+    background: #D26665;
+}
+
+.level-end-dialog #retryBtn:hover {
+    background: #a83a38;
+    transform: translateY(-1px);
+}
+
+.level-end-dialog #nextLevelBtn {
+    background: #9ACF7C;
+}
+
+.level-end-dialog #nextLevelBtn:hover {
+    background: #69c733;
     transform: translateY(-1px);
 }
 

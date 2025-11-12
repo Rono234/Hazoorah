@@ -330,10 +330,24 @@ function loadPuzzleURL() {
   let urlTown = parseInt(params.get('town'), 10);
   let urlLevel = parseInt(params.get('level'), 10);
 
-  const safeTown = Math.max(1, Math.min(urlTown, 3));
-  const safeLevel = Math.max (1, Math.min(urlLevel, 5));
+  if (isNaN(urlTown)) urlTown = 1;
+  if (isNaN(urlLevel)) urlLevel = 1;
 
-  currentPuzzleIndex = (safeTown - 1) * 5 + (safeLevel - 1);
+  const totalPuzzles = puzzles.length;
+  const levelsPerTown = Math.ceil(totalPuzzles / 3);
+
+  const safeTown = Math.max(1, Math.min(urlTown, 3));
+  const safeLevel = Math.max (1, Math.min(urlLevel, levelsPerTown));
+
+  currentPuzzleIndex = (safeTown - 1) * levelsPerTown + (safeLevel - 1);
+
+  if (currentPuzzleIndex >= totalPuzzles) {
+    currentPuzzleIndex = totalPuzzles - 1;
+  }
+
+  if (currentPuzzleIndex < 0 || currentPuzzleIndex >= puzzles.length) {
+  currentPuzzleIndex = 0;
+  }
 
   const newURL =  new URL(window.location);
   newURL.searchParams.set('town', safeTown)
@@ -665,9 +679,20 @@ function loadPuzzle(index) {
   const levelInTown = (index % 5) + 1;
 
   const indicator = document.getElementById('puzzleIndicator');
+  console.log('DEBUG levelInTown:', levelInTown);
+  console.log('DEBUG puzzles:', puzzles);
   if (indicator) indicator.textContent = `Puzzle ${levelInTown} of ${puzzles.length / 3}`;
 
   const puzzle = puzzles[index];
+  console.log('puzzles:', puzzles);
+  console.log('currentPuzzleIndex:', currentPuzzleIndex);
+  console.log('puzzle:', puzzles ? puzzles[currentPuzzleIndex] : 'no puzzles loaded');
+  
+  if (!puzzle) {
+    console.error("❌ Puzzle not found for index:", index);
+    return;
+  }
+
   generatePuzzle(puzzle.level, puzzle.items, puzzle.correctOrder, puzzle.title, puzzle.clues, puzzle.story);
 
   currentPuzzleIndex = index;
