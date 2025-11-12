@@ -768,3 +768,46 @@ dialog#settingsDialog::backdrop {
     color: #2b7a2b;
     font-size: 0.9rem;
 }
+
+.level-end-dialog {
+    padding: 24px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    text-align: center;
+}
+
+.level-end-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.level-end-dialog h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.4em;
+}
+
+.level-end-dialog button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+    background: #4CAF50;
+    color: white;
+}
+
+.level-end-dialog button:hover {
+    background: #43a047;
+    transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1);}
+}
