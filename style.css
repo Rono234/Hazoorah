@@ -8,7 +8,7 @@
     src: url('fonts/Jack Armstrong.ttf');
 }
 
-html{
+html {
     height: 100%;
 }
 
@@ -41,6 +41,7 @@ body {
     text-align: center;
     z-index: 1;
 }
+
 .title img {
     width: 300px;
     height: auto;
@@ -85,7 +86,7 @@ h1 {
     margin-top: 0;
 }
 
-h1 img{
+h1 img {
     display: block;
     position: relative;
     z-index: 2;
@@ -102,7 +103,7 @@ h2 {
     line-height: 0;
 }
 
-h2 img{
+h2 img {
     display: block;
     width: 500px;
     height: auto;
@@ -169,36 +170,103 @@ h2 img{
 #storySentence {
     position: absolute;
     top: 10px;
-    left: 20px;
-    width: 180px;
-    font-size: 9.5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 260px;
+    font-size: clamp(13px, 1.5vw, 11px);
+    text-align: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+#storySentence p {
+    margin: 12px 0 12px;
+    line-height: 1.4;
+        font-style: normal;
+}
+
+#storySentence p strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: clamp(10px, 1.8vw, 12px);
 }
 
 #cluesContent {
     position: absolute;
     top: 110px;
-    left: 20px;
-    width: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 260px;
     text-align: left;
+    box-sizing: border-box;
 }
 
 #cluesContent p {
     text-decoration: underline;
-    margin: 5px 0 5px 0;
-    font-size: 14.5px;
-    width: 100%;
-    margin: 5px 0 5px 10px;
+    margin: 5px 0;
+    font-size: clamp(12px, 2vw, 14.5px);
     text-align: center;
 }
 
 #cluesContent ul {
     padding-left: 18px;
-    margin: 0;
+    margin: 8px 0 0 0;
+    list-style-position: outside;
 }
 
 #cluesContent li {
-    margin-bottom: 6px;
-    font-size: 14px;
+    margin-bottom: 8px;
+    font-size: clamp(11px, 1.8vw, 14px);
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #clues {
+        width: 220px;
+        height: auto;
+        min-height: 500px;
+        left: 20px;
+        padding: 0 20px;
+    }
+
+    #storySentence {
+        top: 15px;
+        max-width: 180px;
+    }
+
+    #cluesContent {
+        top: 100px;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    #clues {
+        position: static;
+        width: 90%;
+        max-width: 300px;
+        margin: 20px auto;
+        height: auto;
+    }
+
+    #storySentence,
+    #cluesContent {
+        position: static;
+        transform: none;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0;
+    }
 }
 
 #grid {
@@ -249,7 +317,7 @@ h2 img{
     background: #f5f5f5;
 }
 
-#items{
+#items {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -279,7 +347,7 @@ h2 img{
     cursor: grabbing;
 }
 
-.slot .item{
+.slot .item {
     width: 100%;
     height: 100%;
     display: flex;
@@ -357,22 +425,26 @@ h2 img{
     color: #ffffff;
 }
 
-#settBtn{
-     /* Keep the circular layout but make it borderless and transparent */
-     border-radius: 50%;
-     background: transparent; /* no background color */
-     border: none;            /* no border */
-     padding: 0;
-     margin: 0;
-     cursor: pointer;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     transition: background-color 0.2s ease;
+#settBtn {
+    /* Keep the circular layout but make it borderless and transparent */
+    border-radius: 50%;
+    background: transparent;
+    /* no background color */
+    border: none;
+    /* no border */
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
 }
 
 
-#clearBtn, #hintBtn, #shufBtn {
+#clearBtn,
+#hintBtn,
+#shufBtn {
     margin-left: auto;
     background-color: white;
     border-radius: 50%;
@@ -382,11 +454,17 @@ h2 img{
     cursor: pointer;
 }
 
-#clearBtn:hover, #hintBtn:hover, #shufBtn:hover, #settBtn:hover {
-    background-color:lightgray;
+#clearBtn:hover,
+#hintBtn:hover,
+#shufBtn:hover,
+#settBtn:hover {
+    background-color: lightgray;
 }
 
-#clearBtn img, #hintBtn img, #shufBtn img, #settBtn img {
+#clearBtn img,
+#hintBtn img,
+#shufBtn img,
+#settBtn img {
     margin: 0 0 -2px 0;
 }
 
@@ -522,7 +600,8 @@ dialog#settingsDialog::backdrop {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: none;  /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     align-items: center;
     justify-content: center;
     z-index: 1000;
@@ -594,7 +673,7 @@ dialog#settingsDialog::backdrop {
     padding: 10px 16px;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     font-weight: 600;
 }
 
@@ -602,7 +681,7 @@ dialog#settingsDialog::backdrop {
     background: #43a047;
 }
 
-.overlay{
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -614,7 +693,7 @@ dialog#settingsDialog::backdrop {
     transition: all 0.3s ease;
 }
 
-#timerControls{
+#timerControls {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -624,7 +703,7 @@ dialog#settingsDialog::backdrop {
     z-index: 9999;
 }
 
-#pauseBtn{
+#pauseBtn {
     cursor: pointer;
     margin-left: 0;
     background-color: transparent;
@@ -637,7 +716,7 @@ dialog#settingsDialog::backdrop {
     opacity: 0.7;
 }
 
-#startTimer{
+#startTimer {
     cursor: pointer;
     background-color: blueviolet;
     color: white;
@@ -660,7 +739,7 @@ dialog#settingsDialog::backdrop {
     margin-bottom: 5px;
 }
 
-.digit{
+.digit {
     font-size: 24px;
     color: black;
     font-family: monospace
@@ -675,9 +754,8 @@ dialog#settingsDialog::backdrop {
     right: 50px;
     top: 100px;
     margin-top: 40px;
-
-    width: 270px;
-    max-width: 35vw;
+    width: 303px;
+    max-width: 73vw;
     overflow: auto;
     box-sizing: border-box;
     padding: 12px;
@@ -685,6 +763,7 @@ dialog#settingsDialog::backdrop {
     background-size: cover;
     border-radius: 8px;
     z-index: 1000;
+    align-items: flex-end;
 }
 
 #notesContainer h3 {
@@ -850,7 +929,72 @@ dialog#settingsDialog::backdrop {
     transform: translateY(-1px);
 }
 
+#pauseDialog {
+    padding: 24px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    margin: auto;
+    background: #E0EDEF;
+    text-align: center;
+}
+
+#pauseDialog .dialog-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#pauseDialog .dialog-buttons button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#resumeBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#resumeBtn:hover {
+    background-color: #45a049;
+}
+
+#pauseRetryBtn {
+    background-color: #ff9800;
+    color: white;
+}
+
+#pauseRetryBtn:hover {
+    background-color: #e68900;
+}
+
+#pauseLevelsBtn,
+#pauseTownsBtn,
+#pauseHomeBtn {
+    background-color: #2196F3;
+    color: white;
+}
+
+#pauseLevelsBtn:hover,
+#pauseTownsBtn:hover,
+#pauseHomeBtn:hover {
+    background-color: #0b7dda;
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1);}
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

@@ -16,33 +16,33 @@
             align-items: center;
         }
 
-
-        /* .header {
+         .header {
             position: relative;
             width: 100%;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            justify-content: flex-start; */
-        /* padding: 10px 0; */
-        /* flex-wrap: wrap;
-        } */
-
-        /* #bear {
-            margin-left: 50px;
+            justify-content: center;
+            padding: 10px 0;
         }
 
+        .backHome {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
 
+        #bear {
+            position: relative;
+        }
         .level-banner {
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: absolute;
-            right: auto;
         }
 
         .level-banner img {
             position: relative;
-        } */
+        }
 
         main {
             flex: 1;
@@ -59,7 +59,7 @@
             flex-wrap: wrap;
             margin-bottom: 100px;
         }
-
+        
         .townCard {
             cursor: pointer;
             width: 400px;
@@ -88,20 +88,23 @@
         }
 
         #school img {
-                width: 113%;
+            width: 113%;
         }
+
         #Garden img {
-                margin-left: 30px;
+            margin-left: 30px;
         }
-        #Garden strong  {
-              margin-left: 30px;
+
+        #Garden strong {
+            margin-left: 30px;
         }
-         #Garden span  {
-              margin-left: 30px;
+
+        #Garden span {
+            margin-left: 30px;
         }
 
         #Barn img {
-                width: 94%;
+            width: 94%;
         }
 
         .townRange {
@@ -109,23 +112,19 @@
             opacity: 0.85;
         }
 
-        .backHome {
+        /* .backHome {
             margin-top: 1.5rem;
             text-align: center;
-        }
+        } */
 
-        .backHome a {
-            color: #fff;
-            text-decoration: underline;
-        }
     </style>
 </head>
 
 <body class="levels-page">
     <div class="header">
-        <a class="backHome" href="levels.html">
-            <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
-        </a>
+    <a class="backHome" href="levels.html">
+        <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
+    </a>
 
         <div class="level-banner">
             <img src="images/Banner.png" alt="Town Banner" width="600px" height="auto">

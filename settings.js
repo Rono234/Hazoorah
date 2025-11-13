@@ -112,12 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const enabled = timerToggle ? !!timerToggle.checked : (JSON.parse(localStorage.getItem('gameSettings') || '{}').timerEnabled ?? true);
     const stopwatch = document.querySelector('.stopwatch');
     const timerControls = document.getElementById('timerControls');
-    const startBtn = document.getElementById('startTimer');
     const pauseBtn = document.getElementById('pauseBtn');
     const settBtn = document.getElementById('settBtn');
     if (stopwatch) stopwatch.style.display = enabled ? '' : 'none';
-    // Keep the settings button visible at all times; only toggle Start/Pause visibility
-    if (startBtn) startBtn.style.display = enabled ? '' : 'none';
+    // Keep the settings button visible at all times; only toggle Pause visibility
     if (pauseBtn) pauseBtn.style.display = enabled ? '' : 'none';
     // Ensure the container remains visible so settings stays accessible
     if (timerControls) timerControls.style.display = '';
@@ -131,19 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Dialog buttons
-  saveBtn.addEventListener('click', () => {
-    saveSettings();
-    closeDialog();
-  });
-
-  closeBtn.addEventListener('click', () => {
-    closeDialog()
-  });
-
   // Settings button opens dialog
   settBtn.addEventListener('click', () => {
     openDialog();
+    // Dispatch settings opened event to pause timer
+    window.dispatchEvent(new CustomEvent('settings:opened'));
     // Try to play music if enabled when settings opened
     if (musicToggle.checked && bgAudio) {
       bgAudio.play().catch(() => {});
@@ -167,6 +157,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(() => {});
     });
   }
+
+  // Dialog buttons
+  saveBtn.addEventListener('click', () => {
+    saveSettings();
+    closeDialog();
+    // Dispatch settings closed event to resume timer
+    window.dispatchEvent(new CustomEvent('settings:closed'));
+  });
+
+  closeBtn.addEventListener('click', () => {
+    closeDialog();
+    // Dispatch settings closed event to resume timer
+    window.dispatchEvent(new CustomEvent('settings:closed'));
+  });
 
   // Initialize: load settings and try to play music
   loadSettings();

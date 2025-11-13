@@ -1,6 +1,10 @@
 // levels.js - Pagination logic for levels page
 (function() {
-    let currentPage = 1;
+    // Get town parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedTown = parseInt(urlParams.get('town')) || 1;
+    
+    let currentPage = selectedTown;
     const totalPages = 3;
     const levelsPerPage = 5;
     const totalLevels = totalPages * levelsPerPage;
@@ -67,33 +71,33 @@
         });
 
         // Update page indicator
-        pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+        // pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
 
         // Disable prev button on first page
-        prevBtn.disabled = currentPage === 1;
+        // prevBtn.disabled = currentPage === 1;
 
-        // Disable next button on last page
-        nextBtn.disabled = currentPage === totalPages;
+        // // Disable next button on last page
+        // nextBtn.disabled = currentPage === totalPages;
     }
 
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            showPage(currentPage - 1);
-        }
-    });
+    // prevBtn.addEventListener('click', () => {
+    //     if (currentPage > 1) {
+    //         showPage(currentPage - 1);
+    //     }
+    // });
 
-    nextBtn.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            showPage(currentPage + 1);
-        }
-    });
+    // nextBtn.addEventListener('click', () => {
+    //     if (currentPage < totalPages) {
+    //         showPage(currentPage + 1);
+    //     }
+    // });
 
     window.addEventListener('storage', () => {
         generateLevelBtns();
         showPage(currentPage);
     })
 
-    // Initialize first page
+    // Initialize with selected town page
     generateLevelBtns();
-    showPage(1);
+    showPage(selectedTown);
 })();
