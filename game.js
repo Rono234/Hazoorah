@@ -864,7 +864,7 @@ if (pauseTownsBtn) {
 const pauseHomeBtn = document.getElementById('pauseHomeBtn');
 if (pauseHomeBtn) {
   pauseHomeBtn.addEventListener('click', () => {
-    window.location.href = 'index.html';
+    window.location.href = 'home.html';
   });
 }
 
