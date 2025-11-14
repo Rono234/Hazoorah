@@ -1071,9 +1071,10 @@ dialog#levelEndDialog::before {
 #pauseDialog .dialog-buttons {
     display: flex;
     flex-direction: column;
-    position: relative;
-    left: 137px;
-   top: 155px;
+    position: absolute;
+    left: 24%;
+
+    top: 26%;
     gap: 12px;
     margin-bottom: 27px;
     width: 100%;
@@ -1136,6 +1137,27 @@ dialog#levelEndDialog::before {
 #pauseDialog #pauseHomeBtn:hover {
     background: #8E44AD;
     transform: scale(1.05);
+}
+
+#starsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 100%;
+}
+
+#starsContainer .star {
+    width: 19%;
+
+    opacity: 0;
+    animation: starPop 0.4s ease 0.2s both;
 }
 
 .stars-container .star:nth-child(2) {
