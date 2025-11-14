@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Select Town - Hazoorah</title>
+    <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="levelstyles.css">
+
+    <style>
+        @font-face {
+            font-family: 'Arial Rounded MT Bold';
+            src: url('fonts/arialroundedmtbold.ttf');
+        }
+
+        @font-face {
+            font-family: 'Jack Armstrong';
+            src: url('fonts/Jack Armstrong.ttf');
+        }
+
+        .towns-page {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* align-items: stretch; */
+        }
+
+        .towns-page header {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .towns-page #bear {
+            position: absolute;
+            left: 20px;
+            top: 30px;
+            transform: none;
+        }
+
+        .town-title {
+            padding-bottom: 30px;
+            color: rgb(30, 135, 135);
+            font-weight: bolder;
+            font-size: 30px;
+            font-family: 'Arial Rounded MT Bold';
+        }
+
+        .town-range {
+            color: rgb(135, 30, 30);
+            font-size: 15px;
+            font-family: 'Arial Rounded MT Bold';
+            padding-bottom: 4x;
+            opacity: 0.8;
+        }
+
+        .town-desc {
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            font-family: 'Arial Rounded MT Bold';
+            margin-right: 40px;
+        }
+
+        .towns-page .level-banner {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+        }
+
+        .towns-page #settBtn {
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            transform: none;
+        }
+
+        /* #bear {
+            margin-left: 50px;
+        }
+
+
+        .level-banner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            right: auto;
+        }
+
+        .level-banner img {
+            position: relative;
+        } */
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .towns-grid {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 100px;
+        }
+
+        .townCard {
+            cursor: pointer;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            color: #565656;
+            text-decoration: none;
+            font-size: 18px;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .townCard:hover {
+            transform: translateY(-6px);
+        }
+
+        .townCard img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        #school img {
+                width: 113%;
+        }
+
+        #Garden img {
+                margin-left: 30px;
+        }
+
+        #Garden strong  {
+              margin-left: 30px;
+        }
+
+         #Garden span  {
+              margin-left: 30px;
+        }
+
+        #Barn img {
+                width: 94%;
+        }
+
+        .townRange {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* .backHome {
+            margin-top: 1.5rem;
+            text-align: center;
+        } */
+
+        #startTownBtn {
+            background:#55cada; 
+            color: white; 
+            border:none; 
+            padding:10px 18px; 
+            border-radius:10px; 
+            cursor:pointer;
+        }
+
+        #startTownBtn:hover {
+            background: #b8eff7;
+        }
+
+        #cancelTownBtn {
+            background:#d8d7d7; 
+            color: black; 
+            border:none; 
+            padding:10px 18px; 
+            border-radius:10px; 
+            cursor:pointer;
+        }
+
+        #cancelTownBtn:hover {
+            background: rgb(237, 237, 237);
+        }
+    </style>
+</head>
+
+<body class="towns-page">
+    <div class="header">
+        <a class="backHome" href="levels.html">
+            <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
+        </a>
+
+        <div class="level-banner">
+            <img src="images/Banner.png" alt="Town Banner" width="600px" height="auto">
+            <span class="level" style="font-size: 28px;">SELECT TOWN</span>
+        </div>
+
+        <!-- BG MUSIC DISABLED
+        <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>
+         -->
+        <button id="settBtn" aria-label="Open settings">
+            <img src="images/settingBtn.png" alt="Settings" width="50px" height="40px">
+        </button>
+    </div>
+
+    <img class="bg" src="images/plainBackground.PNG" alt="Background">
+
+    <main>
+        <div class="towns-grid" aria-label="Select a town">
+            <a class="townCard" id="school" href="levels.html?town=1" aria-label="Enter Town 1 (Levels 1 to 5)">
+                <img src="images/School.png" alt="School">
+                <strong>School</strong>
+                <span class="townRange">Levels 1-5</span>
+            </a>
+            <a class="townCard" id="Garden" href="levels.html?town=2" aria-label="Enter Town 2 (Levels 6 to 10)">
+                <img src="images/Garden.png" alt="Garden">
+                <strong>Garden</strong>
+                <span class="townRange">Levels 1-5</span>
+            </a>
+            <a class="townCard" id="Barn" href="levels.html?town=3" aria-label="Enter Town 3 (Levels 11 to 15)">
+                <img src="images/Barn.PNG" alt="Barn">
+                <strong>Barn</strong>
+                <span class="townRange">Levels 1-5</span>
+            </a>
+        </div>
+
+        <script src="settings.js"></script>
+        <script src="towns.js"></script>
+    </main>
+</body>
+</html>

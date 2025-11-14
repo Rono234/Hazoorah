@@ -6,12 +6,13 @@
     <title>Hazoorah</title>
     <link rel="icon" type="image/x.icon" href="images/transparentBear.PNG">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="levelstyles.css">
 </head>
 
 <body>
     <div class="header">
         <!-- Enable Sound CTA (shown when autoplay is blocked) -->
-        <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>
+       <!--BG MUSIC DISABLED <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>-->
     </div>
 
     <img class="bg" src="images/plainBackground.PNG" alt="">
@@ -24,7 +25,7 @@
         <!-- Level Banner -->
         <section class="level-banner">
             <img src="images/Banner.png" alt="Level Banner" width="550">
-            <span class="level">LEVEL: 1</span>
+            <span class="level" id="banner">LEVEL: 1</span>
         </section>
     </div>
 
@@ -54,9 +55,9 @@
     </div>
 
     <div id="navigation">
-        <button id="prevBtn">⬅ Previous</button>
+        <!-- <button id="prevBtn">⬅ Previous</button> -->
         <span id="puzzleIndicator">Puzzle 1 of 3</span>
-        <button id="nextBtn">Next ➡</button>
+        <!-- <button id="nextBtn">Next ➡</button> -->
     </div>
 
     <div id="controls">
@@ -92,9 +93,6 @@
     </div>
 
     <div id="timerControls">
-        <button id="startTimer">
-            Start Timer
-        </button>
         <button id="pauseBtn">
             <img src="images/pauseBtn.png" alt="pause button" width="50" height="50">
         </button>
@@ -118,14 +116,15 @@
                     </div>
                 </div>
 
-                <!-- Background Music -->
+                <!-- Background Music DISABLED 
                 <div class="settings-group">
                     <label for="musicToggle">Background Music</label>
                     <div class="volume-control">
                         <input type="checkbox" id="musicToggle">
                         <input type="range" id="musicVolume" min="0" max="100" value="100">
                     </div>
-                </div>
+                </div> 
+                -->
                 
                 <!-- Hints -->
                 <div class="settings-group">
@@ -153,14 +152,47 @@
         </form>
     </dialog>
 
-    <!-- Background music (hidden player) -->
+    <!-- Background music DISABLED (hidden player)
     <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
-    <!-- Updated background track to forest.mp3; adjusted path to lowercase 'audio' folder -->
+
     <source src="audio/BGMusic/forest.mp3" type="audio/mpeg">
     Your browser does not support audio playback.
-    </audio>
+    </audio> -->
 
+
+    <!-- Level End Screen -->
+    <dialog id="levelEndDialog" class="level-end-dialog">
+        <form method="dialog">
+            <h1 id ='levelEndTitle'>Level Complete!</h1>
+             <div id="starsContainer" class="stars-container"></div>
+            <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
+            
+            <div class="dialog-buttons">
+                <button type="button" id="endBtn" style="display:none;">Levels</button>
+                <button type="button" id="retryBtn" style="display:none;">Retry Level</button>
+                <button type="button" id="nextLevelBtn" style="display:none";>Next Level</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Pause Dialog -->
+    <dialog id="pauseDialog" class="level-end-dialog">
+        <form method="dialog">
+            <h1>Game Paused</h1>
+
+            <div class="dialog-buttons">
+                <button type="button" id="resumeBtn">Resume</button>
+                <button type="button" id="pauseRetryBtn">Retry Level</button>
+                <button type="button" id="pauseLevelsBtn">Levels</button>
+                <button type="button" id="pauseTownsBtn">Towns</button>
+                <button type="button" id="pauseHomeBtn">Home</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="puzzleData.js"></script>
     <script src="game.js"></script>
+    <script src="puzzle.js"></script>
     <script src="notes.js"></script>
     <script src="settings.js"></script>
     <script src="soundfx.js"></script>
