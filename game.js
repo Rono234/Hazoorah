@@ -492,7 +492,7 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
 
     console.log('Level complete! Attempts left:', attemptsLeft, 'Stars earned:', starsEarned); // Debug
 
-    screen.style.backgroundImage = "url('images/Success.png')";
+    screen.style.backgroundImage = "url('images/Success.PNG')";
     title.textContent = ' LEVEL COMPLETE ';
     
     // Save progress with stars
@@ -522,7 +522,7 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   } else {
 
     // Failure state
-    screen.style.backgroundImage = "url('images/Failure.png')";
+    screen.style.backgroundImage = "url('images/Failure.PNG')";
     title.textContent = 'LEVEL FAILED';
 
 
@@ -876,4 +876,5 @@ if (pauseHomeBtn) {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadPuzzleURL();
+
 });
