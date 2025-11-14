@@ -8,13 +8,13 @@
     },
     2: {
       name: 'Garden',
-      range: 'Levels 6–10',
+      range: 'Levels 1–5',
       image: 'images/Garden.png',
       desc: 'Gardener Haroldene’s flowers were destroyed after heavy rain fall, but they can still be saved! Help Haroldene and Mayor Harold Bearington plant the flowers back in the correct spot before it’s too late!'
     },
     3: {
       name: 'Barn',
-      range: 'Levels 11–15',
+      range: 'Levels 1–5',
       image: 'images/Barn.PNG',
       desc: 'Farmer Jerrold is getting ready for the growing season, but he has more things than time! Help Jerrold to organize his farm and prepare for planting.'
     }
@@ -49,13 +49,13 @@
           <img class="town-image" alt="" width="50%" height="50%" style="object-fit: contain; border-radius: 12px;">
           <div class="text">
             <h2 id="townIntroTitle" class="town-title">Town</h2>
-            <div class="town-range" style="opacity:.8; margin-bottom:6px;">Levels</div>
+            <div class="town-range">Levels</div>
             <p class="town-desc" style="max-width: 540px; line-height: 1.4;"></p>
           </div>
         </div>
         <div class="dialog-buttons" style="margin-top:0px; display:flex; gap:12px; justify-content:flex-end;">
           <button type="button" id="cancelTownBtn">Cancel</button>
-          <button type="button" id="startTownBtn" style="background:#FFC517; color:#fff; border:none; padding:10px 18px; border-radius:10px; cursor:pointer;">Start Town</button>
+          <button type="button" id="startTownBtn">Start Town</button>
         </div>
       </form>
     `;

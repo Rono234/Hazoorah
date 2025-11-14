@@ -226,12 +226,12 @@ const puzzles = [
       'The axle and lever are not next to each other.'
     ],
     items: [
-      { id: 'wheels', img: 'images/purple-roses.PNG' },
-      { id: 'axles', img: 'images/white-roses.PNG' },
-      { id: 'engines', img: 'images/pink-daisies.PNG' },
-      { id: 'seats', img: 'images/orange-daisies.PNG' },
-      { id: 'levers', img: 'images/red-dahlias.PNG' },
-      { id: 'exhausts', img: 'images/blue-dahlias.PNG' }
+      { id: 'wheels', img: 'images/1_Tractor.PNG' },
+      { id: 'axles', img: 'images/2_Tractor.PNG' },
+      { id: 'engines', img: 'images/3_Tractor.PNG' },
+      { id: 'seats', img: 'images/4_Tractor.PNG' },
+      { id: 'levers', img: 'images/5_Tractor.PNG' },
+      { id: 'exhausts', img: 'images/6_Tractor.PNG' }
     ],
     correctOrder: ['wheels','axles' ,'engines', 'seats', 'levers','exhausts']
   },

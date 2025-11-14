@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Music volume slider
+// Music volume slider
   musicVolume.addEventListener('input', () => {
     if (bgAudio) bgAudio.volume = sliderToVolume(musicVolume.value);
   });
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dispatch settings closed event to resume timer
     window.dispatchEvent(new CustomEvent('settings:closed'));
   });
-
+  
   // Initialize: load settings and try to play music
   loadSettings();
   if (bgAudio && musicToggle.checked) {

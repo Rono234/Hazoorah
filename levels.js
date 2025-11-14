@@ -3,8 +3,8 @@
     // Get town parameter from URL
     const urlParams = new URLSearchParams(window.location.search);
     const selectedTown = parseInt(urlParams.get('town')) || 1;
-    
-    let currentPage = selectedTown;
+
+    let currentPage = 1;
     const totalPages = 3;
     const levelsPerPage = 5;
     const totalLevels = totalPages * levelsPerPage;
@@ -76,7 +76,7 @@
         // Disable prev button on first page
         // prevBtn.disabled = currentPage === 1;
 
-        // // Disable next button on last page
+        // Disable next button on last page
         // nextBtn.disabled = currentPage === totalPages;
     }
 
@@ -97,7 +97,7 @@
         showPage(currentPage);
     })
 
-    // Initialize with selected town page
+    // Initialize first page
     generateLevelBtns();
     showPage(selectedTown);
 })();

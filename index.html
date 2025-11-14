@@ -30,8 +30,7 @@
     </div>
 
     <div class="stopwatch">
-        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit'
-            id="seconds">00</span>
+        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit' id="seconds">00</span>
     </div>
 
     <div id="clues">
@@ -56,9 +55,9 @@
     </div>
 
     <div id="navigation">
-        <button id="prevBtn">⬅ Previous</button>
+        <!-- <button id="prevBtn">⬅ Previous</button> -->
         <span id="puzzleIndicator">Puzzle 1 of 3</span>
-        <button id="nextBtn">Next ➡</button>
+        <!-- <button id="nextBtn">Next ➡</button> -->
     </div>
 
     <div id="controls">
@@ -79,7 +78,7 @@
         </div>
     </div>
 
-    <div id="buttons">
+    <div id = "buttons">
         <button id="clearBtn">
             <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
         </button>
@@ -87,7 +86,7 @@
         <button id="hintBtn">
             <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
         </button>
-
+        
         <button id="shufBtn">
             <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
         </button>
@@ -105,7 +104,7 @@
     <dialog id="settingsDialog">
         <form method="dialog">
             <h3>Settings</h3>
-
+        
             <!-- Settings Options -->
             <div class="settings-content">
                 <!-- Sound Effects -->
@@ -125,7 +124,7 @@
                         <input type="range" id="musicVolume" min="0" max="100" value="100">
                     </div>
                 </div>
-
+                
                 <!-- Hints -->
                 <div class="settings-group">
                     <label for="hintToggle">Hints</label>
@@ -143,7 +142,7 @@
                 </div>
                 <h4>*Adjust volume bar after turning audio on</h4>
             </div>
-
+        
             <!-- Dialog Buttons -->
             <div class="dialog-buttons">
                 <button type="button" id="saveSettingsBtn">Save</button>
@@ -154,21 +153,21 @@
 
     <!-- Background music (hidden player) -->
     <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
-        <!-- Updated background track to forest.mp3; adjusted path to lowercase 'audio' folder -->
-        <source src="audio/BGMusic/forest.mp3" type="audio/mpeg">
-        Your browser does not support audio playback.
+    <!-- Updated background track to forest.mp3; adjusted path to lowercase 'audio' folder -->
+    <source src="audio/BGMusic/forest.mp3" type="audio/mpeg">
+    Your browser does not support audio playback.
     </audio>
 
     <!-- Level End Screen -->
     <dialog id="levelEndDialog" class="level-end-dialog">
         <form method="dialog">
-            <h1 id='levelEndTitle'>Level Complete!</h1>
+            <h1 id ='levelEndTitle'>Level Complete!</h1>
             <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
-
+            
             <div class="dialog-buttons">
                 <button type="button" id="endBtn" style="display:none;">Levels</button>
                 <button type="button" id="retryBtn" style="display:none;">Retry Level</button>
-                <button type="button" id="nextLevelBtn" style="display:none" ;>Next Level</button>
+                <button type="button" id="nextLevelBtn" style="display:none";>Next Level</button>
             </div>
         </form>
     </dialog>
@@ -189,11 +188,10 @@
     </dialog>
 
     <script src="puzzleData.js"></script>
-    <script src="puzzle.js"></script>
     <script src="game.js"></script>
+    <script src="puzzle.js"></script>
     <script src="notes.js"></script>
     <script src="settings.js"></script>
     <script src="soundfx.js"></script>
 </body>
-
 </html>

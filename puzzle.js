@@ -19,33 +19,10 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   const h1 = document.querySelector('h1');
   const cluesDiv = document.getElementById('clues');
   const itemTray = document.getElementById('itemTray');
-  // const startTimer = document.getElementById('startTimer');
   const pauseBtn = document.getElementById('pauseBtn');
   let gamePaused = false;
 
-  // startTimer.disabled = false;
   pauseBtn.disabled = false;
-
-  // startTimer.onclick = () => {
-  //   if (!timerFeatureEnabled) return; // guard if timer hidden
-  //   timer = true;
-  //   clearBtn.disabled = false;
-  //   // Only enable hint if user setting allows
-  //   const settings = JSON.parse(localStorage.getItem('gameSettings') || '{}');
-  //   const hintEnabled = settings.hintEnabled ?? false;
-  //   hintBtn.disabled = !hintEnabled;
-  //   shufBtn.disabled = false;
-  //   pauseBtn.disabled = false;
-
-  //   const overlay = document.querySelector('.overlay');
-  //   if (overlay) {
-  //     overlay.remove();
-  //   }
-
-  //   if(!timerInterval) {
-  //     timerInterval = setInterval(stopwatch, 1000);
-  //   }
-  // };
 
   pauseBtn.onclick = () => {
     if (gamePaused) {
@@ -120,7 +97,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
   if (storyDiv) {
     storyDiv.innerHTML = story
-      ? `<p><strong></strong></p><p">${story}</p>`
+      ? `<p><strong></strong></p><p style="font-style: italic; margin: 6px 0 12px;">${story}</p>`
       : '<p><strong>Story Sentence:</strong></p>';
   }
   if (cluesContentDiv) {
@@ -206,7 +183,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
         clearInterval(timerInterval);
         timerInterval = null;
       }
-      submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
+      submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = shufBtn.disabled = true;
       
       const currentLevel = currentPuzzleIndex + 1;
       showLevelEndMessage(true, currentLevel, attemptsLeft);
@@ -228,7 +205,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
         }
         
         setFeedback('❌ Out of attempts!', 'darkred');
-        submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = startTimer.disabled = shufBtn.disabled = true;
+        submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = shufBtn.disabled = true;
         
         const currentLevel = currentPuzzleIndex + 1;
         showLevelEndMessage(false, currentLevel, attemptsLeft);

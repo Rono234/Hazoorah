@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="levelstyles.css">
+
     <style>
         body.levels-page {
             display: flex;
@@ -61,16 +62,15 @@
     </style>
 </head>
 
-
 <body class="levels-page">
-  <div class="header">
-    <a class="backHome" href="towns.html">
-        <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
-    </a>
+    <div class="header">
+        <a class="backHome" href="towns.html">
+            <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
+        </a>
 
         <div class="level-banner">
             <img src="images/Banner.png" alt="Town Banner" width="600px" height="auto">
-            <span class="level" style="font-size: 28px;">SELECT TOWN</span>
+            <span class="level" style="font-size: 28px;">SELECT LEVEL</span>
         </div>
 
         <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>
@@ -79,7 +79,6 @@
         </button>
     </div>
 
-
     <img class="bg" src="images/plainBackground.PNG" alt="Background">
 
     <div class="headerContainer" style="align-items: center;">
@@ -87,9 +86,6 @@
     </div>
 
     <main id="levelsContainer">
-     
-        <!-- Page navigation -->
-       
         <div id="levelsGrid" aria-label="Select a level">
             <div id="page1" class="page" aria-label="Page 1: Levels 1-5"></div>
             <div id="page2" class="page" aria-label="Page 2: Levels 6-10"></div>
@@ -98,7 +94,6 @@
     </main>
 
     <script src="puzzle.js"></script>
-    <!-- <script src="game.js"></script> -->
     <script src="soundfx.js"></script>
     <script src="settings.js"></script>
     <script src="levels.js"></script>

@@ -9,40 +9,91 @@
     <link rel="stylesheet" href="levelstyles.css">
 
     <style>
-        body.levels-page {
+        @font-face {
+            font-family: 'Arial Rounded MT Bold';
+            src: url('fonts/arialroundedmtbold.ttf');
+        }
+
+        @font-face {
+            font-family: 'Jack Armstrong';
+            src: url('fonts/Jack Armstrong.ttf');
+        }
+
+        .towns-page {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            align-items: center;
+            /* align-items: stretch; */
         }
 
-         .header {
+        .towns-page header {
             position: relative;
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 10px 0;
+            z-index: 10;
         }
 
-        .backHome {
+        .towns-page #bear {
             position: absolute;
             left: 20px;
-            top: 20px;
+            top: 30px;
+            transform: none;
         }
 
-        #bear {
-            position: relative;
+        .town-title {
+            padding-bottom: 30px;
+            color: rgb(30, 135, 135);
+            font-weight: bolder;
+            font-size: 30px;
+            font-family: 'Arial Rounded MT Bold';
         }
+
+        .town-range {
+            color: rgb(135, 30, 30);
+            font-size: 15px;
+            font-family: 'Arial Rounded MT Bold';
+            padding-bottom: 4x;
+            opacity: 0.8;
+        }
+
+        .town-desc {
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            font-family: 'Arial Rounded MT Bold';
+            margin-right: 40px;
+        }
+
+        .towns-page .level-banner {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+        }
+
+        .towns-page #settBtn {
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            transform: none;
+        }
+
+        /* #bear {
+            margin-left: 50px;
+        }
+
+
         .level-banner {
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: absolute;
+            right: auto;
         }
 
         .level-banner img {
             position: relative;
-        }
+        } */
 
         main {
             flex: 1;
@@ -59,7 +110,7 @@
             flex-wrap: wrap;
             margin-bottom: 100px;
         }
-        
+
         .townCard {
             cursor: pointer;
             width: 400px;
@@ -88,23 +139,23 @@
         }
 
         #school img {
-            width: 113%;
+                width: 113%;
         }
 
         #Garden img {
-            margin-left: 30px;
+                margin-left: 30px;
         }
 
-        #Garden strong {
-            margin-left: 30px;
+        #Garden strong  {
+              margin-left: 30px;
         }
 
-        #Garden span {
-            margin-left: 30px;
+         #Garden span  {
+              margin-left: 30px;
         }
 
         #Barn img {
-            width: 94%;
+                width: 94%;
         }
 
         .townRange {
@@ -117,14 +168,39 @@
             text-align: center;
         } */
 
+        #startTownBtn {
+            background:#55cada; 
+            color: white; 
+            border:none; 
+            padding:10px 18px; 
+            border-radius:10px; 
+            cursor:pointer;
+        }
+
+        #startTownBtn:hover {
+            background: #b8eff7;
+        }
+
+        #cancelTownBtn {
+            background:#d8d7d7; 
+            color: black; 
+            border:none; 
+            padding:10px 18px; 
+            border-radius:10px; 
+            cursor:pointer;
+        }
+
+        #cancelTownBtn:hover {
+            background: rgb(237, 237, 237);
+        }
     </style>
 </head>
 
-<body class="levels-page">
+<body class="towns-page">
     <div class="header">
-    <a class="backHome" href="levels.html">
-        <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
-    </a>
+        <a class="backHome" href="levels.html">
+            <img id="bear" src="images/transparentBear.PNG" alt="Hazoorah Logo" width="120px" height="120px">
+        </a>
 
         <div class="level-banner">
             <img src="images/Banner.png" alt="Town Banner" width="600px" height="auto">
@@ -149,12 +225,12 @@
             <a class="townCard" id="Garden" href="levels.html?town=2" aria-label="Enter Town 2 (Levels 6 to 10)">
                 <img src="images/Garden.png" alt="Garden">
                 <strong>Garden</strong>
-                <span class="townRange">Levels 6-10</span>
+                <span class="townRange">Levels 1-5</span>
             </a>
             <a class="townCard" id="Barn" href="levels.html?town=3" aria-label="Enter Town 3 (Levels 11 to 15)">
                 <img src="images/Barn.PNG" alt="Barn">
                 <strong>Barn</strong>
-                <span class="townRange">Levels 11-15</span>
+                <span class="townRange">Levels 1-5</span>
             </a>
         </div>
 
@@ -162,5 +238,4 @@
         <script src="towns.js"></script>
     </main>
 </body>
-
 </html>

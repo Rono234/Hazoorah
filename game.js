@@ -540,6 +540,62 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
 //================================================================================
 // Loads puzzle data, updates UI, manages prev/next navigation
 //================================================================================
+function startTimer() {
+  if (timerInterval) return;
+  timer = true;
+
+  timerInterval = setInterval(() => {
+    if (!timer) return;
+
+    second++;
+    if (second === 60) {
+      second = 0;
+      minute++;
+    }
+    if (minute === 60) {
+      minute = 0;
+      hour++;
+    }
+
+    const hourElement = document.getElementById('hours');
+    const minuteElement = document.getElementById('minutes');
+    const secondElement = document.getElementById('seconds');
+
+    if (hourElement) hourElement.textContent = hour.toString().padStart(2, '0');
+    if (minuteElement) minuteElement.textContent = minute.toString().padStart(2, '0');
+    if (secondElement) secondElement.textContent = second.toString().padStart(2, '0');
+  }, 1000);
+}
+
+function pauseTimer() {
+  timer = false;
+  // if (timerInterval) {
+  //   clearInterval(timerInterval);
+  //   timerInterval = null;
+  // }
+}
+
+function resumeTimer() {
+  // if (!timerInterval) startTimer();
+  timer = true;
+  // startTimer();
+}
+
+function resetTimer() {
+  // pauseTimer()
+
+  hour = 0;
+  minute = 0;
+  second = 0;
+
+  const h = document.getElementById('hours');
+  const m = document.getElementById('minutes');
+  const s = document.getElementById('seconds');
+
+  if (h) h.textContent = '00';
+  if (m) m.textContent = '00';
+  if (s) s.textContent = '00';
+}
 
 /**
  * Loads a specific puzzle by index
@@ -556,6 +612,7 @@ function loadPuzzle(index) {
 
   // Calculate town and level
   const totalLevels = puzzles.length;
+  const levelsPerTown = Math.ceil(totalLevels / 3);
   const town = Math.floor(index / 5) + 1;
   const levelInTown = (index % 5) + 1;
 
@@ -563,7 +620,7 @@ function loadPuzzle(index) {
   const indicator = document.getElementById('puzzleIndicator');
   console.log('DEBUG levelInTown:', levelInTown);
   console.log('DEBUG puzzles:', puzzles);
-  if (indicator) indicator.textContent = `Puzzle ${levelInTown} of ${puzzles.length / 3}`;
+  if (indicator) indicator.textContent = `Puzzle ${levelInTown} of ${levelsPerTown}`;
 
   // Get puzzle data
   const puzzle = puzzles[index];
@@ -597,48 +654,13 @@ function loadPuzzle(index) {
   }
 
   // Reset timer
-  hour = 0;
-  minute = 0;
-  second = 0;
-
-  const hourElement = document.getElementById('hours');
-  const minuteElement = document.getElementById('minutes');
-  const secondElement = document.getElementById('seconds');
-
-  if (hourElement) hourElement.textContent = '00';
-  if (minuteElement) minuteElement.textContent = '00';
-  if (secondElement) secondElement.textContent = '00';
-
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-
-  // Start timer automatically if timer feature is enabled
   if (timerFeatureEnabled) {
-    timer = true;
-    timerInterval = setInterval(() => {
-      if (timer) {
-        second++;
-        if (second === 60) {
-          second = 0;
-          minute++;
-        }
-        if (minute === 60) {
-          minute = 0;
-          hour++;
-        }
-        
-        if (hourElement) hourElement.textContent = hour.toString().padStart(2, '0');
-        if (minuteElement) minuteElement.textContent = minute.toString().padStart(2, '0');
-        if (secondElement) secondElement.textContent = second.toString().padStart(2, '0');
-      }
-    }, 1000);
+    if (currentPuzzleIndex !== index) resetTimer();
+    startTimer()
   }
-
-  // Update navigation buttons
-  document.getElementById('prevBtn').disabled = index === 0;
-  document.getElementById('nextBtn').disabled = index === puzzles.length - 1;
+  // // Update navigation buttons
+  // document.getElementById('prevBtn').disabled = index === 0;
+  // document.getElementById('nextBtn').disabled = index === puzzles.length - 1;
 }
 
 //================================================================================
@@ -647,13 +669,13 @@ function loadPuzzle(index) {
 // Previous/Next puzzle navigation
 //================================================================================
 
-document.getElementById('prevBtn').addEventListener('click', () => {
-  if (currentPuzzleIndex > 0) loadPuzzle(--currentPuzzleIndex);
-});
+// document.getElementById('prevBtn').addEventListener('click', () => {
+//   if (currentPuzzleIndex > 0) loadPuzzle(--currentPuzzleIndex);
+// });
 
-document.getElementById('nextBtn').addEventListener('click', () => {
-  if (currentPuzzleIndex < puzzles.length - 1) loadPuzzle(++currentPuzzleIndex);
-});
+// document.getElementById('nextBtn').addEventListener('click', () => {
+//   if (currentPuzzleIndex < puzzles.length - 1) loadPuzzle(++currentPuzzleIndex);
+// });
 
 //================================================================================
 // ⏸️ PAUSE DIALOG HANDLERS
@@ -670,10 +692,8 @@ const pauseBtn = document.getElementById('pauseBtn');
 if (pauseBtn) {
   pauseBtn.addEventListener('click', () => {
     // Pause timer
-    if (timerFeatureEnabled && timer) {
-      timer = false;
-    }
-    
+    pauseTimer()
+
     // Open dialog
     if (pauseDialog && typeof pauseDialog.showModal === 'function') {
       pauseDialog.showModal();
@@ -690,12 +710,10 @@ if (resumeBtn) {
     // Close dialog first
     if (pauseDialog) {
       pauseDialog.close();
-         if (timerFeatureEnabled && timerInterval) {
-      timer = true;
     }
 
-    }
-    
+    resumeTimer()
+
     // Remove overlay if it exists
     const overlay = document.querySelector('.overlay');
     if (overlay) {
@@ -726,7 +744,10 @@ if (resumeBtn) {
     }
     
     // Resume timer immediately
- 
+    if (timerFeatureEnabled) {
+        timer = true;
+        startTimer();
+      }
   });
 }
 
