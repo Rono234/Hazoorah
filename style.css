@@ -1034,95 +1034,108 @@ dialog#levelEndDialog::before {
 }
 
 #pauseDialog {
-    padding: 24px;
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-    max-width: 400px;
-    margin: auto;
-    background: #E0EDEF;
+    border-radius: 0;
+    padding: 0;
+    max-width: 600px;
+    width: auto;
+    height: auto;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: relative;
     text-align: center;
-    font-family: 'Arial Rounded MT Bold';
+    overflow: visible;
+}
+
+#pauseDialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+/* Match the structure of level end dialog */
+#pauseDialog .dialog-content {
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#pauseDialog h2 {
+    margin: 1rem 0;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 #pauseDialog .dialog-buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+    position: relative;
+    left: 137px;
+   top: 155px;
+    gap: 12px;
+    margin-bottom: 27px;
+    width: 100%;
+    max-width: 300px;
 }
 
-#pauseDialog .dialog-buttons button {
+#pauseDialog button {
     padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 8px;
+    font-size: 30px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
+    font-weight: bold;
     transition: all 0.3s ease;
-}
-
-#resumeBtn {
-    background-color: #9ACF7C;
+    box-shadow: 2px 5px 10px #74777a;
+    font-family: "Arial Rounded MT Bold";
     color: white;
 }
 
-#resumeBtn:hover {
-    background-color: #b8f098;
+#pauseDialog #resumeBtn {
+    background: #9ACF7C;
 }
 
-#pauseRetryBtn {
-    background-color: #FFC517;
-    color: white;
+#pauseDialog #resumeBtn:hover {
+    background: #69c733;
+    transform: scale(1.05);
 }
 
-#pauseRetryBtn:hover {
-    background-color: #ffd761;
+#pauseDialog #pauseRetryBtn {
+    background: #D26665;
 }
 
-#pauseLevelsBtn,
-#pauseTownsBtn,
-#pauseHomeBtn {
-    background-color: #D26665;
-    color: white;
+#pauseDialog #pauseRetryBtn:hover {
+    background: #a83a38;
+    transform: scale(1.05);
 }
 
-#pauseLevelsBtn:hover,
-#pauseTownsBtn:hover,
-#pauseHomeBtn:hover {
-    background-color: #ff8e8c;
+#pauseDialog #pauseLevelsBtn {
+    background: #FFC517;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+#pauseDialog #pauseLevelsBtn:hover {
+    background: #d6a410;
+    transform: scale(1.05);
 }
 
-/* Update the stars-container styles (around line 800) */
-.stars-container {
-    position: absolute;
-    top: 168px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 20px 0;
+#pauseDialog #pauseTownsBtn {
+    background: #5DADE2;
 }
 
-.stars-container .star {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
+#pauseDialog #pauseTownsBtn:hover {
+    background: #3498DB;
+    transform: scale(1.05);
 }
 
-.stars-container .star:nth-child(1) {
-    animation: starPop 0.4s ease 0.2s both;
+#pauseDialog #pauseHomeBtn {
+    background: #9B59B6;
+}
+
+#pauseDialog #pauseHomeBtn:hover {
+    background: #8E44AD;
+    transform: scale(1.05);
 }
 
 .stars-container .star:nth-child(2) {

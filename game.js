@@ -759,11 +759,24 @@ const pauseBtn = document.getElementById('pauseBtn');
 if (pauseBtn) {
   pauseBtn.addEventListener('click', () => {
     // Pause timer
-    pauseTimer()
+    pauseTimer();
 
-    // Open dialog
-    if (pauseDialog && typeof pauseDialog.showModal === 'function') {
-      pauseDialog.showModal();
+    // Apply custom styling to pause dialog
+    if (pauseDialog) {
+      // Set background image
+      pauseDialog.style.backgroundImage = "url('images/PauseDialog.PNG')";
+      pauseDialog.style.backgroundSize = "contain";
+      pauseDialog.style.backgroundPosition = "center";
+      pauseDialog.style.backgroundRepeat = "no-repeat";
+      
+      // Set dialog dimensions to match image (adjust these values to your image size)
+      pauseDialog.style.width = "auto";
+      pauseDialog.style.height = "600px";
+      
+      // Open dialog
+      if (typeof pauseDialog.showModal === 'function') {
+        pauseDialog.showModal();
+      }
     }
   });
 }
