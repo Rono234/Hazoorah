@@ -6,12 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveBtn = document.getElementById('saveSettingsBtn');
   const soundToggle = document.getElementById('soundToggle');
   const soundVolume = document.getElementById('soundVolume');
-  /* BG MUSIC DISABLED
   const musicToggle = document.getElementById('musicToggle');
   const musicVolume = document.getElementById('musicVolume');
   const enableSoundBtn = document.getElementById('enableSoundBtn');
   const bgAudio = document.getElementById('bgMusic');
-  */
   const hintToggle = document.getElementById('hintToggle');
   const timerToggle = document.getElementById('timerToggle');
 
@@ -26,13 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     soundToggle.checked = settings.soundEnabled ?? true;
     soundVolume.value = settings.soundVolume ?? 100;
     soundVolume.disabled = !soundToggle.checked;
-
-    /* BG MUSIC DISABLED
     musicToggle.checked = settings.musicEnabled ?? true;
     musicVolume.value = settings.musicVolume ?? 100;
     musicVolume.disabled = !musicToggle.checked;
-    */
-
     // Default hints OFF until user enables (per requirement)
     if (hintToggle) hintToggle.checked = settings.hintEnabled ?? false;
     applyHintSetting();
@@ -49,10 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ...prev,
       soundEnabled: soundToggle.checked,
       soundVolume: soundVolume.value,
-      /* BG MUSIC DISABLED
       musicEnabled: musicToggle.checked,
       musicVolume: musicVolume.value,
-      */
       hintEnabled: hintToggle ? hintToggle.checked : false,
       timerEnabled: timerToggle ? timerToggle.checked : true
     }));
@@ -91,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     soundVolume.disabled = !soundToggle.checked;
   });
 
-  /* BG MUSIC DISABLED
   musicToggle.addEventListener('change', () => {
     musicVolume.disabled = !musicToggle.checked;
     if (!musicToggle.checked) {
@@ -100,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bgAudio && bgAudio.play().catch(() => {});
     }
   });
-  */
 
   // Hint toggle gating
   function applyHintSetting() {
@@ -151,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 // Music volume slider
-/* BG MUSIC DISABLED
   musicVolume.addEventListener('input', () => {
     if (bgAudio) bgAudio.volume = sliderToVolume(musicVolume.value);
   });
@@ -168,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(() => {});
     });
   }
-*/
+
   // Dialog buttons
   saveBtn.addEventListener('click', () => {
     saveSettings();
@@ -185,8 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize: load settings and try to play music
   loadSettings();
-
-  /* BG MUSIC DISABLED
   if (bgAudio && musicToggle.checked) {
     bgAudio.volume = sliderToVolume(musicVolume.value);
     bgAudio.play().then(() => {
@@ -196,10 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showEnableSoundCTA();
       installGestureFallback();
     });
-    
   }
-  */
-
   // Ensure hint gating applies on load (after initial puzzle render).
   applyHintSetting();
   // Ensure timer visibility applies on load
@@ -279,7 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(dialog);
     }
 
-    /* BG MUSIC DISABLED
     // Inject bg music if missing
     if (!document.getElementById('bgMusic')) {
       const audio = document.createElement('audio');
@@ -296,8 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audio.appendChild(src);
 
       document.body.appendChild(audio);
-    }*/
-
+    }
   }
 
   function wireSettingsEvents() {
@@ -371,7 +353,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el[prop] = val;
   }
 
-  /* BG MUSIC DISABLED
   function applyAudioSettings() {
     const bg = document.getElementById('bgMusic');
     const musicEnabled = !!document.getElementById('musicToggle')?.checked;
@@ -389,6 +370,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       bg.pause();
     }
-  }*/
- 
+  }
 })();

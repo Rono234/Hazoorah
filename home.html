@@ -98,21 +98,10 @@
         </div>
 
         <div class="menu">
-            <button id="newGameBtn">New Game</button>
+            <button id="newGameBtn" onclick="location.href='newGame.html'">New Game</button>
             <button id="startBtn" onclick="location.href='start.html'">Resume</button>
             <button id="levelsBtn" onclick="location.href='levels.html'">Levels</button>
         </div>
 
-        <!-- Confirm New Game Dialog -->
-        <dialog id="confirmNewGameDialog" style="padding: 30px; border-radius: 15px; border: 2px solid #D26665; font-family: 'MyCustomFont', sans-serif; text-align: center; max-width: 400px;">
-            <h2 style="color: #D26665; margin-top: 0;">⚠️ Reset Progress?</h2>
-            <p style="font-size: 18px; margin: 20px 0;">Starting a new game will erase all your current progress. Are you sure?</p>
-            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
-                <button id="confirmYesBtn" style="background-color: #D26665; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">Yes, Reset</button>
-                <button id="confirmNoBtn" style="background-color: #888; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">No, Cancel</button>
-            </div>
-        </dialog>
-
-        <script src="newGameBtn.js"></script>
     </body>
 </html>

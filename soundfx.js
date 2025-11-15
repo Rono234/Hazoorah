@@ -34,12 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.playSfx = playSfx;
 
-  // 🔊 Play fail sound
-  function playFailSound() {
-    playSfx('audio/SoundFX/Fail.mp3');
-  }
-  window.playFailSound = playFailSound;
-
   // Play a pickup sound whenever a puzzle item starts being dragged
   const PICKUP_SFX_PATH = 'audio/SoundFX/PickUpItem.mp3';
   document.addEventListener('dragstart', (e) => {

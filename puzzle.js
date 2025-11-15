@@ -24,25 +24,25 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
 
   pauseBtn.disabled = false;
 
-  // pauseBtn.onclick = () => {
-  //   if (gamePaused) {
-  //       gamePaused = false;
-  //       pauseBtn.querySelector('img').src = 'images/pauseBtn.png';
-  //       timer = true;
-  //       timerInterval = setInterval(stopwatch,1000);
-  //       document.querySelector('.overlay')?.remove();
-  //       enableButtons();
-  //   } else {
-  //       gamePaused = true;
-  //       pauseBtn.querySelector('img').src = 'images/pauseBtn.png';
-  //       timer = false;
-  //       clearInterval(timerInterval);
-  //       disableButtons();
-  //       const overlay = document.createElement('div');
-  //       overlay.className = 'overlay';
-  //       document.body.appendChild(overlay);
-  //   }
-  // }
+  pauseBtn.onclick = () => {
+    if (gamePaused) {
+        gamePaused = false;
+        pauseBtn.querySelector('img').src = 'images/pauseBtn.png';
+        timer = true;
+        timerInterval = setInterval(stopwatch,1000);
+        document.querySelector('.overlay')?.remove();
+        enableButtons();
+    } else {
+        gamePaused = true;
+        pauseBtn.querySelector('img').src = 'images/pauseBtn.png';
+        timer = false;
+        clearInterval(timerInterval);
+        disableButtons();
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+    }
+  }
 
   function enableButtons() {
     ['submitBtn', 'clearBtn', 'hintBtn', 'shufBtn'].forEach(id => {
@@ -176,7 +176,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
     if (JSON.stringify(userOrder) === JSON.stringify(correctOrder)) {
       setFeedback('✅ Correct! You solved the puzzle!', 'green');
       if (window.playSfx) {
-        window.playSfx('audio/SoundFX/success2.mp3');
+        window.playSfx('audio/SoundFX/Ding.mp3');
       }
 
       if(timerInterval) {
@@ -199,11 +199,6 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
       if (attemptsLeft > 0) {
         setFeedback('❌ Not quite right! Try again.', 'red');
       } else {
-        // Play fail sound using playSfx directly
-        if (window.playSfx) {
-          window.playSfx('audio/SoundFX/failAudio.wav');
-        }
-        
         if(timerInterval) {
             clearInterval(timerInterval);
             timerInterval = null;

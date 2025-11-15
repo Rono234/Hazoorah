@@ -12,7 +12,7 @@
 <body>
     <div class="header">
         <!-- Enable Sound CTA (shown when autoplay is blocked) -->
-       <!--BG MUSIC DISABLED <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>-->
+        <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>
     </div>
 
     <img class="bg" src="images/plainBackground.PNG" alt="">
@@ -116,15 +116,14 @@
                     </div>
                 </div>
 
-                <!-- Background Music DISABLED 
+                <!-- Background Music -->
                 <div class="settings-group">
                     <label for="musicToggle">Background Music</label>
                     <div class="volume-control">
                         <input type="checkbox" id="musicToggle">
                         <input type="range" id="musicVolume" min="0" max="100" value="100">
                     </div>
-                </div> 
-                -->
+                </div>
                 
                 <!-- Hints -->
                 <div class="settings-group">
@@ -152,19 +151,17 @@
         </form>
     </dialog>
 
-    <!-- Background music DISABLED (hidden player)
+    <!-- Background music (hidden player) -->
     <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
-
+    <!-- Updated background track to forest.mp3; adjusted path to lowercase 'audio' folder -->
     <source src="audio/BGMusic/forest.mp3" type="audio/mpeg">
     Your browser does not support audio playback.
-    </audio> -->
-
+    </audio>
 
     <!-- Level End Screen -->
     <dialog id="levelEndDialog" class="level-end-dialog">
         <form method="dialog">
             <h1 id ='levelEndTitle'>Level Complete!</h1>
-             <div id="starsContainer" class="stars-container"></div>
             <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
             
             <div class="dialog-buttons">

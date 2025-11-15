@@ -206,8 +206,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 8px;
   transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -243,34 +241,6 @@
 .levelBtn.locked:hover {
   transform: none;
   background-color: #555;
-}
-
-.levels-page .levelStars {
-  display: flex;
-  gap: 4px;
-  justify-content: center;
-  align-items: center;
-  line-height: 1;
-}
-
-.levels-page .levelStars .star-icon {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-}
-
-@media (min-width: 900px) {
-  .levels-page .levelStars .star-icon {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-@media (min-width: 1300px) {
-  .levels-page .levelStars .star-icon {
-    width: 28px;
-    height: 28px;
-  }
 }
 
 @media (max-width: 600px) {
