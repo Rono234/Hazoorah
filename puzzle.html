@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hazoorah</title>
+    <link rel="icon" type="image/x.icon" href="images/transparentBear.PNG">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="levelstyles.css">
+</head>
+
+<body>
+    <div class="header">
+        <!-- Enable Sound CTA (shown when autoplay is blocked) -->
+       <!--BG MUSIC DISABLED <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>-->
+    </div>
+
+    <img class="bg" src="images/plainBackground.PNG" alt="">
+
+    <div class="headerContainer" style="align-items: center;">
+        <header class="title">
+            <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="300">
+        </header>
+
+        <!-- Level Banner -->
+        <section class="level-banner">
+            <img src="images/Banner.png" alt="Level Banner" width="550">
+            <span class="level" id="banner">LEVEL: 1</span>
+        </section>
+    </div>
+
+    <div class="stopwatch">
+        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit' id="seconds">00</span>
+    </div>
+
+    <div id="clues">
+        <div id="storySentence">
+            <p><strong>Story Sentence:</strong></p>
+        </div>
+        <div id="cluesContent">
+            <p><strong>CLUES:</strong></p>
+            <ul>
+                <li>The dog is to the left of the mouse.</li>
+                <li>The cat is not on the right.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="gameContainer">
+        <div id="board" class="board"></div>
+
+        <div id="itemTray">
+            <div id="items" class="items"></div>
+        </div>
+    </div>
+
+    <div id="navigation">
+        <!-- <button id="prevBtn">⬅ Previous</button> -->
+        <span id="puzzleIndicator">Puzzle 1 of 3</span>
+        <!-- <button id="nextBtn">Next ➡</button> -->
+    </div>
+
+    <div id="controls">
+        <button id="submitBtn">SUBMIT</button>
+        <p id="feedback"></p>
+        <p>Attempts Left: <span id="attemptCount">3</span></p>
+    </div>
+
+    <div id="notesContainer">
+        <div id="notesChild">
+            <h3>Level Notes</h3>
+            <textarea id="levelNotes" placeholder="Write notes for this level..."></textarea>
+            <div class="noteButtons">
+                <!-- <button id="saveNoteBtn">Save Note</button> -->
+                <button id="clearNoteBtn">Clear Note</button>
+            </div>
+            <p id="noteStatus" aria-live="polite"></p>
+        </div>
+    </div>
+
+    <div id = "buttons">
+        <button id="clearBtn">
+            <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
+        </button>
+
+        <button id="hintBtn">
+            <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
+        </button>
+        
+        <button id="shufBtn">
+            <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
+        </button>
+    </div>
+
+    <div id="timerControls">
+        <button id="pauseBtn">
+            <img src="images/pauseBtn.png" alt="pause button" width="50" height="50">
+        </button>
+
+         <a href ="index.html">
+                <button id="homeBtn">
+                <img src="images/homeBtn.png" alt="home button" width="50" height="50">
+            </button>
+        </a>
+        <button id="settBtn" aria-label="Open settings">
+            <img src="images/settingBtn.png" alt="Settings" width="50" height="40">
+        </button>
+
+    </div>
+
+    <dialog id="settingsDialog">
+        <form method="dialog">
+            <h3>Settings</h3>
+        
+            <!-- Settings Options -->
+            <div class="settings-content">
+                <!-- Sound Effects -->
+                <div class="settings-group">
+                    <label for="soundToggle">Sound Effects</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="soundToggle">
+                        <input type="range" id="soundVolume" min="0" max="100" value="100">
+                    </div>
+                </div>
+
+                <!-- Background Music DISABLED 
+                <div class="settings-group">
+                    <label for="musicToggle">Background Music</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="musicToggle">
+                        <input type="range" id="musicVolume" min="0" max="100" value="100">
+                    </div>
+                </div> 
+                -->
+                
+                <!-- Hints -->
+                <div class="settings-group">
+                    <label for="hintToggle">Hints</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="hintToggle">
+                    </div>
+                </div>
+
+                <!-- Timer -->
+                <div class="settings-group">
+                    <label for="timerToggle">Timer</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="timerToggle" checked>
+                    </div>
+                </div>
+                <h4>*Adjust volume bar after turning audio on</h4>
+            </div>
+        
+            <!-- Dialog Buttons -->
+            <div class="dialog-buttons">
+                <button type="button" id="saveSettingsBtn">Save</button>
+                <button type="button" id="closeSettingsBtn">Close</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Background music DISABLED (hidden player)
+    <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
+
+    <source src="audio/BGMusic/forest.mp3" type="audio/mpeg">
+    Your browser does not support audio playback.
+    </audio> -->
+
+
+    <!-- Level End Screen -->
+    <dialog id="levelEndDialog" class="level-end-dialog">
+        <form method="dialog">
+            <h1 id ='levelEndTitle'>Level Complete!</h1>
+             <div id="starsContainer" class="stars-container"></div>
+            <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
+            
+            <div class="dialog-buttons">
+                <button type="button" id="endBtn" style="display:none;">Levels</button>
+                <button type="button" id="retryBtn" style="display:none;">Retry Level</button>
+                <button type="button" id="nextLevelBtn" style="display:none";>Next Level</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Pause Dialog -->
+    <dialog id="pauseDialog" class="level-end-dialog">
+        <form method="dialog">
+            <h1>Game Paused</h1>
+
+            <div class="dialog-buttons">
+                <button type="button" id="resumeBtn">Resume</button>
+                <button type="button" id="pauseRetryBtn">Retry Level</button>
+                <button type="button" id="pauseLevelsBtn">Levels</button>
+                <button type="button" id="pauseTownsBtn">Towns</button>
+                <button type="button" id="pauseHomeBtn">Home</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="puzzleData.js"></script>
+    <script src="game.js"></script>
+    <script src="puzzle.js"></script>
+    <script src="notes.js"></script>
+    <script src="settings.js"></script>
+    <script src="soundfx.js"></script>
+</body>
+</html>

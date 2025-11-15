@@ -1,48 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Hazoora - Level 1</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+      <meta charset="UTF-8">
+      <title>Home - Hazoorah</title>
+      <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="homestyle.css">
+    </head>
+    <body>
+        <img class = "bg" src ="images/Background.png" alt = "">
+       
+        <button id="infoBtn" class="iconBtn" title="Info">
+            <img src="images/InfoBtn.png" alt="Info">
+        </button>
 
-<body>
-  <h1>Hazoora - Level 1</h1>
+        <!-- Info Dialog -->
+        <dialog id="infoDialog">
+        <form method="dialog">
+            <h3>About Hazoorah</h3>
 
-  <div id="clues">
-        <p><strong>Clues:</strong></p>
+          <div class="gameOverview">
+            <h4>Game Overview</h4>
+            <p><strong>Hazoorah</strong> is an interactive puzzle game where players arrange images in the correct order using logic and clues. 
+            Drag and drop items onto the grid to organize them properly, then click <strong>Submit</strong> to check your solution.</p>
 
-        <ul>
-        <li>The dog is to the left of the mouse.</li>
-        <li>The cat is not on the right.</li>
-        </ul>
+            <div class="feature-grid">
+
+                <div class="feature-card">
+                  <img src="images/shuffleBtn.png" alt="Shuffle Icon" class="feature-icon">
+                  <p><strong>Shuffle Button:</strong> Randomizes items for a fresh start.</p>
+                </div>
+
+                <div class="feature-card">
+                  <img src="images/clearBtn.png" alt="Clear Icon" class="feature-icon">
+                  <p><strong>Clear Button:</strong> Resets the entire grid so you can begin again.</p>
+                </div>
+                <div class="feature-card">
+                  <img src="images/hintBtn.png" alt="Hint Icon" class="feature-icon">
+                  <p><strong>Hint Button:</strong> The hint button provides the user feedback on their placement of the images. (1 hint for Easy, 2 for Medium, 3 for Hard).</p>
+                </div>
+                <div class="feature-card">
+                  <img src="images/InfoBtn.png" alt="Grid Icon" class="feature-icon">
+                  <p><strong>Information Button:</strong> This button opens the Information Panel, where you can read the game overview, rules,
+                    feature explanations, and helpful instructions before playing.</p>
+                </div>
+
+                <div class="feature-card">
+                  <img src="images/settingBtn.png" alt="Settings Icon" class="feature-icon">
+                  <p><strong>Settings Menu:</strong> Adjust music and toggle the hint system.</p>
+                </div>
+
+                <div class="feature-card">
+                  <img src="images/pauseBtn.png" alt="Pause Icon" class="feature-icon">
+                  <p><strong>Pause Button:</strong> Freezes the game and stops the timer.</p>
+                </div>
+                 <!-- Note-Taking Journal -->
+                <div class="feature-card">
+                    <img src="images/notesBackground.png" class="feature-icon" alt="Note Taking">
+                    <div>
+                        <h4>Note-Taking Journal</h4>
+                        <p>A built-in journal where players can write down ideas, clues, or strategies on a virtual notepad.</p>
+                    </div>
+                </div>
+
+                <!-- Start Game Button -->
+                <div class="feature-card">
+                    <img src="images/StartNewGameBtn.png" class="feature-icon" alt="Start Game">
+                    <div>
+                        <h4>Start Game Button</h4>
+                        <p>Begins a brand-new game session, sending the player directly into Level 1.</p>
+                    </div>
+                </div>
+
+                <!-- Resume Button -->
+                <div class="feature-card">
+                    <img src="images/ResumeBtn.png" class="feature-icon" alt="Resume Game">
+                    <div>
+                        <h4>Resume Button</h4>
+                        <p>Lets the user continue the exact level where they previously left off.</p>
+                    </div>
+                </div>
+
+                <!-- Stars Feature -->
+                <div class="feature-card">
+                    <div>
+                        <h4>Stars System</h4>
+                        <p>Players earn stars based on attempts:
+                            <br>• 1 attempt → ⭐⭐⭐
+                            <br>• 2 attempts → ⭐⭐
+                            <br>• 3 attempts → ⭐
+                        </p>
+                    </div>
+                </div>
+
+              </div>
+          </div>
+        </section>
+              </div>
+                <div class="section">
+                    <h4>Game Objective & Description</h4>
+                    <p>
+                        Travel through three unique towns in the world of Hazoorah:
+                        <br>🏫 <strong>Gerold’s Elementary</strong>
+                        <br>🌿 <strong>The Garden</strong>
+                        <br>🐴 <strong>The Barn</strong>
+                    </p>
+                    <p>
+                        Each town includes five levels:<br>
+                        • Levels 1 & 2 – Easy  
+                        • Levels 3 & 4 – Medium  
+                        • Level 5 – Hard
+                    </p>
+                    <p>
+                        Your goal is to arrange items in the correct order using clues and logical reasoning. 
+                        Stay focused, use your tools wisely, and complete all puzzles to finish your journey!
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h4>Team Info</h4>
+
+                    <p><strong>Raneen – UI Designer:</strong> Raneen was responsible for designing Hazoora’s visual interface and overall user experience.
+                     She created the game’s layout, color scheme, and interactive elements to make the puzzles engaging and intuitive for players..</p>
+
+                    <p><strong>Taya – Developer:</strong> Taya focused on the game’s functionality and structure,
+                      helping to code key gameplay mechanics and ensure smooth transitions between levels and puzzles.</p>
+
+                    <p><strong>Hala – Developer:</strong>  Hala helped bring the game to life through coding and logic implementation. 
+                      She worked on building the game’s core features and ensuring the riddles functioned smoothly.</p>
+
+                    <p><strong>Sumaya – Developer:</strong> Sumaya contributed to the technical side of Hazoora, helping implement game logic and manage interactions between the user interface and the underlying code</p>
+              </div>
+
+                <!-- Dialog Buttons -->
+                <div class="dialog-buttons">
+                <button type="button" id="closeInfoBtn">Close</button>
+              </div>
+        </form>
+    </dialog>
+
+    <div class="header">
+      <button id="settBtn" aria-label="Open settings">
+          <img src="images/settingBtn.png" alt="Settings">
+        </button>
     </div>
+        
+        
+        <div class = "logo">
+            <img src ="images/titleLogo.PNG" alt="Hazoorah Logo" width="500"> 
+        </div>
 
-    <div id="grid">
-        <div class="slot" data-position="1"></div>
-        <div class="slot" data-position="2"></div>
-        <div class="slot" data-position="3"></div>
-    </div>
+        <div class="menu">
+            <button id="newGameBtn">New Game</button>
+            <button id="resumeBtn" onclick="location.href='towns.html'">Resume</button>
+            <button id="townBtn" onclick="location.href='towns.html'">Towns</button>
+        </div>
 
-    <div id="items">
-        <div class="item" draggable="true" data-color="cat" style="background:transparent;">🐱</div>
-        <div class="item" draggable="true" data-color="mouse" style="background:transparent;">🐭</div>
-        <div class="item" draggable="true" data-color="dog" style="background: transparent;">🐶</div>
-    </div>
+        <!-- Confirm New Game Dialog -->
+        <dialog id="confirmNewGameDialog" style="padding: 30px; border-radius: 15px; border: 2px solid #D26665; font-family: 'MyCustomFont', sans-serif; text-align: center; max-width: 400px;">
+            <h2 style="color: #D26665; margin-top: 0;">⚠️ Reset Progress?</h2>
+            <p style="font-size: 18px; margin: 20px 0;">Starting a new game will erase all your current progress. Are you sure?</p>
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
+                <button id="confirmYesBtn" style="background-color: #D26665; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">Yes, Reset</button>
+                <button id="confirmNoBtn" style="background-color: #888; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">No, Cancel</button>
+            </div>
+        </dialog>
 
-  <div id="controls">
-    <button id="submitBtn">Submit</button>
-    <p id="feedback"></p>
-    <p>Attempts left: <span id="attemptCount">3</span></p>
-    <div id = "buttons">
-        <button id="hintBtn"><img src="images/hintBtn.png" alt="Hint button" ></button>
-        <button id="clearBtn"> <img src="images/clearBtn.png" alt="Clear button" ></button>
-        <button id="shufBtn"><img src="images/shuffleBtn.png" alt="Suffle button" ></button>
-    </div>
-   </div>
+        <script src="infoDialog.js"></script>
+        <script src="newGameBtn.js"></script>
+        <script src="settings.js"></script>
 
-<script src="gethint.js"></script>
-<script src="game.js"></script>
-
-</body>
+    </body>
 </html>

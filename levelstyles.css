@@ -1,0 +1,308 @@
+@font-face {
+  font-family: 'Jack Armstrong';
+  src: url('fonts/Jack Armstrong.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* levelstyles.css - Overrides specific to levels.html page */
+
+/* Scope all overrides to .levels-page to avoid affecting index.html */
+.levels-page .header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+/* Bear image stays left */
+.levels-page .header > img {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 110px;
+  height: auto;
+}
+
+/* Center banner: let it auto-size but center itself */
+.levels-page .header > .level-banner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  /* pointer-events: none; */
+}
+
+/* Settings button on right */
+.levels-page .header > #settBtn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.levels-page .level-banner img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+/* Optional: shrink banner width on smaller screens */
+@media (max-width: 900px) {
+  .levels-page .header {
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+  }
+  .levels-page .header > .level-banner img {
+    width: 420px;
+  }
+}
+
+/* Ensure header does not get centered by global body flex constraints */
+.levels-page body, .levels-page {
+  align-items: stretch; /* allow full-width header */
+}
+
+/* Levels grid: 2 rows x 3 columns, but only 5 buttons (one placeholder) */
+.levels-page #levelsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+  gap: 28px;
+  box-sizing: border-box;
+  padding: 24px;
+}
+
+/* Pagination controls - positioned outside grid */
+.levels-page #levelsPagination {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  pointer-events: none; /* allow clicks through except on buttons */
+  z-index: 100;
+}
+
+.levels-page #levelsPagination button {
+  pointer-events: auto; /* re-enable clicks on buttons */
+  background: transparent;
+  color: #fff;
+  border: none;
+  min-width: 110px;
+  height: 56px;
+  padding: 0 24px;
+  cursor: pointer;
+  font-size: 25px; /* show text */
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, transform 0.1s, opacity 0.2s, box-shadow 0.2s;
+  position: relative;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* Uniform style for Prev and Next buttons now (rounded rectangles) */
+.levels-page #prevPageBtn,
+.levels-page #nextPageBtn {
+  clip-path: none;
+}
+
+.levels-page #levelsPagination button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(80,127,137,0.35);
+}
+
+.levels-page #levelsPagination button:hover:not(:disabled) {
+  background: #8bc06d;
+  transform: scale(1.05);
+}
+
+.levels-page #levelsPagination button:disabled {
+  background: #ddd;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.levels-page #pageIndicator {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  font-size: 18px;
+  color: #507F89;
+  font-weight: 600;
+  /* Hide indicator since it's visually awkward between fixed side buttons */
+  display: none;
+}
+
+.levels-page #levelsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 180px));
+  justify-content: center; /* center the 3 columns block */
+  align-content: center;
+  gap: 20px 25px; /* row gap, column gap */
+}
+
+@media (min-width: 900px) {
+  .levels-page #levelsGrid {
+    grid-template-columns: repeat(3, minmax(160px, 220px));
+    gap: 25px 30px; /* row gap, column gap */
+  }
+
+  .levels-page .levelBtnLabel {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .levels-page #levelsGrid {
+    grid-template-columns: repeat(3, minmax(200px, 260px));
+    gap: 30px 35px; /* row gap, column gap */
+  }
+
+  .levels-page .levelBtnLabel {
+    font-size: 56px;
+  }
+}
+
+.levels-page .levelBtn,
+.levels-page .levelBtn.placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* square */
+  border-radius: 16px; /* rounded square */
+}
+
+.levels-page .levelBtn {
+  border: 12px solid #9ACF7C;
+  background: #FFFCF2;
+  background: linear-gradient(180deg, #ffffff, #eaf6ff);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.levels-page .levelBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+}
+
+.levels-page .levelBtn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.35);
+}
+
+.levels-page .levelBtnLabel {
+  font-family: 'Jack Armstrong', sans-serif;
+  font-size: 40px;
+  color: #507F89;
+}
+
+.levels-page .levelBtn.placeholder {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.levelBtn.locked { 
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(80%);
+}
+
+.levelBtn.locked:hover {
+  transform: none;
+  background-color: #555;
+}
+
+.levels-page .levelStars {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+
+.levels-page .levelStars .star-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+@media (min-width: 900px) {
+  .levels-page .levelStars .star-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .levels-page .levelStars .star-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .levels-page #levelsGrid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr)); /* fall back to 2 cols on small screens */
+  }
+}
+
+#page1 .levelBtn {
+  border: 12px solid #F2B705;
+}
+#page3 .levelBtn {
+  border: 12px solid #eb5338;
+}
+/* Buttons styling */
+#settBtn, #homeBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#settBtn img, #homeBtn img {
+    width: 70px;
+    height: 60px;
+}
+
+/* Container for the right-side buttons */
+.header-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    position: absolute;   /* position it relative to the screen */
+    top: 30px;            /* distance from the top */
+    right: 20px;          /* distance from the right edge */
+}

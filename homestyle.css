@@ -1,0 +1,222 @@
+
+         @font-face {
+         font-family: "MyCustomFont";
+         src: url("fonts/arialroundedmtbold.ttf") format("truetype");}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "MyCustomFont", sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        .bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .logo {
+            margin-top: 60px;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+       
+        .menu button {
+            color: white;              
+            padding: 18px 24px;        
+            border: none;              
+            border-radius: 10px;   
+            font-family: "MyCustomFont";     
+            font-size: 24px;           
+            cursor: pointer;
+            width: 200px;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s ease-in-out;         
+        }
+        #resumeBtn{ background-color:#9ACF7C;}
+        #newGameBtn{ background-color: #D26665; }
+        #townBtn{background-color:#FFC517;}
+
+        .iconBtn{
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out;
+        }
+        #infoBtn {
+            position: absolute;
+            left : 40px;
+            top: 30px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+        }
+        #settBtn {
+            background:transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+
+        #settBtn img{
+        width: 70px;
+        height: 60px;
+        }   
+        .header {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+
+        
+        .iconBtn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.1s ease-in-out;
+        }
+        .iconBtn:hover img , .menu button:hover  {
+            transform: scale(1.1);
+        }
+
+/* Info Dialog Styles */
+dialog#infoDialog {
+    width: 50vw;           /* 50% of screen width */
+    height: 75vh;          /* 75% of screen height */
+    padding: 24px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    background: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+dialog#infoDialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#infoDialog h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+/* Section header */
+.h4 {
+    margin-top: 22px;
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 1.1em;
+    font-weight: 600;
+    
+    padding-left: 8px;
+}
+
+#infoDialog p {
+    line-height: 1.45;
+    color: #575757;
+    font-size: 0.97em;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+/* Feature Grid Layout */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    padding: 10px 0;
+}
+
+/* Feature Card Styles */
+.feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid #afadad;
+    background: #fafafa;
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+/* Hover effect */
+.feature-card:hover {
+    transform: scale(1.02);
+    background: #ffffff;
+}
+
+/* Colored left borders for 10 cards */
+.feature-card:nth-child(1)  { border-left: 6px solid #8e8df0; } /* purple */
+.feature-card:nth-child(2)  { border-left: 6px solid #5ab1e4; } /* blue */
+.feature-card:nth-child(3)  { border-left: 6px solid #f29c38; } /* orange */
+.feature-card:nth-child(4)  { border-left: 6px solid #90c97d; } /* green */
+.feature-card:nth-child(5)  { border-left: 6px solid #ce6ad3; } /* pink-purple */
+.feature-card:nth-child(6)  { border-left: 6px solid #e86a6a; } /* red */
+.feature-card:nth-child(7)  { border-left: 6px solid #6ac7c2; } /* teal */
+.feature-card:nth-child(8)  { border-left: 6px solid #ebd773; } /* gold */
+.feature-card:nth-child(9)  { border-left: 6px solid #9b7df0; } /* violet */
+.feature-card:nth-child(10) { border-left: 6px solid #ffa4cf; } /* soft pink */
+
+
+/* Default small icons */
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Larger icons ONLY for the last 4 feature cards */
+.feature-card:nth-child(7) .feature-icon,
+.feature-card:nth-child(8) .feature-icon,
+.feature-card:nth-child(9) .feature-icon {
+    width: 120px;
+    height: 80px;
+}
+.feature-icon 
+
+/* Dialog buttons */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.dialog-buttons button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease-in-out;
+}
+
+#closeInfoBtn {
+    background: #f5f5f5;
+    color: #333;
+}
+
+#closeInfoBtn:hover {
+    background: #e0e0e0;
+    transform: scale(1.03);
+}
