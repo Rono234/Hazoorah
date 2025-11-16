@@ -1753,6 +1753,23 @@ dialog#infoDialog::backdrop {
 
 
 /*Game End dialog styles*/
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.dialog-full img {
+  width: 100%;
+  max-width: 350px;
+}
+
+.dialog-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
 .game-complete-dialog {
   position: fixed;
   inset: 0;
@@ -1776,21 +1793,6 @@ dialog#infoDialog::backdrop {
   align-items: center;
 }
 
-.dialog-full {
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-}
-
-.dialog-buttons {
-  position: absolute;
-  bottom: 35px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
 
 /* Buttons */
 .yellow-btn, .red-btn {

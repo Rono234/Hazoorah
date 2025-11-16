@@ -958,20 +958,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // End Game Dialog 
 //================================================================================
-
 function showGameCompleteDialog() {
     const dialog = document.getElementById("gameCompleteDialog");
-    dialog.classList.remove("hidden");
 
-    // show buttons
+    if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+    } else {
+        dialog.classList.remove("hidden"); // fallback if dialog not supported
+    }
+
     document.getElementById("townBtn").style.display = "inline-block";
     document.getElementById("newGameBtn").style.display = "inline-block";
 }
 
+// Buttons actions
 document.getElementById("townBtn").addEventListener("click", () => {
-    window.location.href = "towns.html"; 
+    window.location.href = "towns.html";
 });
 
 document.getElementById("newGameBtn").addEventListener("click", () => {
-    window.location.href = "index.html"; 
+    localStorage.clear(); // Optional if new game resets progress
+    window.location.href = "index.html";
 });
