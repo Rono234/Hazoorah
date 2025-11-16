@@ -12,13 +12,13 @@
 <body>
     <div class="header">
         <!-- Enable Sound CTA (shown when autoplay is blocked) -->
-       <!--BG MUSIC DISABLED <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>-->
+        <!--BG MUSIC DISABLED <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>-->
     </div>
 
     <img class="bg" src="images/plainBackground.PNG" alt="">
 
     <button id="infoBtn" class="iconBtn" title="Info">
-            <img src="images/InfoBtn.png" alt="Info">
+        <img src="images/InfoBtn.png" alt="Info">
     </button>
 
     <!-- Info Dialog -->
@@ -27,7 +27,10 @@
             <h3>About Hazoorah</h3>
             <div class="gameOverview">
                 <h4>Game Overview</h4>
-                <p><strong>Hazoorah</strong> is an interactive puzzle game where players arrange images in the correct order using logic and clues. Drag and drop items onto the grid to organize them properly, then click <strong>Submit</strong> to check your solution.</p>
+                <p><strong>Hazoorah</strong> is an interactive puzzle game where players arrange images in the correct
+                    order using logic and clues. Drag and drop items onto the grid to organize them properly, then click
+                    <strong>Submit</strong> to check your solution.
+                </p>
                 <div class="feature-grid">
                     <div class="feature-card">
                         <img src="images/shuffleBtn.png" alt="Shuffle Icon" class="feature-icon">
@@ -41,12 +44,15 @@
 
                     <div class="feature-card">
                         <img src="images/hintBtn.png" alt="Hint Icon" class="feature-icon">
-                        <p><strong>Hint Button:</strong> The hint button provides the user feedback on their placement of the images. (1 hint for Easy, 2 for Medium, 3 for Hard).</p>
+                        <p><strong>Hint Button:</strong> The hint button provides the user feedback on their placement
+                            of the images. (1 hint for Easy, 2 for Medium, 3 for Hard).</p>
                     </div>
 
                     <div class="feature-card">
                         <img src="images/InfoBtn.png" alt="Grid Icon" class="feature-icon">
-                        <p><strong>Information Button:</strong> This button opens the Information Panel, where you can read the game overview, rules, feature explanations, and helpful instructions before playing.</p>
+                        <p><strong>Information Button:</strong> This button opens the Information Panel, where you can
+                            read the game overview, rules, feature explanations, and helpful instructions before
+                            playing.</p>
                     </div>
 
                     <div class="feature-card">
@@ -64,7 +70,8 @@
                         <img src="images/notesBackground.png" class="feature-icon" alt="Note Taking">
                         <div>
                             <h4>Note-Taking Journal</h4>
-                            <p>A built-in journal where players can write down ideas, clues, or strategies on a virtual notepad.</p>
+                            <p>A built-in journal where players can write down ideas, clues, or strategies on a virtual
+                                notepad.</p>
                         </div>
                     </div>
 
@@ -99,7 +106,7 @@
                     </div>
                 </div>
             </div>
-    </section>
+            </section>
             </div>
             <div class="section">
                 <h4>Game Objective & Description</h4>
@@ -111,12 +118,12 @@
                 </p>
                 <p>
                     Each town includes five levels:<br>
-                    • Levels 1 & 2 – Easy  
-                    • Levels 3 & 4 – Medium  
+                    • Levels 1 & 2 – Easy
+                    • Levels 3 & 4 – Medium
                     • Level 5 – Hard
                 </p>
                 <p>
-                    Your goal is to arrange items in the correct order using clues and logical reasoning. 
+                    Your goal is to arrange items in the correct order using clues and logical reasoning.
                     Stay focused, use your tools wisely, and complete all puzzles to finish your journey!
                 </p>
             </div>
@@ -124,21 +131,25 @@
             <div class="section">
                 <h4>Team Info</h4>
 
-                <p><strong>Raneen – UI Designer:</strong> Raneen was responsible for designing Hazoorah’s visual interface and overall user experience.
-                    She created the game’s layout, color scheme, and interactive elements to make the puzzles engaging and intuitive for players.</p>
+                <p><strong>Raneen – UI Designer:</strong> Raneen was responsible for designing Hazoorah’s visual
+                    interface and overall user experience.
+                    She created the game’s layout, color scheme, and interactive elements to make the puzzles engaging
+                    and intuitive for players.</p>
 
                 <p><strong>Taya – Developer:</strong> Taya focused on the game’s functionality and structure,
                     helping to code key gameplay mechanics and ensure smooth transitions between levels and puzzles.</p>
 
-                <p><strong>Hala – Developer:</strong>  Hala helped bring the game to life through coding and logic implementation. 
+                <p><strong>Hala – Developer:</strong> Hala helped bring the game to life through coding and logic
+                    implementation.
                     She worked on building the game’s core features and ensuring the riddles functioned smoothly.</p>
 
-                <p><strong>Sumaya – Developer:</strong> Sumaya contributed to the technical side of Hazoorah, helping implement game logic and manage interactions between the user interface and the underlying code.</p>
+                <p><strong>Sumaya – Developer:</strong> Sumaya contributed to the technical side of Hazoorah, helping
+                    implement game logic and manage interactions between the user interface and the underlying code.</p>
             </div>
 
             <!-- Dialog Buttons -->
             <div class="dialog-buttons">
-            <button type="button" id="closeInfoBtn">Close</button>
+                <button type="button" id="closeInfoBtn">Close</button>
             </div>
         </form>
     </dialog>
@@ -156,7 +167,8 @@
     </div>
 
     <div class="stopwatch">
-        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit' id="seconds">00</span>
+        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit'
+            id="seconds">00</span>
     </div>
 
     <div id="clues">
@@ -204,7 +216,7 @@
         </div>
     </div>
 
-    <div id = "buttons">
+    <div id="buttons">
         <button id="clearBtn">
             <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
         </button>
@@ -212,7 +224,7 @@
         <button id="hintBtn">
             <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
         </button>
-        
+
         <button id="shufBtn">
             <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
         </button>
@@ -230,7 +242,7 @@
     <dialog id="settingsDialog">
         <form method="dialog">
             <h3>Settings</h3>
-        
+
             <!-- Settings Options -->
             <div class="settings-content">
                 <!-- Sound Effects -->
@@ -251,7 +263,7 @@
                     </div>
                 </div> 
                 -->
-                
+
                 <!-- Hints -->
                 <div class="settings-group">
                     <label for="hintToggle">Hints</label>
@@ -269,7 +281,7 @@
                 </div>
                 <h4>*Adjust volume bar after turning audio on</h4>
             </div>
-        
+
             <!-- Dialog Buttons -->
             <div class="dialog-buttons">
                 <button type="button" id="saveSettingsBtn">Save</button>
@@ -289,14 +301,11 @@
     <!-- Level End Screen -->
     <dialog id="levelEndDialog" class="level-end-dialog">
         <form method="dialog">
-            <h1 id ='levelEndTitle'>Level Complete!</h1>
-             <div id="starsContainer" class="stars-container"></div>
-            <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
-            
+            <div id="starsContainer" class="stars-container"></div>
             <div class="dialog-buttons">
                 <button type="button" id="endBtn" style="display:none;">Levels</button>
                 <button type="button" id="retryBtn" style="display:none;">Retry Level</button>
-                <button type="button" id="nextLevelBtn" style="display:none";>Next Level</button>
+                <button type="button" id="nextLevelBtn" style="display:none" ;>Next Level</button>
             </div>
         </form>
     </dialog>
@@ -304,7 +313,7 @@
     <!-- Pause Dialog -->
     <dialog id="pauseDialog" class="level-end-dialog">
         <form method="dialog">
-           
+
 
             <div class="dialog-buttons">
                 <button type="button" id="resumeBtn">RESUME</button>
@@ -323,4 +332,5 @@
     <script src="settings.js"></script>
     <script src="soundfx.js"></script>
 </body>
+
 </html>
