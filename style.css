@@ -1073,7 +1073,7 @@ dialog#levelEndDialog::before {
         }
 
         #levelEndDialog #starsContainer .star {
-            width: 22%;
+            width: 30%;
         }
     }
 }

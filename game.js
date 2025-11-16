@@ -205,9 +205,12 @@ function initializeGame() {
 //================================================================================
 function resetAndReload() {
   window.levelDialogOpen = false;
-  attemptsLeft = 3;
-  document.getElementById("attemptsLeft").textContent = attemptsLeft;
 
+  attemptsLeft = 3;
+  const attemptCount = document.getElementById('attemptCount')
+  if (attemptCount) attemptCount.textContent = attemptsLeft;
+
+  timer = false;
   if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
@@ -223,9 +226,15 @@ function resetAndReload() {
   if (m) m.textContent = '00';
   if (s) s.textContent = '00';
 
+  if (timerFeatureEnabled) {
+    timer = true;
+    startTimer();
+  }
+
   enableButtons();
 
-  document.getElementById('feedback').textContent = "";
+  const feedback = document.getElementById('feedback')
+  if (feedback) feedback.textContent = "";
   
   const hintBox = document.getElementById('hintBox');
   if (hintBox) hintBox.textContent = '';
@@ -235,8 +244,6 @@ function resetAndReload() {
 
   loadPuzzle(currentPuzzleIndex);
 }
-
-
 
 //================================================================================
 // ⚙️ SETTINGS EVENT HANDLERS
@@ -615,6 +622,18 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   // Retry button: reload current puzzle
   retryBtn.onclick = () => {
     screen.close();
+
+    document.querySelectorAll('button').forEach(btn => {
+      if (!btn.dataset.permanentDisabled) {
+        btn.disabled = false;
+      }
+    });
+
+    if (timerFeatureEnabled) {
+      const pauseBtn = document.getElementById('pauseBtn');
+      if (pauseBtn) pauseBtn.disabled = false;
+    }
+
     resetAndReload();
   };
 
