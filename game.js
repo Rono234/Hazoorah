@@ -489,8 +489,8 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
 
     console.log('Level complete! Attempts left:', attemptsLeft, 'Stars earned:', starsEarned); // Debug
 
-    screen.style.backgroundImage = "url('images/Success.PNG')";
-    title.textContent = ' LEVEL COMPLETE ';
+    screen.style.backgroundImage = "url('images/Success1.PNG')";
+
 
     const actualTown = Math.floor(currentPuzzleIndex / levels_per_town) + 1;
     const actualLevelInTown = (currentPuzzleIndex % levels_per_town) + 1;
@@ -537,8 +537,8 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   } else {
 
     // Failure state
-    screen.style.backgroundImage = "url('images/Failure.PNG')";
-    title.textContent = 'LEVEL FAILED';
+    screen.style.backgroundImage = "url('images/Failure1.PNG')";
+
 
     // Show three empty stars on failure
     if (starsContainer) {
