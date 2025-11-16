@@ -18,28 +18,53 @@
     function generateLevelBtns() {
         levelsGrid.innerHTML = '';
 
-        const townProgress = JSON.parse(localStorage.getItem('townProgress') || "{}")
+        const townProgress = JSON.parse(localStorage.getItem('townProgress') || "{}");
+        
+        console.log('Town Progress:', townProgress); // Debug log
 
         for (let i = 1; i <= totalLevels; i++) {
             const btn = document.createElement('button');
-            btn.classList.add("levelBtn");
-
             const town = Math.ceil(i / levelsPerPage);
             const levelInTown = ((i - 1) % levelsPerPage) + 1;
 
+            btn.classList.add("levelBtn", `town-${town}`);
             btn.dataset.town = town;
             btn.dataset.level = levelInTown;
             btn.dataset.page = town;
             btn.setAttribute('aria-label', `Town ${town} Level ${levelInTown}`);
-            btn.innerHTML = `<span class="levelBtnLabel">${levelInTown}</span>`;
 
             const completedLevels = townProgress[`town${town}`] || [];
-            const highestCompleted = completedLevels.length ? Math.max(...completedLevels) : 0;
+            const isCompleted = completedLevels.includes(levelInTown);
+            
+            // Get star rating for this level
+            const starKey = `town${town}_stars`;
+            const stars = townProgress[starKey]?.[levelInTown] || 0;
+            
+            console.log(`Town ${town}, Level ${levelInTown}: completed=${isCompleted}, stars=${stars}`); // Debug log
+
+            // Create star display with images - show for completed levels
+            let starHTML = '';
+            if (isCompleted) {
+                starHTML = `<div class="levelStars">`;
+                for (let s = 0; s < 3; s++) {
+                    // FIX: Changed from >= to <
+                    const starSrc = s < stars ? 'images/star-filled.png' : 'images/star-empty.png';
+                    starHTML += `<img src="${starSrc}" alt="${s < stars ? 'Earned' : 'Empty'} star" class="star-icon">`;
+                }
+                starHTML += `</div>`;
+            }
+
+            btn.innerHTML = `
+                <span class="levelBtnLabel">${levelInTown}</span>
+                ${starHTML}
+            `;
+
+            const highestCompleted = completedLevels.length ? Math.max(...completedLevels.filter(l => l >= 1 && l <= 5)) : 0;
             const nextLevel = highestCompleted + 1;
 
-            if (completedLevels.includes(levelInTown)) {
+            if (isCompleted) {
                 btn.disabled = false;
-                btn.classList.add('completed')
+                btn.classList.add('completed');
             } else if (levelInTown === 1 || levelInTown === nextLevel) {
                 btn.disabled = false;
             } else {
@@ -48,7 +73,7 @@
             }
 
             btn.addEventListener('click', () => {
-                window.location.href = `index.html?town=${town}&level=${levelInTown}`;
+                window.location.href = `game.html?town=${town}&level=${levelInTown}`;
             });
 
             levelsGrid.appendChild(btn);

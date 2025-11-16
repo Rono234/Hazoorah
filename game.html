@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hazoorah</title>
+    <link rel="icon" type="image/x.icon" href="images/transparentBear.PNG">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="levelstyles.css">
+</head>
+
+<body>
+    <div class="header">
+        <!-- Enable Sound CTA (shown when autoplay is blocked) -->
+       <!--BG MUSIC DISABLED <button id="enableSoundBtn" hidden aria-label="Enable background music">Enable Sound</button>-->
+    </div>
+
+    <img class="bg" src="images/plainBackground.PNG" alt="">
+
+    <button id="infoBtn" class="iconBtn" title="Info">
+            <img src="images/InfoBtn.png" alt="Info">
+    </button>
+
+    <!-- Info Dialog -->
+    <dialog id="infoDialog">
+        <form method="dialog">
+            <h3>About Hazoorah</h3>
+            <div class="gameOverview">
+                <h4>Game Overview</h4>
+                <p><strong>Hazoorah</strong> is an interactive puzzle game where players arrange images in the correct order using logic and clues. Drag and drop items onto the grid to organize them properly, then click <strong>Submit</strong> to check your solution.</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <img src="images/shuffleBtn.png" alt="Shuffle Icon" class="feature-icon">
+                        <p><strong>Shuffle Button:</strong> Randomizes items for a fresh start.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/clearBtn.png" alt="Clear Icon" class="feature-icon">
+                        <p><strong>Clear Button:</strong> Resets the entire grid so you can begin again.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/hintBtn.png" alt="Hint Icon" class="feature-icon">
+                        <p><strong>Hint Button:</strong> The hint button provides the user feedback on their placement of the images. (1 hint for Easy, 2 for Medium, 3 for Hard).</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/InfoBtn.png" alt="Grid Icon" class="feature-icon">
+                        <p><strong>Information Button:</strong> This button opens the Information Panel, where you can read the game overview, rules, feature explanations, and helpful instructions before playing.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/settingBtn.png" alt="Settings Icon" class="feature-icon">
+                        <p><strong>Settings Menu:</strong> Adjust music and toggle the hint system.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/pauseBtn.png" alt="Pause Icon" class="feature-icon">
+                        <p><strong>Pause Button:</strong> Freezes the game and stops the timer.</p>
+                    </div>
+
+                    <!-- Note-Taking Journal -->
+                    <div class="feature-card">
+                        <img src="images/notesBackground.png" class="feature-icon" alt="Note Taking">
+                        <div>
+                            <h4>Note-Taking Journal</h4>
+                            <p>A built-in journal where players can write down ideas, clues, or strategies on a virtual notepad.</p>
+                        </div>
+                    </div>
+
+                    <!-- Start Game Button -->
+                    <div class="feature-card">
+                        <img src="images/StartNewGameBtn.png" class="feature-icon" alt="New Game">
+                        <div>
+                            <h4>New Game Button</h4>
+                            <p>Begins a brand-new game session, sending the player directly into Level 1.</p>
+                        </div>
+                    </div>
+
+                    <!-- Resume Button -->
+                    <div class="feature-card">
+                        <img src="images/ResumeBtn.png" class="feature-icon" alt="Resume Game">
+                        <div>
+                            <h4>Resume Button</h4>
+                            <p>Lets the user continue the exact level where they previously left off.</p>
+                        </div>
+                    </div>
+
+                    <!-- Stars Feature -->
+                    <div class="feature-card">
+                        <div>
+                            <h4>Stars System</h4>
+                            <p>Players earn stars based on attempts:
+                                <br>• 1 attempt → ⭐⭐⭐
+                                <br>• 2 attempts → ⭐⭐
+                                <br>• 3 attempts → ⭐
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+            </div>
+            <div class="section">
+                <h4>Game Objective & Description</h4>
+                <p>
+                    Travel through three unique towns in the world of Hazoorah:
+                    <br>🏫 <strong>Gerold’s Elementary</strong>
+                    <br>🌿 <strong>The Garden</strong>
+                    <br>🐴 <strong>The Barn</strong>
+                </p>
+                <p>
+                    Each town includes five levels:<br>
+                    • Levels 1 & 2 – Easy  
+                    • Levels 3 & 4 – Medium  
+                    • Level 5 – Hard
+                </p>
+                <p>
+                    Your goal is to arrange items in the correct order using clues and logical reasoning. 
+                    Stay focused, use your tools wisely, and complete all puzzles to finish your journey!
+                </p>
+            </div>
+
+            <div class="section">
+                <h4>Team Info</h4>
+
+                <p><strong>Raneen – UI Designer:</strong> Raneen was responsible for designing Hazoorah’s visual interface and overall user experience.
+                    She created the game’s layout, color scheme, and interactive elements to make the puzzles engaging and intuitive for players.</p>
+
+                <p><strong>Taya – Developer:</strong> Taya focused on the game’s functionality and structure,
+                    helping to code key gameplay mechanics and ensure smooth transitions between levels and puzzles.</p>
+
+                <p><strong>Hala – Developer:</strong>  Hala helped bring the game to life through coding and logic implementation. 
+                    She worked on building the game’s core features and ensuring the riddles functioned smoothly.</p>
+
+                <p><strong>Sumaya – Developer:</strong> Sumaya contributed to the technical side of Hazoorah, helping implement game logic and manage interactions between the user interface and the underlying code.</p>
+            </div>
+
+            <!-- Dialog Buttons -->
+            <div class="dialog-buttons">
+            <button type="button" id="closeInfoBtn">Close</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="headerContainer" style="align-items: center;">
+        <header class="title">
+            <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="300">
+        </header>
+
+        <!-- Level Banner -->
+        <section class="level-banner">
+            <img src="images/Banner.png" alt="Level Banner" width="550">
+            <span class="level" id="banner">LEVEL: 1</span>
+        </section>
+    </div>
+
+    <div class="stopwatch">
+        <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit' id="seconds">00</span>
+    </div>
+
+    <div id="clues">
+        <div id="storySentence">
+            <p><strong>Story Sentence:</strong></p>
+        </div>
+        <div id="cluesContent">
+            <p><strong>CLUES:</strong></p>
+            <ul>
+                <li>The dog is to the left of the mouse.</li>
+                <li>The cat is not on the right.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="gameContainer">
+        <div id="board" class="board"></div>
+
+        <div id="itemTray">
+            <div id="items" class="items"></div>
+        </div>
+    </div>
+
+    <div id="navigation">
+        <!-- <button id="prevBtn">⬅ Previous</button> -->
+        <span id="puzzleIndicator">Puzzle 1 of 3</span>
+        <!-- <button id="nextBtn">Next ➡</button> -->
+    </div>
+
+    <div id="controls">
+        <button id="submitBtn">SUBMIT</button>
+        <p id="feedback"></p>
+        <p>Attempts Left: <span id="attemptCount">3</span></p>
+    </div>
+
+    <div id="notesContainer">
+        <div id="notesChild">
+            <h3>Level Notes</h3>
+            <textarea id="levelNotes" placeholder="Write notes for this level..."></textarea>
+            <div class="noteButtons">
+                <!-- <button id="saveNoteBtn">Save Note</button> -->
+                <button id="clearNoteBtn">Clear Note</button>
+            </div>
+            <p id="noteStatus" aria-live="polite"></p>
+        </div>
+    </div>
+
+    <div id = "buttons">
+        <button id="clearBtn">
+            <img src="images/clearBtn.png" alt="clear button" width="50" height="50">
+        </button>
+
+        <button id="hintBtn">
+            <img src="images/hintBtn.png" alt="hint button" width="50" height="50">
+        </button>
+        
+        <button id="shufBtn">
+            <img src="images/shuffleBtn.png" alt="shuffle button" width="50" height="50">
+        </button>
+    </div>
+
+    <div id="timerControls">
+        <button id="pauseBtn">
+            <img src="images/pauseBtn.png" alt="pause button" width="50" height="50">
+        </button>
+        <button id="settBtn" aria-label="Open settings">
+            <img src="images/settingBtn.png" alt="Settings" width="50" height="40">
+        </button>
+    </div>
+
+    <dialog id="settingsDialog">
+        <form method="dialog">
+            <h3>Settings</h3>
+        
+            <!-- Settings Options -->
+            <div class="settings-content">
+                <!-- Sound Effects -->
+                <div class="settings-group">
+                    <label for="soundToggle">Sound Effects</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="soundToggle">
+                        <input type="range" id="soundVolume" min="0" max="100" value="100">
+                    </div>
+                </div>
+
+                <!-- Background Music DISABLED 
+                <div class="settings-group">
+                    <label for="musicToggle">Background Music</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="musicToggle">
+                        <input type="range" id="musicVolume" min="0" max="100" value="100">
+                    </div>
+                </div> 
+                -->
+                
+                <!-- Hints -->
+                <div class="settings-group">
+                    <label for="hintToggle">Hints</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="hintToggle">
+                    </div>
+                </div>
+
+                <!-- Timer -->
+                <div class="settings-group">
+                    <label for="timerToggle">Timer</label>
+                    <div class="volume-control">
+                        <input type="checkbox" id="timerToggle" checked>
+                    </div>
+                </div>
+                <h4>*Adjust volume bar after turning audio on</h4>
+            </div>
+        
+            <!-- Dialog Buttons -->
+            <div class="dialog-buttons">
+                <button type="button" id="saveSettingsBtn">Save</button>
+                <button type="button" id="closeSettingsBtn">Close</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Background music DISABLED (hidden player)
+    <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline style="display: none;">
+
+    <source src="audio/BGMusic/forest.mp3" type="audio/mpeg">
+    Your browser does not support audio playback.
+    </audio> -->
+
+
+    <!-- Level End Screen -->
+    <dialog id="levelEndDialog" class="level-end-dialog">
+        <form method="dialog">
+            <h1 id ='levelEndTitle'>Level Complete!</h1>
+             <div id="starsContainer" class="stars-container"></div>
+            <h3 id="levelEndMessage">Great job! You've completed the level.</h3>
+            
+            <div class="dialog-buttons">
+                <button type="button" id="endBtn" style="display:none;">Levels</button>
+                <button type="button" id="retryBtn" style="display:none;">Retry Level</button>
+                <button type="button" id="nextLevelBtn" style="display:none";>Next Level</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Pause Dialog -->
+    <dialog id="pauseDialog" class="level-end-dialog">
+        <form method="dialog">
+           
+
+            <div class="dialog-buttons">
+                <button type="button" id="resumeBtn">RESUME</button>
+                <button type="button" id="pauseRetryBtn">RETRY LEVEL</button>
+                <button type="button" id="pauseLevelsBtn">LEVELS</button>
+                <button type="button" id="pauseHomeBtn">QUIT</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="infoDialog.js"></script>
+    <script src="puzzleData.js"></script>
+    <script src="game.js"></script>
+    <script src="puzzle.js"></script>
+    <script src="notes.js"></script>
+    <script src="settings.js"></script>
+    <script src="soundfx.js"></script>
+</body>
+</html>
