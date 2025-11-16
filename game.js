@@ -201,6 +201,44 @@ function initializeGame() {
 }
 
 //================================================================================
+// Resetting Game and Relaoding the Page
+//================================================================================
+function resetAndReload() {
+  window.levelDialogOpen = false;
+  attemptsLeft = 3;
+  document.getElementById("attemptsLeft").textContent = attemptsLeft;
+
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  hour = minute = second = 0;
+
+  const h = document.getElementById('hours');
+  const m = document.getElementById('minutes');
+  const s = document.getElementById('seconds');
+
+  if (h) h.textContent = '00';
+  if (m) m.textContent = '00';
+  if (s) s.textContent = '00';
+
+  enableButtons();
+
+  document.getElementById('feedback').textContent = "";
+  
+  const hintBox = document.getElementById('hintBox');
+  if (hintBox) hintBox.textContent = '';
+
+  const level = (currentPuzzleIndex % 5) + 1;
+  initHintSystem(level);
+
+  loadPuzzle(currentPuzzleIndex);
+}
+
+
+
+//================================================================================
 // ⚙️ SETTINGS EVENT HANDLERS
 //================================================================================
 // Responds to changes in game settings (hint toggle, timer toggle)
@@ -577,8 +615,7 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   // Retry button: reload current puzzle
   retryBtn.onclick = () => {
     screen.close();
-    window.levelDialogOpen = false;
-    loadPuzzle(currentPuzzleIndex);
+    resetAndReload();
   };
 
   // Next level button: advance to next puzzle
@@ -742,6 +779,7 @@ function loadPuzzle(index) {
   // Reset timer
   resetTimer();
   if (timerFeatureEnabled) {
+    timer = true;
     startTimer()
   }
 }
