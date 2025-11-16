@@ -1073,7 +1073,7 @@ dialog#levelEndDialog::before {
         }
 
         #levelEndDialog #starsContainer .star {
-            width: 30%;
+            width: 22%;
         }
     }
 }
@@ -1749,4 +1749,66 @@ dialog#infoDialog::backdrop {
 #closeInfoBtn:hover {
     background: #e0e0e0;
     transform: scale(1.03);
+}
+
+
+/*Game End dialog styles*/
+.game-complete-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.game-complete-dialog.hidden {
+  display: none;
+}
+
+.dialog-box {
+  position: relative;
+  width: 340px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dialog-full {
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dialog-buttons {
+  position: absolute;
+  bottom: 35px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Buttons */
+.yellow-btn, .red-btn {
+  padding: 14px 22px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.3);
+  cursor: pointer;
+  font-weight: bold;
+  min-width: 120px;
+}
+
+.yellow-btn {
+  background: #FFD029;
+  color: #3b2d00;
+}
+
+.red-btn {
+  background: #D56A6A;
+  color: white;
 }

@@ -91,6 +91,20 @@ function markTownLevelComplete(town, level, stars) {
   });
 }
 
+// =========================
+// Progress & Completion Logic
+// =========================
+
+function isGameFullyCompleted() {
+  const progress = JSON.parse(localStorage.getItem("townProgress")) || {};
+  return (
+    progress.town1?.length === 5 &&
+    progress.town2?.length === 5 &&
+    progress.town3?.length === 5
+  );
+}
+
+
 //================================================================================
 // 🔗 URL PARAMETER HANDLING
 //================================================================================
@@ -205,12 +219,9 @@ function initializeGame() {
 //================================================================================
 function resetAndReload() {
   window.levelDialogOpen = false;
-
   attemptsLeft = 3;
-  const attemptCount = document.getElementById('attemptCount')
-  if (attemptCount) attemptCount.textContent = attemptsLeft;
+  document.getElementById("attemptsLeft").textContent = attemptsLeft;
 
-  timer = false;
   if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
@@ -226,15 +237,9 @@ function resetAndReload() {
   if (m) m.textContent = '00';
   if (s) s.textContent = '00';
 
-  if (timerFeatureEnabled) {
-    timer = true;
-    startTimer();
-  }
-
   enableButtons();
 
-  const feedback = document.getElementById('feedback')
-  if (feedback) feedback.textContent = "";
+  document.getElementById('feedback').textContent = "";
   
   const hintBox = document.getElementById('hintBox');
   if (hintBox) hintBox.textContent = '';
@@ -244,6 +249,8 @@ function resetAndReload() {
 
   loadPuzzle(currentPuzzleIndex);
 }
+
+
 
 //================================================================================
 // ⚙️ SETTINGS EVENT HANDLERS
@@ -552,6 +559,13 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
     
     // Save progress with stars
     markTownLevelComplete(actualTown, actualLevelInTown, starsEarned);
+
+    // Update last completed town and level ( Game End )
+    if (isGameFullyCompleted()) {
+    showGameCompleteDialog();
+    return; // stop further navigation
+  }
+
     
     localStorage.setItem('lastTown', actualTown);
     localStorage.setItem('lastLevel', actualLevelInTown);
@@ -622,18 +636,6 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   // Retry button: reload current puzzle
   retryBtn.onclick = () => {
     screen.close();
-
-    document.querySelectorAll('button').forEach(btn => {
-      if (!btn.dataset.permanentDisabled) {
-        btn.disabled = false;
-      }
-    });
-
-    if (timerFeatureEnabled) {
-      const pauseBtn = document.getElementById('pauseBtn');
-      if (pauseBtn) pauseBtn.disabled = false;
-    }
-
     resetAndReload();
   };
 
@@ -895,6 +897,8 @@ if (resumeBtn) {
       hintBtn.disabled = false;
     }
   });
+
+
 }
 
 /**
@@ -950,4 +954,24 @@ if (pauseHomeBtn) {
 document.addEventListener('DOMContentLoaded', () => {
   loadPuzzleURL();
 
+});
+
+// End Game Dialog 
+//================================================================================
+
+function showGameCompleteDialog() {
+    const dialog = document.getElementById("gameCompleteDialog");
+    dialog.classList.remove("hidden");
+
+    // show buttons
+    document.getElementById("townBtn").style.display = "inline-block";
+    document.getElementById("newGameBtn").style.display = "inline-block";
+}
+
+document.getElementById("townBtn").addEventListener("click", () => {
+    window.location.href = "towns.html"; 
+});
+
+document.getElementById("newGameBtn").addEventListener("click", () => {
+    window.location.href = "index.html"; 
 });

@@ -243,7 +243,6 @@ const puzzles = [
       'The brown sheeps are furthest to the right.',
       'The red sheeps are left of the blue sheeps.',
       'The white sheeps are next to the brown sheeps.',
-      'The black sheeps are left of the yellow sheeps.'
     ],
     items: [
       { id: 'red sheeps', img: 'barn/SheepRed.PNG' },
