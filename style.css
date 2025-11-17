@@ -423,6 +423,7 @@ h2 img {
 
 #submitBtn:hover {
     background: #43a047;
+    transform: scale(1.05);
 }
 
 #attempts {
@@ -1809,20 +1810,33 @@ dialog::backdrop {
 /* Buttons */
 .yellow-btn, .red-btn {
   padding: 14px 22px;
-  font-size: 18px;
+  font-size: 30x;
   border-radius: 10px;
   border: 2px solid rgba(0,0,0,0.3);
   cursor: pointer;
   font-weight: bold;
   min-width: 120px;
+  font-family: 'Arial Rounded MT Bold';
+  transition: background-color 0.2s, transform 0.1s;
+  /* box-shadow: 2px 5px 10px #74777a; */
 }
 
 .yellow-btn {
   background: #FFD029;
-  color: #3b2d00;
+  color: #ffffff;
+}
+
+.yellow-btn:hover {
+  background: #ffe177;
+  transform: scale(1.05);
 }
 
 .red-btn {
   background: #D56A6A;
   color: white;
+}
+
+.red-btn:hover {
+  background: #fe9f9f;
+  transform: scale(1.05);
 }
