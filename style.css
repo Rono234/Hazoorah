@@ -1740,58 +1740,61 @@ dialog#infoDialog::backdrop {
     background: #ffffff;
 }
 
-/* Colored left borders for 10 cards */
-.feature-card:nth-child(1) {
+/* Colored left borders for 11 cards */
+.feature-card:nth-child(1) { 
+    border-left: 6px solid #766c65; 
+} 
+/* brown */
+
+.feature-card:nth-child(2) {
     border-left: 6px solid #8e8df0;
 }
-
 /* purple */
-.feature-card:nth-child(2) {
+
+.feature-card:nth-child(3) {
     border-left: 6px solid #5ab1e4;
 }
-
 /* blue */
-.feature-card:nth-child(3) {
+
+.feature-card:nth-child(4) {
     border-left: 6px solid #f29c38;
 }
-
 /* orange */
-.feature-card:nth-child(4) {
+
+.feature-card:nth-child(5) {
     border-left: 6px solid #90c97d;
 }
-
 /* green */
-.feature-card:nth-child(5) {
+
+.feature-card:nth-child(6) {
     border-left: 6px solid #ce6ad3;
 }
-
 /* pink-purple */
-.feature-card:nth-child(6) {
+
+.feature-card:nth-child(7) {
     border-left: 6px solid #e86a6a;
 }
-
 /* red */
-.feature-card:nth-child(7) {
+
+.feature-card:nth-child(8) {
     border-left: 6px solid #6ac7c2;
 }
-
 /* teal */
-.feature-card:nth-child(8) {
+
+.feature-card:nth-child(9) {
     border-left: 6px solid #ebd773;
 }
-
 /* gold */
-.feature-card:nth-child(9) {
+
+.feature-card:nth-child(10) {
     border-left: 6px solid #9b7df0;
 }
-
 /* violet */
-.feature-card:nth-child(10) {
+
+.feature-card:nth-child(11) {
     border-left: 6px solid #ffa4cf;
 }
-
 /* soft pink */
-
 
 /* Default small icons */
 .feature-icon {

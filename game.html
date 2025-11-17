@@ -39,6 +39,11 @@
                 </p>
                 <div class="feature-grid">
                     <div class="feature-card">
+                        <img src="images/transparentBear.PNG" alt="Bear Back Button" class="feature-icon">
+                        <p><strong>Back Button:</strong> Click on the bear to go back to previous page.</p>
+                    </div>
+                    
+                    <div class="feature-card">
                         <img src="images/shuffleBtn.png" alt="Shuffle Icon" class="feature-icon">
                         <p><strong>Shuffle Button:</strong> Randomizes items for a fresh start.</p>
                     </div>
@@ -308,7 +313,6 @@
     Your browser does not support audio playback.
     </audio> -->
 
-
     <!-- Level End Screen -->
     <dialog id="levelEndDialog" class="level-end-dialog">
         <form method="dialog">
@@ -324,8 +328,6 @@
     <!-- Pause Dialog -->
     <dialog id="pauseDialog" class="level-end-dialog">
         <form method="dialog">
-
-
             <div class="dialog-buttons">
                 <button type="button" id="resumeBtn">RESUME</button>
                 <button type="button" id="pauseRetryBtn">RESTART</button>
@@ -334,27 +336,23 @@
             </div>
         </form>
     </dialog>
-
- 
   
     <!-- Game Complete Dialog -->
-<dialog id="gameCompleteDialog" class="dialog-full">
-    <form method="dialog">
-        
-        <!-- Banner Art -->
-        <img src="images/Success1.PNG" class="dialog-art" alt="Game Complete Art">
+    <dialog id="gameCompleteDialog" class="dialog-full">
+        <form method="dialog">
+            
+            <!-- Banner Art -->
+            <img src="images/Success1.PNG" class="dialog-art" alt="Game Complete Art">
 
-        <!-- Action Buttons -->
-        <div class="dialog-buttons">
-            <button type="button" id="townBtn" class="yellow-btn">TOWNS</button>
-            <button type="button" id="newGameBtn" class="red-btn">NEW GAME</button>
-        </div>
+            <!-- Action Buttons -->
+            <div class="dialog-buttons">
+                <button type="button" id="townBtn" class="yellow-btn">TOWNS</button>
+                <button type="button" id="newGameBtn" class="red-btn">NEW GAME</button>
+            </div>
 
-    </form>
-</dialog>
-
-
-</div>
+        </form>
+    </dialog>
+    </div>
 
     <script src="infoDialog.js"></script>
     <script src="puzzleData.js"></script>
@@ -364,5 +362,4 @@
     <script src="settings.js"></script>
     <script src="soundfx.js"></script>
 </body>
-
 </html>
