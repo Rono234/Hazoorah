@@ -1803,14 +1803,23 @@ dialog::backdrop {
   cursor: pointer;
   font-weight: bold;
   min-width: 120px;
+  font-family: 'Arial Rounded MT Bold';
 }
 
 .yellow-btn {
   background: #FFD029;
-  color: #3b2d00;
+  color: #ffffff;
+}
+
+.yellow-btn:hover {
+    background: #fad963;   
 }
 
 .red-btn {
   background: #D56A6A;
   color: white;
+}
+
+.red-btn:hover {
+  background: #fc9999;
 }
