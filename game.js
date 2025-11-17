@@ -158,6 +158,10 @@ function loadPuzzleURL() {
   if (banner) {
     banner.textContent = `LEVEL: ${safeLevel}`;
   }
+
+  // Add this line to set data attributes on the body
+  document.body.setAttribute('data-town', currentTown);
+  document.body.setAttribute('data-level', currentLevel);
 }
 
 //================================================================================

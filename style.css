@@ -43,7 +43,8 @@ body {
 }
 
 .title img {
-    width: 300px;
+    width: 230px;
+
     height: auto;
 }
 
@@ -65,11 +66,11 @@ body {
     transform: translate(-50%, -50%);
     color: white;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 35px;
 }
 
 .level-banner img {
-    width: 437px;
+    width: 390px;
     height: auto;
 }
 
@@ -225,6 +226,15 @@ h2 img {
     line-height: 1.5;
     word-wrap: break-word;
     overflow-wrap: break-word;
+}
+
+/* Specific styling for Town 2, Level 5 clues */
+body[data-town="2"][data-level="5"] #cluesContent li {
+    font-size: clamp(12.5px, 1.5vw, 12px);
+}
+
+body[data-town="2"][data-level="5"] #cluesContent p {
+    font-size: clamp(10px, 1.7vw, 13px);
 }
 
 /* Responsive adjustments for smaller screens */
@@ -399,7 +409,7 @@ h2 img {
 
 /* --- Controls --- */
 #controls {
-    margin-top: 20px;
+    margin-top: 5px;
     text-align: center;
 }
 
@@ -427,8 +437,22 @@ h2 img {
 }
 
 #attempts {
-    margin-top: 5px;
-    color: #ffffff;
+    position: absolute;
+    right: 110px;
+    top: 95px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Arial Rounded MT Bold';
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#attempts p {
+    margin: 0;
 }
 
 #settBtn {
@@ -451,8 +475,8 @@ h2 img {
 }
 
 #settBtn img {
-    width: 100%;
-    height: 100%;
+    width: 130%;
+    height: 130%;
     object-fit: contain;
 }
 
@@ -474,8 +498,49 @@ h2 img {
     cursor: pointer;
 }
 
+#hintBtn {
+    position: absolute;
+    left: 220px;
+    top: 613px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 4000;
+}
+
+#hintBtn:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+
+
+#clearBtn,
+#shufBtn {
+    position: absolute;
+    right: 50px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#clearBtn {
+    top: 660px;
+    right: 120px;
+}
+
+#shufBtn {
+    top: 660px;
+    right: 200px;
+}
+
 #clearBtn:hover,
-#hintBtn:hover,
 #shufBtn:hover {
     opacity: 0.7;
     transform: scale(1.1);
@@ -483,9 +548,11 @@ h2 img {
 }
 
 #clearBtn img,
-#hintBtn img,
-#shufBtn img {
-    margin: 0 0 -2px 0;
+#shufBtn img,
+#hintBtn img {
+    margin: 0;
+    width: 55px;
+    height: 55px;
 }
 
 /* Settings Dialog Styles */
@@ -732,6 +799,11 @@ dialog#settingsDialog::backdrop {
     /* position: static; */
 }
 
+#pauseBtn img {
+    width: 65px;
+    height: auto;
+}
+
 #pauseBtn:hover {
     opacity: 0.7;
     transform: scale(1.1);
@@ -749,7 +821,7 @@ dialog#settingsDialog::backdrop {
 .digit {
     font-size: 24px;
     color: black;
-    font-family: monospace
+    font-family: 'Arial Rounded MT Bold';
 }
 
 /* Notes panel */
@@ -761,16 +833,18 @@ dialog#settingsDialog::backdrop {
     right: 50px;
     top: 100px;
     margin-top: 40px;
-
-    width: 270px;
+    width: 297px;
     max-width: 35vw;
     overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
     box-sizing: border-box;
     padding: 12px;
     background: url(images/notesBackground.png) no-repeat center center;
     background-size: cover;
     border-radius: 8px;
     z-index: 1000;
+    align-items: flex-end;
 }
 
 #notesContainer h3 {
@@ -1075,8 +1149,7 @@ dialog#levelEndDialog::before {
         }
 
         #levelEndDialog .dialog-buttons button {
-            font-size: 34px;
-
+            font-size: 32px;
             padding: 10px 13px;
         }
 
@@ -1585,15 +1658,15 @@ dialog#levelEndDialog::before {
 
 #infoBtn {
     position: absolute;
-    left: 40px;
-    top: 30px;
+    left: 10px;
+    top: 10px;
     background: transparent;
     border: none;
     padding: 0;
     cursor: pointer;
     z-index: 100;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 45px;
 }
 
 /* Info Dialog Styles */
@@ -1768,75 +1841,76 @@ dialog#infoDialog::backdrop {
 /*Game End dialog styles*/
 
 dialog::backdrop {
-  background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.55);
 }
 
 .dialog-full img {
-  width: 100%;
-  max-width: 350px;
+    width: 100%;
+    max-width: 350px;
 }
 
 .dialog-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
 }
 
 .game-complete-dialog {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
 .game-complete-dialog.hidden {
-  display: none;
+    display: none;
 }
 
 .dialog-box {
-  position: relative;
-  width: 340px;
-  height: 480px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    position: relative;
+    width: 340px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 /* Buttons */
-.yellow-btn, .red-btn {
-  padding: 14px 22px;
-  font-size: 30x;
-  border-radius: 10px;
-  border: 2px solid rgba(0,0,0,0.3);
-  cursor: pointer;
-  font-weight: bold;
-  min-width: 120px;
-  font-family: 'Arial Rounded MT Bold';
-  transition: background-color 0.2s, transform 0.1s;
-  /* box-shadow: 2px 5px 10px #74777a; */
+.yellow-btn,
+.red-btn {
+    padding: 14px 22px;
+    font-size: 30x;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-weight: bold;
+    min-width: 120px;
+    font-family: 'Arial Rounded MT Bold';
+    transition: background-color 0.2s, transform 0.1s;
+    /* box-shadow: 2px 5px 10px #74777a; */
 }
 
 .yellow-btn {
-  background: #FFD029;
-  color: #ffffff;
+    background: #FFD029;
+    color: #ffffff;
 }
 
 .yellow-btn:hover {
-  background: #ffe177;
-  transform: scale(1.05);
+    background: #ffe177;
+    transform: scale(1.05);
 }
 
 .red-btn {
-  background: #D56A6A;
-  color: white;
+    background: #D56A6A;
+    color: white;
 }
 
 .red-btn:hover {
-  background: #fe9f9f;
-  transform: scale(1.05);
+    background: #fe9f9f;
+    transform: scale(1.05);
 }

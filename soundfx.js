@@ -38,7 +38,7 @@ window.playSfx = playSfx;
 
   // 🔊 Play fail sound
   function playFailSound() {
-    playSfx('audio/SoundFX/Fail.mp3');
+    playSfx('audio/SoundFX/failAudio2.wav');
   }
   window.playFailSound = playFailSound;
 

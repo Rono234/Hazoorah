@@ -17,6 +17,12 @@
 
     <img class="bg" src="images/plainBackground.PNG" alt="">
 
+    <!-- Hint Feedback at the top -->
+    <!-- <div id="hintFeedback"> -->
+       
+    <!-- </div> -->
+   
+
     <button id="infoBtn" class="iconBtn" title="Info">
         <img src="images/InfoBtn.png" alt="Info">
     </button>
@@ -166,10 +172,12 @@
         </section>
     </div>
 
+    
     <div class="stopwatch">
         <span class='digit' id="hours">00</span>:<span class='digit' id="minutes">00</span>:<span class='digit'
-            id="seconds">00</span>
+        id="seconds">00</span>
     </div>
+    <p id="feedback"></p>
 
     <div id="clues">
         <div id="storySentence">
@@ -200,7 +208,10 @@
 
     <div id="controls">
         <button id="submitBtn">SUBMIT</button>
-        <p id="feedback"></p>
+        
+    </div>
+
+    <div id="attempts">
         <p>Attempts Left: <span id="attemptCount">3</span></p>
     </div>
 

@@ -61,6 +61,7 @@
 .levels-page .level-banner img {
   max-width: 100%;
   display: block;
+      width: 500px;
   height: auto;
 }
 

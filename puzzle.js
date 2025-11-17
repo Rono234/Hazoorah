@@ -192,7 +192,7 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
       } else {
         // Play fail sound using playSfx directly
         if (window.playSfx) {
-          window.playSfx('audio/SoundFX/failAudio.wav');
+          window.playSfx('audio/SoundFX/failAudio2.wav');
         }
         
         if(timerInterval) {
