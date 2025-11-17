@@ -30,6 +30,14 @@
       card.addEventListener('click', (e) => {
         // Intercept and show intro
         e.preventDefault();
+
+        // Play SFX for town selection (uses global playSfx defined in soundfx.js)
+        const DEFAULT_TOWN_SFX = 'audio/SoundFX/pen-click-3-411630.mp3';
+        const sfxPath = card.getAttribute('data-sfx') || DEFAULT_TOWN_SFX;
+        if (window.playSfx) {
+          try { window.playSfx(sfxPath); } catch (_) { /* ignore */ }
+        }
+        
         const url = new URL(card.getAttribute('href'), window.location.href);
         const town = parseInt(url.searchParams.get('town') || card.dataset.town, 10) || 1;
         openTownIntro(town, url.toString());

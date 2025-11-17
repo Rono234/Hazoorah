@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+    <head>
+        <meta charset="UTF-8">
+        <title>Hazoorah - Main Menu</title>
+        <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
+        <link rel="stylesheet" href="style.css">
+    </head>
     <style>
          @font-face {
          font-family: "MyCustomFont";
@@ -264,200 +269,6 @@
             transition: transform 0.1s ease-in-out;
         }
 
-        /* Settings Dialog Styles */
-        dialog#settingsDialog {
-            padding: 24px;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
-            margin: auto;
-            background: white;
-        }
-
-        dialog#settingsDialog::backdrop {
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        #settingsDialog h3 {
-            margin: 0 0 20px 0;
-            color: #333;
-            font-size: 1.4em;
-        }
-
-        #settingsDialog h4 {
-            margin: 16px 0 12px 0;
-            color: #888;
-            font-size: 0.9em;
-            font-style: italic;
-            /* Make subheading lighter and less bold */
-            font-weight: 400;
-            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-        }
-
-        .settings-content {
-            margin-bottom: 24px;
-        }
-
-        .settings-group {
-            margin-bottom: 16px;
-        }
-
-        .settings-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .volume-control input[type="range"] {
-            flex: 1;
-            height: 4px;
-            border-radius: 2px;
-            background: #e0e0e0;
-            outline: none;
-            /*-webkit-appearance: none;*/
-        }
-
-        .volume-control input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #4CAF50;
-            cursor: pointer;
-            border: none;
-        }
-
-        .volume-control input[type="range"]::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #4CAF50;
-            cursor: pointer;
-            border: none;
-        }
-
-        .volume-control input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .dialog-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .dialog-buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        #saveSettingsBtn {
-            background: #4CAF50;
-            color: white;
-        }
-
-        #closeSettingsBtn {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        #saveSettingsBtn:hover {
-            background: #43a047;
-            transform: translateY(-1px);
-        }
-
-        #closeSettingsBtn:hover {
-            background: #e0e0e0;
-            transform: translateY(-1px);
-        }
-
-        /* Settings Dialog Styles */
-        #settingsOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        #settingsDialog {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #settingsDialog h3 {
-            margin: 0 0 15px 0;
-            color: #333;
-        }
-
-        .settings-content {
-            margin-bottom: 20px;
-        }
-
-        .settings-content label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .dialog-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-
-        .dialog-buttons button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #saveSettingsBtn {
-            background: #4CAF50;
-            color: white;
-        }
-
-        #closeSettingsBtn {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        #saveSettingsBtn:hover {
-            background: #45a049;
-        }
-
-        #closeSettingsBtn:hover {
-            background: #e0e0e0;
-        }
-
     </style>
 
     <body>
@@ -640,9 +451,10 @@
                 window.location.href = `levels.html?town=${lastTown}`;
             });
         </script>
-
+        
         <script src="infoDialog.js"></script>
         <script src="newGameBtn.js"></script>
+        <script src="soundfx.js"></script>
         <script src="settings.js"></script>
     </body>
 </html>

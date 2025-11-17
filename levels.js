@@ -73,7 +73,11 @@
             }
 
             btn.addEventListener('click', () => {
-                window.location.href = `game.html?town=${town}&level=${levelInTown}`;
+                
+                // Add small delay so sound is audible before navigation
+                setTimeout(() => {
+                    window.location.href = `game.html?town=${town}&level=${levelInTown}`;
+                }, 150);
             });
 
             levelsGrid.appendChild(btn);

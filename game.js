@@ -331,8 +331,8 @@ window.addEventListener('settings:timer', (e) => {
     if (m) m.textContent = '00';
     if (s) s.textContent = '00';
 
-    // Disable pause button
-    if (pauseBtn) pauseBtn.disabled = true;
+    // Keep pause button enabled so users can still pause the game
+    if (pauseBtn) pauseBtn.disabled = false;
 
     // Remove pause overlay
     const overlay = document.querySelector('.overlay');
@@ -354,8 +354,13 @@ window.addEventListener('settings:timer', (e) => {
       }
     }
   } else {
-    // Enable pause button
+    // Re-enable timer feature and restart timer
     if (pauseBtn) pauseBtn.disabled = false;
+    // Restart the timer if not already running
+    if (!timerInterval) {
+      timer = true;
+      startTimer();
+    }
   }
 });
 
