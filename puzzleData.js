@@ -72,10 +72,10 @@ const puzzles = [
   {
     level: 'hard',
     story: "The school doors are locked! Help Principal Gerold find the right keypad code!!",
-    clues: ["The number in the center of all codes are 5's",
+    clues: ["The number in the center of all keypads are 5's",
       "The sum of each row, column, and diagonal are the same",
-      "The number in the bottom-left of all codes are 8's",
-      "The number above the bottom-right corner of all codes are 7's",
+      "The number in the bottom-left of all keypads are 8's",
+      "The number above the bottom-right corner of all keypads are 7's",
       "The bottom-left number is double the top-left number."
     ],
 
@@ -219,11 +219,9 @@ const puzzles = [
   {
     level: 'medium',
     story:'Jerrold needs to fix his tractor for plowing! Order the parts based on how they fit in the tractor.',
-    clues: ['The engine is in the middle of the setup.',
-      'The wheel must come before the axle.',
-      'The lever is right before the exhaust.',
-      'The seat comes immediately after the engine.',
-      'The axle and lever are not next to each other.'
+    clues: ['The big wheels are not on the right.',
+      'The hoods of the tractor are placed on top right.',
+      'There is at least one wheel in the corner.'
     ],
     items: [
       { id: 'wheels', img: 'barn/1_Tractor.PNG' },
