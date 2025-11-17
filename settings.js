@@ -121,14 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyTimerSetting() {
     const enabled = timerToggle ? !!timerToggle.checked : (JSON.parse(localStorage.getItem('gameSettings') || '{}').timerEnabled ?? true);
     const stopwatch = document.querySelector('.stopwatch');
-    const timerControls = document.getElementById('timerControls');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const settBtn = document.getElementById('settBtn');
     if (stopwatch) stopwatch.style.display = enabled ? '' : 'none';
-    // Keep the settings button visible at all times; only toggle Pause visibility
-    if (pauseBtn) pauseBtn.style.display = enabled ? '' : 'none';
-    // Ensure the container remains visible so settings stays accessible
-    if (timerControls) timerControls.style.display = '';
     // Inform game logic to stop timer/clear overlay if disabled
     window.dispatchEvent(new CustomEvent('settings:timer', { detail: { enabled } }));
   }
@@ -144,10 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
     openDialog();
     // Dispatch settings opened event to pause timer
     window.dispatchEvent(new CustomEvent('settings:opened'));
+    /* BG MUSIC DISABLED
     // Try to play music if enabled when settings opened
     if (musicToggle.checked && bgAudio) {
       bgAudio.play().catch(() => {});
     }
+    */
   });
 
 // Music volume slider
@@ -249,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="range" id="soundVolume" min="0" max="100" value="100">
               </div>
             </div>
+            <!-- BG MUSIC DISABLED
             <div class="settings-group">
               <label for="musicToggle">Background Music</label>
               <div class="volume-control">
@@ -256,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="range" id="musicVolume" min="0" max="100" value="100">
               </div>
             </div>
+            -->
             <div class="settings-group">
               <label for="hintToggle">Hints</label>
               <div class="volume-control">
@@ -324,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
       closeDialog(dialog);
     });
 
+    /* BG MUSIC DISABLED
     // Optional CTA to kickstart audio on browsers blocking autoplay
     enableBtn?.addEventListener('click', async () => {
       const bg = document.getElementById('bgMusic');
@@ -331,9 +329,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try { await bg.play(); enableBtn.hidden = true; } catch {}
       }
     });
+    */
 
+    /* BG MUSIC DISABLED
     // Apply audio settings on page load (after wiring)
     applyAudioSettings();
+    */
   }
 
   function closeDialog(dialog) {
@@ -341,28 +342,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function saveSettingsToStorage() {
+    const prev = JSON.parse(localStorage.getItem('gameSettings') || '{}');
     const settings = {
-      sfxEnabled: !!document.getElementById('soundToggle')?.checked,
-      sfxVolume: Number(document.getElementById('soundVolume')?.value ?? 100),
+      ...prev,
+      soundEnabled: !!document.getElementById('soundToggle')?.checked,
+      soundVolume: Number(document.getElementById('soundVolume')?.value ?? 100),
+      /* BG MUSIC DISABLED
       musicEnabled: !!document.getElementById('musicToggle')?.checked,
       musicVolume: Number(document.getElementById('musicVolume')?.value ?? 100),
-      hintsEnabled: !!document.getElementById('hintToggle')?.checked,
+      */
+      hintEnabled: !!document.getElementById('hintToggle')?.checked,
       timerEnabled: !!document.getElementById('timerToggle')?.checked,
     };
-    localStorage.setItem('hazooraSettings', JSON.stringify(settings));
+    localStorage.setItem('gameSettings', JSON.stringify(settings));
   }
 
   function restoreSettingsFromStorage() {
-    const raw = localStorage.getItem('hazooraSettings');
+    const raw = localStorage.getItem('gameSettings');
     if (!raw) return;
     try {
       const s = JSON.parse(raw);
-      setIfPresent('soundToggle', 'checked', !!s.sfxEnabled);
-      setIfPresent('soundVolume', 'value', s.sfxVolume ?? 100);
-      setIfPresent('musicToggle', 'checked', !!s.musicEnabled);
+      setIfPresent('soundToggle', 'checked', s.soundEnabled ?? true);
+      setIfPresent('soundVolume', 'value', s.soundVolume ?? 100);
+      /* BG MUSIC DISABLED
+      setIfPresent('musicToggle', 'checked', s.musicEnabled ?? false);
       setIfPresent('musicVolume', 'value', s.musicVolume ?? 100);
-      setIfPresent('hintToggle', 'checked', !!s.hintsEnabled);
-      setIfPresent('timerToggle', 'checked', !!s.timerEnabled);
+      */
+      setIfPresent('hintToggle', 'checked', s.hintEnabled ?? false);
+      setIfPresent('timerToggle', 'checked', s.timerEnabled ?? true);
     } catch {}
   }
 

@@ -198,7 +198,6 @@
 }
 
 .levels-page .levelBtn {
-  border: 12px solid #9ACF7C;
   background: #FFFCF2;
   background: linear-gradient(180deg, #ffffff, #eaf6ff);
   box-shadow: 0 3px 8px rgba(0,0,0,0.12);
@@ -209,6 +208,18 @@
   flex-direction: column;
   gap: 8px;
   transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.levels-page .levelBtn.town-1 {
+  border: 12px solid #FFC517;
+}
+
+.levels-page .levelBtn.town-2 {
+  border: 12px solid #9ACF7C;
+}
+
+.levels-page .levelBtn.town-3 {
+  border: 12px solid #D26665;
 }
 
 .levels-page .levelBtn:hover {
@@ -277,11 +288,4 @@
   .levels-page #levelsGrid {
     grid-template-columns: repeat(2, minmax(120px, 1fr)); /* fall back to 2 cols on small screens */
   }
-}
-
-#page1 .levelBtn {
-  border: 12px solid #F2B705;
-}
-#page3 .levelBtn {
-  border: 12px solid #eb5338;
 }

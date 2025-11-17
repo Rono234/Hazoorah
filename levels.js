@@ -24,11 +24,10 @@
 
         for (let i = 1; i <= totalLevels; i++) {
             const btn = document.createElement('button');
-            btn.classList.add("levelBtn");
-
             const town = Math.ceil(i / levelsPerPage);
             const levelInTown = ((i - 1) % levelsPerPage) + 1;
 
+            btn.classList.add("levelBtn", `town-${town}`);
             btn.dataset.town = town;
             btn.dataset.level = levelInTown;
             btn.dataset.page = town;
@@ -60,7 +59,7 @@
                 ${starHTML}
             `;
 
-            const highestCompleted = completedLevels.length ? Math.max(...completedLevels) : 0;
+            const highestCompleted = completedLevels.length ? Math.max(...completedLevels.filter(l => l >= 1 && l <= 5)) : 0;
             const nextLevel = highestCompleted + 1;
 
             if (isCompleted) {
@@ -74,7 +73,11 @@
             }
 
             btn.addEventListener('click', () => {
-                window.location.href = `index.html?town=${town}&level=${levelInTown}`;
+                
+                // Add small delay so sound is audible before navigation
+                setTimeout(() => {
+                    window.location.href = `game.html?town=${town}&level=${levelInTown}`;
+                }, 150);
             });
 
             levelsGrid.appendChild(btn);

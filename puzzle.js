@@ -185,8 +185,13 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
       }
       submitBtn.disabled = pauseBtn.disabled = clearBtn.disabled = hintBtn.disabled = shufBtn.disabled = true;
       
-      const currentLevel = currentPuzzleIndex + 1;
-      showLevelEndMessage(true, currentLevel, attemptsLeft);
+      const puzzleNumber = currentPuzzleIndex + 1;
+      const levelsPerTown = 5;
+      const actualTown = Math.ceil(puzzleNumber / levelsPerTown); // 1,2,3
+      const levelInTown = puzzleNumber - (actualTown - 1) * levelsPerTown; // 1-5
+
+      showLevelEndMessage(true, { town: actualTown, level: levelInTown }, attemptsLeft);
+
 
     } else {
       if(window.playSfx){

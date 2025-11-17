@@ -7,14 +7,14 @@ const hintLimits = {
 const puzzles = [
   {
     level: 'easy',
-    story: 'All the supplies in the art room are scattered! Gerold needs to place them neatly back on the shelf in the correct order before the students come to class.',
+    story: 'The art room is a mess! Gerold needs to neatly organize the supplies before students arrive.',
     clues: ['The crayons should be on the far left.',
        "The colored pencils are not next to the crayons."],
 
     items: [
-      { id: 'crayons', img: 'images/purple-dahlias.PNG' },
-      { id: 'paint brushes', img: 'images/white-daisies.PNG' },
-      { id: 'colored pencils', img: 'images/orange-hibiscuses.PNG' }
+      { id: 'crayons', img: 'school/crayon.PNG' },
+      { id: 'paint brushes', img: 'school/paintbrush.PNG' },
+      { id: 'colored pencils', img: 'school/colorpencil.PNG' }
     ],
     correctOrder: ['crayons', 'paint brushes', 'colored pencils']
   },
@@ -26,69 +26,69 @@ const puzzles = [
        "The beakers are between the other two items."],
 
     items: [
-      { id: 'test tubes', img: 'images/green-hydrangeas.PNG' },
-      { id: 'beakers', img: 'images/red-roses.PNG' },
-      { id: 'microscopes', img: 'images/yellow-tulips.PNG' }
+      { id: 'test tubes', img: 'school/testTube.PNG' },
+      { id: 'beakers', img: 'school/beaker.PNG' },
+      { id: 'microscopes', img: 'school/microscope.PNG' }
     ],
     correctOrder: ['test tubes', 'beakers', 'microscopes']
   },
 
   {
     level: 'medium',
-    story: 'When Gerold checks the library, he finds that all the books are misplaced! Help him return them to their proper shelves before the librarian arrives.',
+    story: 'Books are everywhere! Help Gerold shelve them correctly before the librarian arrives.',
     clues: ['The math books should be before the science books.',
       'The story books are between science and art books.',
       'The geography books belong at the far right.'
     ],
     items: [
-      { id: 'math books', img: 'images/purple-roses.PNG' },
-      { id: 'science books', img: 'images/white-roses.PNG' },
-      { id: 'story books', img: 'images/pink-daisies.PNG' },
-      { id: 'art books', img: 'images/orange-daisies.PNG' },
-      { id: 'history books', img: 'images/red-dahlias.PNG' },
-      { id: 'geography books', img: 'images/blue-dahlias.PNG' }
+      { id: 'math books', img: 'school/mathBook.PNG' },
+      { id: 'science books', img: 'school/scienceBook.PNG' },
+      { id: 'story books', img: 'school/storyBook.PNG' },
+      { id: 'art books', img: 'school/artBook.PNG' },
+      { id: 'history books', img: 'school/historyBook.PNG' },
+      { id: 'geography books', img: 'school/geoBook.PNG' }
     ],
     correctOrder: ['math books','science books' ,'story books', 'art books', 'history books','geography books']
   },
 
   {
     level: 'medium',
-    story: 'Gerold opens the supply closet and finds everything mixed up! He needs to organize the school essentials before the teachers get there.',
+    story: 'Gerold finds the supply closet a mess! He needs to organize everything before the teachers arrive.',
     clues: ['The chalks are between the erasers and the pieces of paper.',
       'The glues are at the far right.',
       'The notebooks come before the markers.'
     ],
     items: [
-      { id: 'erasers', img: 'images/pink-hydrangeas.PNG' },
-      { id: 'chalks', img: 'images/blue-hydrangeas.PNG' },
-      { id: 'pieces of paper', img: 'images/black-hibiscuses.PNG' },
-      { id: 'notebooks', img: 'images/yellow-hibiscuses.PNG' },
-      { id: 'markers', img: 'images/orange-tulips.PNG' },
-      { id: 'glues', img: 'images/purple-tulips.png' }
+      { id: 'erasers', img: 'school/erasers.PNG' },
+      { id: 'chalks', img: 'school/chalk.PNG' },
+      { id: 'pieces of paper', img: 'school/paperReam.PNG' },
+      { id: 'notebooks', img: 'school/notebooks.PNG' },
+      { id: 'markers', img: 'school/markers.PNG' },
+      { id: 'glues', img: 'school/glue.PNG' }
     ],
     correctOrder: ['erasers', 'chalks', 'pieces of paper', 'notebooks', 'markers', 'glues']
   },
 
   {
     level: 'hard',
-    story: "Principal Gerold finally reaches the school doors, but they’re locked! The keypad to open them isn’t broken… it's just missing the right code.To open the school and begin the new semester, help him solve the math puzzle that reveals the secret 3×3 code!",
-    clues: ["The number in the center of all codes are 5's",
+    story: "The school doors are locked! Help Principal Gerold find the right keypad code!!",
+    clues: ["The number in the center of all keypads are 5's",
       "The sum of each row, column, and diagonal are the same",
-      "The number in the bottom-left of all codes are 8's",
-      "The number above the bottom-right corner of all codes are 7's",
+      "The number in the bottom-left of all keypads are 8's",
+      "The number above the bottom-right corner of all keypads are 7's",
       "The bottom-left number is double the top-left number."
     ],
 
     items: [
-      { id: "4's", img: 'images/red-roses.PNG' },
-      { id: "9's", img: 'images/green-hydrangeas.PNG' },
-      { id: "2's", img: 'images/blue-daisies.PNG' },
-      { id: "3's", img: 'images/gray-roses.PNG' },
-      { id: "5's", img: 'images/orange-daisies.PNG' },
-      { id: "7's", img: 'images/yellow-daisies.PNG' },
-      { id: "8's", img: 'images/white-hydrangeas.PNG' },
-      { id: "1's", img: 'images/black-roses.PNG' },
-      { id: "6's", img: 'images/purple-hydrangeas.PNG' }
+      { id: "4's", img:'school/4_redNumber.PNG' },
+      { id: "9's", img: 'school/9_redNumber.PNG' },
+      { id: "2's", img: 'school/2_redNumber.PNG' },
+      { id: "3's", img: 'school/3_redNumber.PNG' },
+      { id: "5's", img: 'school/5_redNumber.PNG' },
+      { id: "7's", img: 'school/7_redNumber.PNG' },
+      { id: "8's", img: 'school/8_redNumber.PNG'},
+      { id: "1's", img: 'school/1_redNumber.PNG' },
+      { id: "6's", img: 'school/6_redNumber.PNG' }
     ],
     correctOrder: [
       "4's", "9's", "2's", "3's", "5's",
@@ -103,23 +103,23 @@ const puzzles = [
        "The white daisies are on the left."] ,
 
     items: [
-      { id: 'purple dahlias', img: 'images/purple-dahlias.PNG' },
-      { id: 'white daisies', img: 'images/white-daisies.PNG' },
-      { id: 'orange hibiscuses', img: 'images/orange-hibiscuses.PNG' }
+      { id: 'purple dahlias', img: 'garden/purple-dahlias.PNG' },
+      { id: 'white daisies', img: 'garden/white-daisies.PNG' },
+      { id: 'orange hibiscuses', img: 'garden/orange-hibiscuses.PNG' }
     ],
     correctOrder: ['white daisies', 'orange hibiscuses', 'purple dahlias']
   },
 
   {
     level: 'easy',
-    story: 'Help Haroldene arrange her favorite flowers!',
+    story: 'Help Haroldene arrange her favorite flowers! Lend her a hand in organizing them just the way she likes!',
     clues: ['The green hydrangeas are not in the second box.',
        "The red roses are next to the yellow tulips.", "The yellow tulips are on the right."] ,
 
     items: [
-      { id: 'green hydrangeas', img: 'images/green-hydrangeas.PNG' },
-      { id: 'red roses', img: 'images/red-roses.PNG' },
-      { id: 'yellow tulips', img: 'images/yellow-tulips.PNG' }
+      { id: 'green hydrangeas', img: 'garden/green-hydrangeas.PNG' },
+      { id: 'red roses', img: 'garden/red-roses.PNG' },
+      { id: 'yellow tulips', img: 'garden/yellow-tulips.PNG' }
     ],
     correctOrder: ['green hydrangeas', 'red roses', 'yellow tulips']
   },
@@ -132,12 +132,12 @@ const puzzles = [
       'The white roses are on top of all other types of roses.'
     ],
     items: [
-      { id: 'purple roses', img: 'images/purple-roses.PNG' },
-      { id: 'white roses', img: 'images/white-roses.PNG' },
-      { id: 'pink daisies', img: 'images/pink-daisies.PNG' },
-      { id: 'orange daisies', img: 'images/orange-daisies.PNG' },
-      { id: 'red dahlias', img: 'images/red-dahlias.PNG' },
-      { id: 'blue dahlias', img: 'images/blue-dahlias.PNG' }
+      { id: 'purple roses', img: 'garden/purple-roses.PNG' },
+      { id: 'white roses', img: 'garden/white-roses.PNG' },
+      { id: 'pink daisies', img: 'garden/pink-daisies.PNG' },
+      { id: 'orange daisies', img: 'garden/orange-daisies.PNG' },
+      { id: 'red dahlias', img: 'garden/red-dahlias.PNG' },
+      { id: 'blue dahlias', img: 'garden/blue-dahlias.PNG' }
     ],
     correctOrder: ['red dahlias','white roses' ,'pink daisies', 'orange daisies', 'purple roses','blue dahlias']
   },
@@ -151,12 +151,12 @@ const puzzles = [
       'The purple tulips are not on the left.'
     ],
     items: [
-      { id: 'pink hydrangeas', img: 'images/pink-hydrangeas.PNG' },
-      { id: 'blue hydrangeas', img: 'images/blue-hydrangeas.PNG' },
-      { id: 'black hibiscuses', img: 'images/black-hibiscuses.PNG' },
-      { id: 'yellow hibiscuses', img: 'images/yellow-hibiscuses.PNG' },
-      { id: 'orange tulips', img: 'images/orange-tulips.PNG' },
-      { id: 'purple tulips', img: 'images/purple-tulips.png' }
+      { id: 'pink hydrangeas', img: 'garden/pink-hydrangeas.PNG' },
+      { id: 'blue hydrangeas', img: 'garden/blue-hydrangeas.PNG' },
+      { id: 'black hibiscuses', img: 'garden/black-hibiscuses.PNG' },
+      { id: 'yellow hibiscuses', img: 'garden/yellow-hibiscuses.PNG' },
+      { id: 'orange tulips', img: 'garden/orange-tulips.PNG' },
+      { id: 'purple tulips', img: 'garden/purple-tulips.png' }
     ],
     correctOrder: ['pink hydrangeas', 'blue hydrangeas', 'black hibiscuses', 'orange tulips', 'yellow hibiscuses', 'purple tulips']
   },
@@ -172,15 +172,15 @@ const puzzles = [
       'The purple hydrangeas are on the bottom right, near the yellow daisies.'
 ],
     items: [
-      { id: 'red roses', img: 'images/red-roses.PNG' },
-      { id: 'green hydrangeas', img: 'images/green-hydrangeas.PNG' },
-      { id: 'blue daisies', img: 'images/blue-daisies.PNG' },
-      { id: 'gray roses', img: 'images/gray-roses.PNG' },
-      { id: 'orange daisies', img: 'images/orange-daisies.PNG' },
-      { id: 'yellow daisies', img: 'images/yellow-daisies.PNG' },
-      { id: 'white hydrangeas', img: 'images/white-hydrangeas.PNG' },
-      { id: 'black roses', img: 'images/black-roses.PNG' },
-      { id: 'purple hydrangeas', img: 'images/purple-hydrangeas.PNG' }
+      { id: 'red roses', img: 'garden/red-roses.PNG' },
+      { id: 'green hydrangeas', img: 'garden/green-hydrangeas.PNG' },
+      { id: 'blue daisies', img: 'garden/blue-daisies.PNG' },
+      { id: 'gray roses', img: 'garden/gray-roses.PNG' },
+      { id: 'orange daisies', img: 'garden/orange-daisies.PNG' },
+      { id: 'yellow daisies', img: 'garden/yellow-daisies.PNG' },
+      { id: 'white hydrangeas', img: 'garden/white-hydrangeas.PNG' },
+      { id: 'black roses', img: 'garden/black-roses.PNG' },
+      { id: 'purple hydrangeas', img: 'garden/purple-hydrangeas.PNG' }
     ],
     correctOrder: [
       'gray roses', 'black roses', 'white hydrangeas', 'blue daisies', 'red roses',
@@ -190,14 +190,14 @@ const puzzles = [
 
   {
     level: 'easy',
-    story:'Jerrold needs to feed his farm animals. Put them in order from first fed to last fed.',
+    story:'The animals are making a fuss. Help Jerrold feed them in the correct order from first fed to last fed.',
     clues: ['The cows eat after the chicken.',
        "The pigs are always fed last."] ,
 
     items: [
-      { id: 'cows', img: 'images/Cow.PNG' },
-      { id: 'pigs', img: 'images/Pig.PNG' },
-      { id: 'chickens', img: 'images/Chicken.PNG' }
+      { id: 'cows', img: 'barn/Cow.PNG' },
+      { id: 'pigs', img: 'barn/Pig.PNG' },
+      { id: 'chickens', img: 'barn/Chicken.PNG' }
     ],
     correctOrder: ['chickens', 'cows', 'pigs']
   },
@@ -209,9 +209,9 @@ const puzzles = [
        "The corn basket is not the lightest.", "The apples are lighter than both other baskets."] ,
 
     items: [
-      { id: 'carrots', img: 'images/Carrot.PNG' },
-      { id: 'apples', img: 'images/Apple.PNG' },
-      { id: 'corns', img: 'images/Corn.PNG' }
+      { id: 'carrots', img: 'barn/Carrot.PNG' },
+      { id: 'apples', img: 'barn/Apple.PNG' },
+      { id: 'corns', img: 'barn/Corn.PNG' }
     ],
     correctOrder: ['apples', 'carrots', 'corns']
   },
@@ -219,19 +219,17 @@ const puzzles = [
   {
     level: 'medium',
     story:'Jerrold needs to fix his tractor for plowing! Order the parts based on how they fit in the tractor.',
-    clues: ['The engine is in the middle of the setup.',
-      'The wheel must come before the axle.',
-      'The lever is right before the exhaust.',
-      'The seat comes immediately after the engine.',
-      'The axle and lever are not next to each other.'
+    clues: ['The big wheels are not on the right.',
+      'The hoods of the tractor are placed on top right.',
+      'There is at least one wheel in the corner.'
     ],
     items: [
-      { id: 'wheels', img: 'images/1_Tractor.PNG' },
-      { id: 'axles', img: 'images/2_Tractor.PNG' },
-      { id: 'engines', img: 'images/3_Tractor.PNG' },
-      { id: 'seats', img: 'images/4_Tractor.PNG' },
-      { id: 'levers', img: 'images/5_Tractor.PNG' },
-      { id: 'exhausts', img: 'images/6_Tractor.PNG' }
+      { id: 'wheels', img: 'barn/1_Tractor.PNG' },
+      { id: 'axles', img: 'barn/2_Tractor.PNG' },
+      { id: 'engines', img: 'barn/3_Tractor.PNG' },
+      { id: 'seats', img: 'barn/4_Tractor.PNG' },
+      { id: 'levers', img: 'barn/5_Tractor.PNG' },
+      { id: 'exhausts', img: 'barn/6_Tractor.PNG' }
     ],
     correctOrder: ['wheels','axles' ,'engines', 'seats', 'levers','exhausts']
   },
@@ -239,43 +237,42 @@ const puzzles = [
   {
     level: 'medium',
     story:'Jerrold is arranging his sheep for a farm show. Arrange them from left to right based on the clues.',
-    clues: ['The yellow sheeps stand between the blue sheeps and the black sheeps.',
+    clues: ['The yellow sheeps stand on top of the brown sheeps.',
       'The brown sheeps are furthest to the right.',
       'The red sheeps are left of the blue sheeps.',
       'The white sheeps are next to the brown sheeps.',
-      'The black sheeps are right of the yellow sheeps.'
     ],
     items: [
-      { id: 'red sheeps', img: 'images/SheepRed.PNG' },
-      { id: 'blue sheeps', img: 'images/SheepBlue.PNG' },
-      { id: 'yellow sheeps', img: 'images/SheepYellow.PNG' },
-      { id: 'black sheeps', img: 'images/SheepBlack.PNG' },
-      { id: 'white sheeps', img: 'images/SheepWhite.PNG' },
-      { id: 'brown sheeps', img: 'images/SheepBrown.PNG' }
+      { id: 'red sheeps', img: 'barn/SheepRed.PNG' },
+      { id: 'blue sheeps', img: 'barn/SheepBlue.PNG' },
+      { id: 'yellow sheeps', img: 'barn/SheepYellow.PNG' },
+      { id: 'black sheeps', img: 'barn/SheepBlack.PNG' },
+      { id: 'white sheeps', img: 'barn/SheepWhite.PNG' },
+      { id: 'brown sheeps', img: 'barn/SheepBrown.PNG' }
     ],
     correctOrder: ['red sheeps', 'blue sheeps', 'yellow sheeps', 'black sheeps', 'white sheeps', 'brown sheeps']
   },
 
   {
     level: 'hard',
-    story:'Jerrold is planting his crops on a 3x3 grid. Arrange the crops based on the clues provided.',
+    story:'Jerrold is planting his crops on a 3×3 grid. Arrange the crops from earliest to latest harvest using the clues.',
     clues: ['The wheats are directly above the rices.',
       'Cabbages grows earlier than the peanuts and wheats.',
       'Peas are planted to the right of the tomatoes.',
-      'Potatoes are in the bottom-right corner.',
+      'Potatoes are harvested last.',
       'Corn cobs grows below the peanuts.',
       'Beans are right of the wheats.'
 ],
     items: [
-      { id: 'cabbages', img: 'images/Cabbage.PNG' },
-      { id: 'tomatoes', img: 'images/Tomatoes.PNG' },
-      { id: 'peas', img: 'images/Peas.PNG' },
-      { id: 'peanuts', img: 'images/Peanuts.PNG' },
-      { id: 'wheats', img: 'images/Wheat.PNG' },
-      { id: 'beans', img: 'images/Beans.PNG' },
-      { id: 'corn cobs', img: 'images/Corn.PNG' },
-      { id: 'rices', img: 'images/Rice.PNG' },
-      { id: 'potatoes', img: 'images/Potatoes.PNG' }
+      { id: 'cabbages', img: 'barn/Cabbage.PNG' },
+      { id: 'tomatoes', img: 'barn/Tomatoes.PNG' },
+      { id: 'peas', img: 'barn/Peas.PNG' },
+      { id: 'peanuts', img: 'barn/Peanuts.PNG' },
+      { id: 'wheats', img: 'barn/Wheat.PNG' },
+      { id: 'beans', img: 'barn/Beans.PNG' },
+      { id: 'corn cobs', img: 'barn/Corn.PNG' },
+      { id: 'rices', img: 'barn/Rice.PNG' },
+      { id: 'potatoes', img: 'barn/Potatoes.PNG' }
     ],
     correctOrder: [
       'cabbages', 'tomatoes', 'peas', 'peanuts', 'wheats',

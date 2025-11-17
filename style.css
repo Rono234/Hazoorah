@@ -403,12 +403,17 @@ h2 img {
     text-align: center;
 }
 
+#controls p {
+    font-family: 'Arial Rounded MT Bold';
+    font-size: 17px;
+}
+
 #submitBtn {
     background: #9ACF7C;
     color: white;
     border: none;
     padding: 4px 18px;
-    margin-top: 20px;
+    margin-top: 15px;
     border-radius: 11px;
     cursor: pointer;
     font-size: 28px;
@@ -426,44 +431,57 @@ h2 img {
 }
 
 #settBtn {
-    /* Keep the circular layout but make it borderless and transparent */
+    /* position: absolute;
+    top: 20px;
+    right: 20px; */
+
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: transparent;
-    /* no background color */
     border: none;
-    /* no border */
     padding: 0;
     margin: 0;
     cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+}
+
+#settBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#settBtn:hover img {
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
 }
 
 #clearBtn,
 #hintBtn,
 #shufBtn {
     margin-left: auto;
-    background-color: white;
     border-radius: 50%;
-    border: gray 1px solid;
-    padding: 1px 1px;
-    margin-top: 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-top: 15px;
     cursor: pointer;
 }
 
 #clearBtn:hover,
 #hintBtn:hover,
-#shufBtn:hover,
-#settBtn:hover {
-    background-color: lightgray;
+#shufBtn:hover {
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
 }
 
 #clearBtn img,
 #hintBtn img,
-#shufBtn img,
-#settBtn img {
+#shufBtn img {
     margin: 0 0 -2px 0;
 }
 
@@ -704,30 +722,15 @@ dialog#settingsDialog::backdrop {
 
 #pauseBtn {
     cursor: pointer;
-    margin-left: 0;
+    /* margin-left: 0; */
     background-color: transparent;
     border: none;
     padding: 3px;
-    position: static;
+    /* position: static; */
 }
 
 #pauseBtn:hover {
     opacity: 0.7;
-}
-
-#startTimer {
-    cursor: pointer;
-    background-color: blueviolet;
-    color: white;
-    border-radius: 8px;
-    border: gray 1px solid;
-    padding: 8px 12px;
-    font-size: medium;
-    position: static;
-}
-
-#startTimer:hover {
-    background-color: indigo;
 }
 
 .stopwatch {
@@ -846,7 +849,7 @@ dialog#settingsDialog::backdrop {
     font-size: 0.9rem;
 }
 
-.level-end-dialog {
+/* .level-end-dialog {
     padding: 24px;
     border: none;
     border-radius: 12px;
@@ -855,7 +858,7 @@ dialog#settingsDialog::backdrop {
     margin: auto;
     background: #E0EDEF;
     text-align: center;
-}
+} */
 
 .level-end-dialog .dialog-buttons {
     display: flex;
@@ -932,7 +935,8 @@ dialog#levelEndDialog {
     border: none;
     border-radius: 0;
     padding: 0;
-    max-width: 600px;
+    max-width: min(600px, 90vw);
+    max-height: min(80vh, 80vh);
     width: auto;
     height: auto;
     background-image: url('images/Success.png');
@@ -945,11 +949,6 @@ dialog#levelEndDialog {
     overflow: visible;
 }
 
-dialog#levelEndDialog::backdrop {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-}
-
 /* Content wrapper to maintain spacing inside the dialog */
 dialog#levelEndDialog form {
     padding: 40px 40px 20px 40px;
@@ -958,7 +957,6 @@ dialog#levelEndDialog form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Changed to space-between */
     align-items: center;
 }
 
@@ -973,15 +971,13 @@ dialog#levelEndDialog form {
 
 #levelEndDialog h3 {
     display: none;
-    /* Hide the message */
 }
 
 #levelEndDialog .dialog-buttons {
     display: flex;
     position: absolute;
-    bottom: 16%;
+    bottom: 10%;
     gap: 12px;
-    /* margin-top: auto; */
     margin-bottom: 27px;
     width: 100%;
     max-width: 375px;
@@ -999,25 +995,394 @@ dialog#levelEndDialog form {
     font-family: "Arial Rounded MT Bold";
 }
 
-/* Remove the ::before pseudo-element since we want the image to show fully */
 dialog#levelEndDialog::before {
     display: none;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* 1. MacBook Air 13" (2560×1664) and MacBook Pro 13" (2560×1600) */
+@media (min-width: 1280px) and (max-width: 1440px) {
+    @media (min-height: 800px) and (max-height: 900px) {
+        dialog#levelEndDialog {
+            max-width: min(550px, 85vw);
+            max-height: 68vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 380px;
+            padding: 38px 30px 20px 30px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 32px;
+            margin: 38px 0 0 15px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 15%;
+            max-width: 350px;
+            gap: 11px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 28px;
+            padding: 11px 22px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 32%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 18%;
+        }
+    }
+}
+
+/* 2. Dell XPS 13 (1920×1080) - Common FHD laptop */
+@media (min-width: 1366px) and (max-width: 1920px) {
+    @media (min-height: 768px) and (max-height: 1080px) {
+        dialog#levelEndDialog {
+            max-width: min(520px, 82vw);
+            max-height: 77vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 360px;
+            padding: 36px 28px 20px 28px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 30px;
+            margin: 36px 0 0 18px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 9%;
+            max-width: 340px;
+            gap: 10px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 34px;
+
+            padding: 10px 13px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 25%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 22%;
+        }
+    }
+}
+
+/* 3. HP Pavilion/Lenovo IdeaPad (1366×768) - Most common budget laptop resolution */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    @media (min-height: 600px) and (max-height: 768px) {
+        dialog#levelEndDialog {
+            max-width: min(480px, 80vw);
+            max-height: 80vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 330px;
+            padding: 32px 24px 18px 24px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 27px;
+            margin: 32px 0 0 16px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 10%;
+            max-width: 310px;
+            gap: 10px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 25px;
+            padding: 10px 19px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 25%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 20%;
+        }
+    }
+}
+
+/* 4. MacBook Pro 14" (3024×1964) and 15"/16" models */
+@media (min-width: 1440px) and (max-width: 1920px) {
+    @media (min-height: 900px) and (max-height: 1200px) {
+        dialog#levelEndDialog {
+            max-width: min(580px, 88vw);
+            max-height: 70vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 400px;
+            padding: 40px 32px 22px 32px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 34px;
+            margin: 40px 0 0 12px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 16%;
+            max-width: 370px;
+            gap: 12px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 29px;
+            padding: 12px 23px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 33%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 19%;
+        }
+    }
+}
+
+/* 5. ASUS/Acer Gaming Laptops (1920×1080) - 15.6" standard */
+@media (min-width: 1600px) and (max-width: 1920px) {
+    @media (min-height: 900px) and (max-height: 1080px) {
+        dialog#levelEndDialog {
+            max-width: min(560px, 86vw);
+            max-height: 68vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 390px;
+            padding: 38px 30px 20px 30px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 32px;
+            margin: 38px 0 0 14px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 15%;
+            max-width: 360px;
+            gap: 11px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 28px;
+            padding: 11px 22px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 32%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 18%;
+        }
+    }
+}
+
+/* Tablets: 601px - 1024px width */
+@media (min-width: 601px) and (max-width: 1024px) {
+    @media (min-height: 500px) and (max-height: 800px) {
+        dialog#levelEndDialog {
+            max-width: min(450px, 85vw);
+            max-height: 62vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 300px;
+            padding: 28px 20px 18px 20px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 25px;
+            margin: 28px 0 0 18px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 12%;
+            max-width: 280px;
+            gap: 10px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 23px;
+            padding: 9px 18px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 29%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 17%;
+        }
+    }
+}
+
+/* Small tablets/large phones: 481px - 600px width */
+@media (min-width: 481px) and (max-width: 600px) {
+    @media (min-height: 450px) and (max-height: 750px) {
+        dialog#levelEndDialog {
+            max-width: min(400px, 90vw);
+            max-height: 55vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 220px;
+            padding: 20px 12px 12px 12px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 20px;
+            margin: 20px 0 0 12px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 10%;
+            max-width: 220px;
+            gap: 8px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 19px;
+            padding: 7px 14px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 27%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 16%;
+        }
+    }
+}
+
+/* Large phones: 376px - 480px width */
+@media (min-width: 376px) and (max-width: 480px) {
+    @media (min-height: 400px) and (max-height: 700px) {
+        dialog#levelEndDialog {
+            max-width: min(350px, 95vw);
+            max-height: 50vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 180px;
+            padding: 15px 8px 8px 8px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 17px;
+            margin: 15px 0 0 10px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 8%;
+            max-width: 180px;
+            gap: 6px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 16px;
+            padding: 6px 10px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 25%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 15%;
+        }
+    }
+}
+
+/* Small phones: up to 375px width */
+@media (max-width: 375px) {
+    @media (min-height: 350px) and (max-height: 700px) {
+        dialog#levelEndDialog {
+            max-width: 95vw;
+            max-height: 45vh;
+        }
+
+        dialog#levelEndDialog form {
+            min-width: 160px;
+            padding: 12px 6px 6px 6px;
+        }
+
+        #levelEndDialog h1 {
+            font-size: 15px;
+            margin: 12px 0 0 8px;
+        }
+
+        #levelEndDialog .dialog-buttons {
+            bottom: 6%;
+            max-width: 150px;
+            gap: 5px;
+        }
+
+        #levelEndDialog .dialog-buttons button {
+            font-size: 14px;
+            padding: 5px 8px;
+        }
+
+        #levelEndDialog #starsContainer {
+            top: 24%;
+        }
+
+        #levelEndDialog #starsContainer .star {
+            width: 14%;
+        }
+    }
+}
+
+/* Very short screens (landscape orientation) */
+@media (max-height: 500px) {
+    dialog#levelEndDialog {
+        max-height: 80vh;
+    }
+
     dialog#levelEndDialog form {
-        min-width: 300px;
-        padding: 30px 20px 20px 20px;
+        padding: 10px;
+        min-width: 150px;
     }
 
     #levelEndDialog h1 {
-        font-size: 24px;
-        margin: 30px 0 0 37px;
+        font-size: 14px;
+        margin: 10px 0 0 8px;
     }
 
-    #levelEndDialog h3 {
-        font-size: 16px;
+    #levelEndDialog .dialog-buttons {
+        bottom: 5%;
+        max-width: 140px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 22%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 13%;
     }
 }
 
@@ -1034,94 +1399,129 @@ dialog#levelEndDialog::before {
 }
 
 #pauseDialog {
-    padding: 24px;
     border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-    max-width: 400px;
-    margin: auto;
-    background: #E0EDEF;
+    border-radius: 0;
+    padding: 0;
+    max-width: 600px;
+    width: auto;
+    height: auto;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: relative;
     text-align: center;
-    font-family: 'Arial Rounded MT Bold';
+    overflow: visible;
+}
+
+#pauseDialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+/* Match the structure of level end dialog */
+#pauseDialog .dialog-content {
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#pauseDialog h2 {
+    margin: 1rem 0;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 #pauseDialog .dialog-buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+    position: absolute;
+    left: 24%;
+
+    top: 26%;
+    gap: 12px;
+    margin-bottom: 27px;
+    width: 100%;
+    max-width: 300px;
 }
 
-#pauseDialog .dialog-buttons button {
+#pauseDialog button {
     padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 8px;
+    font-size: 30px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
+    font-weight: bold;
     transition: all 0.3s ease;
-}
-
-#resumeBtn {
-    background-color: #9ACF7C;
+    box-shadow: 2px 5px 10px #74777a;
+    font-family: "Arial Rounded MT Bold";
     color: white;
 }
 
-#resumeBtn:hover {
-    background-color: #b8f098;
+#pauseDialog #resumeBtn {
+    background: #9ACF7C;
 }
 
-#pauseRetryBtn {
-    background-color: #FFC517;
-    color: white;
+#pauseDialog #resumeBtn:hover {
+    background: #69c733;
+    transform: scale(1.05);
 }
 
-#pauseRetryBtn:hover {
-    background-color: #ffd761;
+#pauseDialog #pauseRetryBtn {
+    background: #D26665;
 }
 
-#pauseLevelsBtn,
-#pauseTownsBtn,
-#pauseHomeBtn {
-    background-color: #D26665;
-    color: white;
+#pauseDialog #pauseRetryBtn:hover {
+    background: #a83a38;
+    transform: scale(1.05);
 }
 
-#pauseLevelsBtn:hover,
-#pauseTownsBtn:hover,
-#pauseHomeBtn:hover {
-    background-color: #ff8e8c;
+#pauseDialog #pauseLevelsBtn {
+    background: #FFC517;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+#pauseDialog #pauseLevelsBtn:hover {
+    background: #d6a410;
+    transform: scale(1.05);
 }
 
-/* Update the stars-container styles (around line 800) */
-.stars-container {
-    position: absolute;
-    top: 168px;
+#pauseDialog #pauseTownsBtn {
+    background: #5DADE2;
+}
+
+#pauseDialog #pauseTownsBtn:hover {
+    background: #3498DB;
+    transform: scale(1.05);
+}
+
+#pauseDialog #pauseHomeBtn {
+    background: #9B59B6;
+}
+
+#pauseDialog #pauseHomeBtn:hover {
+    background: #8E44AD;
+    transform: scale(1.05);
+}
+
+#starsContainer {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
     margin: 20px 0;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 100%;
 }
 
-.stars-container .star {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-}
+#starsContainer .star {
+    width: 19%;
 
-.stars-container .star:nth-child(1) {
+    opacity: 0;
     animation: starPop 0.4s ease 0.2s both;
 }
 
@@ -1147,4 +1547,270 @@ dialog#levelEndDialog::before {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+.iconBtn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.iconBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.1s ease-in-out;
+}
+
+.iconBtn:hover img {
+    transform: scale(1.1);
+}
+
+#infoBtn {
+    position: absolute;
+    left: 40px;
+    top: 30px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 100;
+    width: 50px;
+    height: 50px;
+}
+
+/* Info Dialog Styles */
+dialog#infoDialog {
+    width: 50vw;
+    /* 50% of screen width */
+    height: 75vh;
+    /* 75% of screen height */
+    padding: 24px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    background: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+dialog#infoDialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#infoDialog h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+/* Section header */
+.h4 {
+    margin-top: 22px;
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 1.1em;
+    font-weight: 600;
+
+    padding-left: 8px;
+}
+
+#infoDialog p {
+    line-height: 1.45;
+    color: #575757;
+    font-size: 0.97em;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+/* Feature Grid Layout */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    padding: 10px 0;
+}
+
+/* Feature Card Styles */
+.feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid #afadad;
+    background: #fafafa;
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+/* Hover effect */
+.feature-card:hover {
+    transform: scale(1.02);
+    background: #ffffff;
+}
+
+/* Colored left borders for 10 cards */
+.feature-card:nth-child(1) {
+    border-left: 6px solid #8e8df0;
+}
+
+/* purple */
+.feature-card:nth-child(2) {
+    border-left: 6px solid #5ab1e4;
+}
+
+/* blue */
+.feature-card:nth-child(3) {
+    border-left: 6px solid #f29c38;
+}
+
+/* orange */
+.feature-card:nth-child(4) {
+    border-left: 6px solid #90c97d;
+}
+
+/* green */
+.feature-card:nth-child(5) {
+    border-left: 6px solid #ce6ad3;
+}
+
+/* pink-purple */
+.feature-card:nth-child(6) {
+    border-left: 6px solid #e86a6a;
+}
+
+/* red */
+.feature-card:nth-child(7) {
+    border-left: 6px solid #6ac7c2;
+}
+
+/* teal */
+.feature-card:nth-child(8) {
+    border-left: 6px solid #ebd773;
+}
+
+/* gold */
+.feature-card:nth-child(9) {
+    border-left: 6px solid #9b7df0;
+}
+
+/* violet */
+.feature-card:nth-child(10) {
+    border-left: 6px solid #ffa4cf;
+}
+
+/* soft pink */
+
+
+/* Default small icons */
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Larger icons ONLY for the last 4 feature cards */
+.feature-card:nth-child(7) .feature-icon,
+.feature-card:nth-child(8) .feature-icon,
+.feature-card:nth-child(9) .feature-icon {
+    width: 120px;
+    height: 80px;
+}
+
+.feature-icon
+
+/* Dialog buttons */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.dialog-buttons button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease-in-out;
+}
+
+#closeInfoBtn {
+    background: #f5f5f5;
+    color: #333;
+}
+
+#closeInfoBtn:hover {
+    background: #e0e0e0;
+    transform: scale(1.03);
+}
+
+
+/*Game End dialog styles*/
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.dialog-full img {
+  width: 100%;
+  max-width: 350px;
+}
+
+.dialog-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.game-complete-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.game-complete-dialog.hidden {
+  display: none;
+}
+
+.dialog-box {
+  position: relative;
+  width: 340px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Buttons */
+.yellow-btn, .red-btn {
+  padding: 14px 22px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.3);
+  cursor: pointer;
+  font-weight: bold;
+  min-width: 120px;
+}
+
+.yellow-btn {
+  background: #FFD029;
+  color: #3b2d00;
+}
+
+.red-btn {
+  background: #D56A6A;
+  color: white;
 }

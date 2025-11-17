@@ -10,7 +10,7 @@
       name: 'Garden',
       range: 'Levels 1–5',
       image: 'images/Garden.png',
-      desc: 'Gardener Haroldene’s flowers were destroyed after heavy rain fall, but they can still be saved! Help Haroldene and Mayor Harold Bearington plant the flowers back in the correct spot before it’s too late!'
+      desc: 'Gardener Haroldene’s flowers were destroyed after heavy rain fall, but they can still be saved! Help Haroldene plant the flowers back in the correct spot before it’s too late!'
     },
     3: {
       name: 'Barn',
@@ -30,6 +30,14 @@
       card.addEventListener('click', (e) => {
         // Intercept and show intro
         e.preventDefault();
+
+        // Play SFX for town selection (uses global playSfx defined in soundfx.js)
+        const DEFAULT_TOWN_SFX = 'audio/SoundFX/pen-click-3-411630.mp3';
+        const sfxPath = card.getAttribute('data-sfx') || DEFAULT_TOWN_SFX;
+        if (window.playSfx) {
+          try { window.playSfx(sfxPath); } catch (_) { /* ignore */ }
+        }
+        
         const url = new URL(card.getAttribute('href'), window.location.href);
         const town = parseInt(url.searchParams.get('town') || card.dataset.town, 10) || 1;
         openTownIntro(town, url.toString());
@@ -86,6 +94,9 @@
     const info = TOWN_INFO[town] || TOWN_INFO[1];
     const dlg = document.getElementById('townIntroDialog');
     dlg.dataset.targetHref = targetHref;
+
+    dlg.classList.remove('town-1', 'town-2', 'town-3');
+    dlg.classList.add(`town-${town}`);
 
     dlg.querySelector('.town-title').textContent = info.name;
     dlg.querySelector('.town-range').textContent = info.range;

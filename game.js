@@ -34,6 +34,7 @@ window.levelDialogOpen = false;
 
 // Configuration
 const max_levels = 15;
+const levels_per_town = 5;
 
 // URL Parameters
 const params = new URLSearchParams(window.location.search);
@@ -90,6 +91,20 @@ function markTownLevelComplete(town, level, stars) {
   });
 }
 
+// =========================
+// Progress & Completion Logic
+// =========================
+
+function isGameFullyCompleted() {
+  const progress = JSON.parse(localStorage.getItem("townProgress")) || {};
+  return (
+    progress.town1?.length === 5 &&
+    progress.town2?.length === 5 &&
+    progress.town3?.length === 5
+  );
+}
+
+
 //================================================================================
 // 🔗 URL PARAMETER HANDLING
 //================================================================================
@@ -111,7 +126,7 @@ function loadPuzzleURL() {
 
   // Calculate puzzle distribution
   const totalPuzzles = puzzles.length;
-  const levelsPerTown = Math.ceil(totalPuzzles / 3);
+  const levelsPerTown = levels_per_town;
 
   // Validate and clamp values
   const safeTown = Math.max(1, Math.min(urlTown, 3));
@@ -200,6 +215,44 @@ function initializeGame() {
 }
 
 //================================================================================
+// Resetting Game and Relaoding the Page
+//================================================================================
+function resetAndReload() {
+  window.levelDialogOpen = false;
+  attemptsLeft = 3;
+  document.getElementById("attemptsLeft").textContent = attemptsLeft;
+
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  hour = minute = second = 0;
+
+  const h = document.getElementById('hours');
+  const m = document.getElementById('minutes');
+  const s = document.getElementById('seconds');
+
+  if (h) h.textContent = '00';
+  if (m) m.textContent = '00';
+  if (s) s.textContent = '00';
+
+  enableButtons();
+
+  document.getElementById('feedback').textContent = "";
+  
+  const hintBox = document.getElementById('hintBox');
+  if (hintBox) hintBox.textContent = '';
+
+  const level = (currentPuzzleIndex % 5) + 1;
+  initHintSystem(level);
+
+  loadPuzzle(currentPuzzleIndex);
+}
+
+
+
+//================================================================================
 // ⚙️ SETTINGS EVENT HANDLERS
 //================================================================================
 // Responds to changes in game settings (hint toggle, timer toggle)
@@ -278,8 +331,8 @@ window.addEventListener('settings:timer', (e) => {
     if (m) m.textContent = '00';
     if (s) s.textContent = '00';
 
-    // Disable pause button
-    if (pauseBtn) pauseBtn.disabled = true;
+    // Keep pause button enabled so users can still pause the game
+    if (pauseBtn) pauseBtn.disabled = false;
 
     // Remove pause overlay
     const overlay = document.querySelector('.overlay');
@@ -301,8 +354,13 @@ window.addEventListener('settings:timer', (e) => {
       }
     }
   } else {
-    // Enable pause button
+    // Re-enable timer feature and restart timer
     if (pauseBtn) pauseBtn.disabled = false;
+    // Restart the timer if not already running
+    if (!timerInterval) {
+      timer = true;
+      startTimer();
+    }
   }
 });
 
@@ -478,10 +536,6 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   const tryTxt = ordinal(tries);
 
   if (success) {
-    // Calculate stars based on attempts remaining
-    // attemptsLeft = 2 means first try (3 stars)
-    // attemptsLeft = 1 means second try (2 stars)
-    // attemptsLeft = 0 means third try (1 star)
     if (attemptsLeft === 1) {
       starsEarned = 1; // third try
     } else if (attemptsLeft === 2) {
@@ -492,11 +546,36 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
 
     console.log('Level complete! Attempts left:', attemptsLeft, 'Stars earned:', starsEarned); // Debug
 
-    screen.style.backgroundImage = "url('images/Success.PNG')";
-    title.textContent = ' LEVEL COMPLETE ';
+    screen.style.backgroundImage = "url('images/Success1.PNG')";
+
+
+    const actualTown = Math.floor(currentPuzzleIndex / levels_per_town) + 1;
+    const actualLevelInTown = (currentPuzzleIndex % levels_per_town) + 1;
+
+    if (actualLevelInTown === 5) {
+      nextLevelBtn.textContent = 'Next Town';
+      endBtn.style.display = 'inline-block'
+      nextLevelBtn.onclick = () => {
+        screen.close();
+        window.levelDialogOpen = false;
+        window.location.href = "towns.html";
+      }
+    }
     
     // Save progress with stars
-    markTownLevelComplete(currentTown, currentLevel, starsEarned);
+    markTownLevelComplete(actualTown, actualLevelInTown, starsEarned);
+
+    // Update last completed town and level ( Game End )
+    if (isGameFullyCompleted()) {
+    showGameCompleteDialog();
+    return; // stop further navigation
+  }
+
+    
+    localStorage.setItem('lastTown', actualTown);
+    localStorage.setItem('lastLevel', actualLevelInTown);
+
+    console.log("AUTO-SAVED next level:", { actualTown, actualLevelInTown, starsEarned });
 
     // Display stars with custom images
     if (starsContainer) {
@@ -522,10 +601,7 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   } else {
 
     // Failure state
-    screen.style.backgroundImage = "url('images/Failure.PNG')";
-    title.textContent = 'LEVEL FAILED';
-
-
+    screen.style.backgroundImage = "url('images/Failure1.PNG')";
 
 
     // Show three empty stars on failure
@@ -565,8 +641,7 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   // Retry button: reload current puzzle
   retryBtn.onclick = () => {
     screen.close();
-    window.levelDialogOpen = false;
-    loadPuzzle(currentPuzzleIndex);
+    resetAndReload();
   };
 
   // Next level button: advance to next puzzle
@@ -577,8 +652,8 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
     if (currentPuzzleIndex < puzzles.length - 1) {
       currentPuzzleIndex++;
 
-      const nextTown = Math.floor(currentPuzzleIndex / 5) + 1;
-      const nextLevel = (currentPuzzleIndex % 5) + 1;
+      const nextTown = Math.floor(currentPuzzleIndex / levels_per_town) + 1;
+      const nextLevel = (currentPuzzleIndex % levels_per_town) + 1;
 
       // Save progress
       const nextLevelNum = currentPuzzleIndex + 1;
@@ -588,9 +663,9 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
         localStorage.setItem('lastLevel', nextLevelNum);
       }
 
-      markTownLevelComplete(nextTown, nextLevel);
+      // markTownLevelComplete(nextTown, nextLevel, 0);
 
-      window.location.href = `index.html?town=${nextTown}&level=${nextLevel}`;
+      window.location.href = `game.html?town=${nextTown}&level=${nextLevel}`;
     }
   };
 
@@ -598,7 +673,16 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   endBtn.onclick = () => {
     screen.close();
     window.levelDialogOpen = false;
-    window.location.href = 'levels.html';
+
+    const lastTown = parseInt(localStorage.getItem('lastTown'), 10);
+    const lastLevel = parseInt(localStorage.getItem('lastLevel'), 10);
+
+    if (!lastTown || lastTown < 1) {
+      window.location.href = "levels.html?town=1";
+      return;
+    }
+
+    window.location.href = `levels.html?town=${lastTown}`
   };
 }
 
@@ -678,25 +762,20 @@ function loadPuzzle(index) {
   }
 
   // Calculate town and level
-  const totalLevels = puzzles.length;
-  const levelsPerTown = Math.ceil(totalLevels / 3);
-  const town = Math.floor(index / 5) + 1;
-  const levelInTown = (index % 5) + 1;
+  // const totalLevels = puzzles.length;
+  // const levelsPerTown = Math.ceil(totalLevels / 3);
+  const levelsPerTown = 5;
+  const town = Math.floor(index / levels_per_town) + 1;
+  const levelInTown = (index % levels_per_town) + 1;
 
   // Update puzzle indicator
   const indicator = document.getElementById('puzzleIndicator');
-  console.log('DEBUG levelInTown:', levelInTown);
-  console.log('DEBUG puzzles:', puzzles);
   if (indicator) indicator.textContent = `Puzzle ${levelInTown} of ${levelsPerTown}`;
 
   // Get puzzle data
   const puzzle = puzzles[index];
-  console.log('puzzles:', puzzles);
-  console.log('currentPuzzleIndex:', currentPuzzleIndex);
-  console.log('puzzle:', puzzles ? puzzles[currentPuzzleIndex] : 'no puzzles loaded');
 
   if (!puzzle) {
-    console.error("❌ Puzzle not found for index:", index);
     return;
   }
 
@@ -714,6 +793,9 @@ function loadPuzzle(index) {
   newURL.searchParams.set("level", levelInTown);
   window.history.replaceState({}, "", newURL);
 
+  // Save Town
+  localStorage.setItem('lastTown', Math.floor(currentPuzzleIndex / 5) + 1);
+
   // Update banner
   const banner = document.getElementById('banner');
   if (banner) {
@@ -721,28 +803,13 @@ function loadPuzzle(index) {
   }
 
   // Reset timer
+  resetTimer();
   if (timerFeatureEnabled) {
-    if (currentPuzzleIndex !== index) resetTimer();
+    timer = true;
     startTimer()
   }
-  // // Update navigation buttons
-  // document.getElementById('prevBtn').disabled = index === 0;
-  // document.getElementById('nextBtn').disabled = index === puzzles.length - 1;
 }
 
-//================================================================================
-// 🎯 NAVIGATION BUTTON HANDLERS
-//================================================================================
-// Previous/Next puzzle navigation
-//================================================================================
-
-// document.getElementById('prevBtn').addEventListener('click', () => {
-//   if (currentPuzzleIndex > 0) loadPuzzle(--currentPuzzleIndex);
-// });
-
-// document.getElementById('nextBtn').addEventListener('click', () => {
-//   if (currentPuzzleIndex < puzzles.length - 1) loadPuzzle(++currentPuzzleIndex);
-// });
 
 //================================================================================
 // ⏸️ PAUSE DIALOG HANDLERS
@@ -759,11 +826,24 @@ const pauseBtn = document.getElementById('pauseBtn');
 if (pauseBtn) {
   pauseBtn.addEventListener('click', () => {
     // Pause timer
-    pauseTimer()
+    pauseTimer();
 
-    // Open dialog
-    if (pauseDialog && typeof pauseDialog.showModal === 'function') {
-      pauseDialog.showModal();
+    // Apply custom styling to pause dialog
+    if (pauseDialog) {
+      // Set background image
+      pauseDialog.style.backgroundImage = "url('images/PauseDialog.PNG')";
+      pauseDialog.style.backgroundSize = "contain";
+      pauseDialog.style.backgroundPosition = "center";
+      pauseDialog.style.backgroundRepeat = "no-repeat";
+      
+      // Set dialog dimensions to match image (adjust these values to your image size)
+      pauseDialog.style.width = "auto";
+      pauseDialog.style.height = "600px";
+      
+      // Open dialog
+      if (typeof pauseDialog.showModal === 'function') {
+        pauseDialog.showModal();
+      }
     }
   });
 }
@@ -822,6 +902,8 @@ if (resumeBtn) {
       hintBtn.disabled = false;
     }
   });
+
+
 }
 
 /**
@@ -864,7 +946,7 @@ if (pauseTownsBtn) {
 const pauseHomeBtn = document.getElementById('pauseHomeBtn');
 if (pauseHomeBtn) {
   pauseHomeBtn.addEventListener('click', () => {
-    window.location.href = 'home.html';
+    window.location.href = 'index.html';
   });
 }
 
@@ -877,4 +959,29 @@ if (pauseHomeBtn) {
 document.addEventListener('DOMContentLoaded', () => {
   loadPuzzleURL();
 
+});
+
+// End Game Dialog 
+//================================================================================
+function showGameCompleteDialog() {
+    const dialog = document.getElementById("gameCompleteDialog");
+
+    if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+    } else {
+        dialog.classList.remove("hidden"); // fallback if dialog not supported
+    }
+
+    document.getElementById("townBtn").style.display = "inline-block";
+    document.getElementById("newGameBtn").style.display = "inline-block";
+}
+
+// Buttons actions
+document.getElementById("townBtn").addEventListener("click", () => {
+    window.location.href = "towns.html";
+});
+
+document.getElementById("newGameBtn").addEventListener("click", () => {
+    localStorage.clear(); // Optional if new game resets progress
+    window.location.href = "index.html";
 });
