@@ -217,40 +217,54 @@ function initializeGame() {
 //================================================================================
 // Resetting Game and Relaoding the Page
 //================================================================================
-function resetAndReload() {
-  window.levelDialogOpen = false;
-  attemptsLeft = 3;
-  document.getElementById("attemptsLeft").textContent = attemptsLeft;
-
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
+function enableButtons() {
+    ['submitBtn', 'clearBtn', 'hintBtn', 'shufBtn', 'pauseBtn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.disabled = false;
+    })
   }
 
-  hour = minute = second = 0;
-
-  const h = document.getElementById('hours');
-  const m = document.getElementById('minutes');
-  const s = document.getElementById('seconds');
-
-  if (h) h.textContent = '00';
-  if (m) m.textContent = '00';
-  if (s) s.textContent = '00';
-
-  enableButtons();
-
-  document.getElementById('feedback').textContent = "";
-  
-  const hintBox = document.getElementById('hintBox');
-  if (hintBox) hintBox.textContent = '';
-
-  const level = (currentPuzzleIndex % 5) + 1;
-  initHintSystem(level);
-
-  loadPuzzle(currentPuzzleIndex);
+function disableButtons() {
+  ['submitBtn', 'clearBtn', 'hintBtn', 'shufBtn', 'pauseBtn'].forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.disabled = true;
+  })
 }
 
+// function resetAndReload() {
+//   attemptsLeft = 3;
+//   document.getElementById("attemptsCount").textContent = attemptsLeft;
 
+//   hour = minute = second = 0;
+
+//   if (timerInterval) {
+//     clearInterval(timerInterval);
+//     timerInterval = null;
+//   }
+
+//   const h = document.getElementById('hours');
+//   const m = document.getElementById('minutes');
+//   const s = document.getElementById('seconds');
+
+//   if (h) h.textContent = '00';
+//   if (m) m.textContent = '00';
+//   if (s) s.textContent = '00';
+
+//   timer = false;
+
+//   enableButtons();
+
+//   document.getElementById('feedback').textContent = "";
+  
+//   const hintBox = document.getElementById('hintBox');
+//   if (hintBox) hintBox.textContent = '';
+
+//   const level = (currentPuzzleIndex % 5) + 1;
+//   initHintSystem(level);
+
+//   loadPuzzle(currentPuzzleIndex);
+//   window.levelDialogOpen = false;
+// }
 
 //================================================================================
 // ⚙️ SETTINGS EVENT HANDLERS
@@ -632,16 +646,13 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
   window.levelDialogOpen = true;
 
   // Disable all game buttons except dialog buttons
-  document.querySelectorAll('button').forEach(btn => {
-    if (!["endBtn", 'retryBtn', 'nextLevelBtn', 'settBtn'].includes(btn.id)) {
-      btn.disabled = true;
-    }
-  });
-
+  disableButtons();
+  
   // Retry button: reload current puzzle
   retryBtn.onclick = () => {
     screen.close();
-    resetAndReload();
+    window.levelDialogOpen = false;
+    loadPuzzle(currentPuzzleIndex);
   };
 
   // Next level button: advance to next puzzle

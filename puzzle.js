@@ -44,20 +44,6 @@ function generatePuzzle(level, itemsData, order, title, clues, story) {
   //   }
   // }
 
-  function enableButtons() {
-    ['submitBtn', 'clearBtn', 'hintBtn', 'shufBtn'].forEach(id => {
-        const btn = document.getElementById(id);
-        if (btn) btn.disabled = false;
-    })
-  }
-
-  function disableButtons() {
-    ['submitBtn', 'clearBtn', 'hintBtn', 'shufBtn'].forEach(id => {
-        const btn = document.getElementById(id);
-        if (btn) btn.disabled = true;
-    })
-  }
-
   function updateTimerDisplay() {
     const hrStr = hour.toString().padStart(2, '0');
     const minStr = minute.toString().padStart(2, '0');

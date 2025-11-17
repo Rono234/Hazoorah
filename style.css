@@ -456,6 +456,7 @@ h2 img {
 }
 
 #settBtn:hover img {
+    opacity: 0.7;
     transform: scale(1.1);
     transition: transform 0.1s ease-in-out;
 }
@@ -475,6 +476,7 @@ h2 img {
 #clearBtn:hover,
 #hintBtn:hover,
 #shufBtn:hover {
+    opacity: 0.7;
     transform: scale(1.1);
     transition: transform 0.1s ease-in-out;
 }
@@ -731,6 +733,8 @@ dialog#settingsDialog::backdrop {
 
 #pauseBtn:hover {
     opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
 }
 
 .stopwatch {
@@ -841,6 +845,13 @@ dialog#settingsDialog::backdrop {
     font-size: 15px;
     border: none;
     font-family: 'Arial Rounded MT Bold';
+    cursor: pointer;
+}
+
+.noteButtons:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
 }
 
 #noteStatus {
@@ -1567,6 +1578,7 @@ dialog#levelEndDialog::before {
 }
 
 .iconBtn:hover img {
+    opacity: 0.7;
     transform: scale(1.1);
 }
 
