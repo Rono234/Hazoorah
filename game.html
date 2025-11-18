@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x.icon" href="images/transparentBear.PNG">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="levelstyles.css">
+    <!-- <link rel="stylesheet" href="settingstyle.css"> -->
 </head>
 
 <body>
@@ -257,7 +258,6 @@
 
     <dialog id="settingsDialog">
         <form method="dialog">
-            <h3>Settings</h3>
 
             <!-- Settings Options -->
             <div class="settings-content">
@@ -280,7 +280,7 @@
                 </div> 
                 -->
 
-                <!-- Hints -->
+                         <div class="checkbox-grid"> <!-- Hints -->
                 <div class="settings-group">
                     <label for="hintToggle">Hints</label>
                     <div class="volume-control">
@@ -295,6 +295,9 @@
                         <input type="checkbox" id="timerToggle" checked>
                     </div>
                 </div>
+                </div>
+                <!-- Game Features -->
+                
                 <h4>*Adjust volume bar after turning audio on</h4>
             </div>
 
@@ -340,9 +343,15 @@
     <!-- Game Complete Dialog -->
     <dialog id="gameCompleteDialog" class="dialog-full">
         <form method="dialog">
+            <div id="gameStats" aria-live="polite">
+                <div class="stats-text">Total Stars: <span id="totalStars">0</span>/<span id="maxStars">45</span></div>
+                <div id="totalStarsIcons" class="star-icons" role="img" aria-hidden="true"></div>
+            </div>
             
             <!-- Banner Art -->
-            <img src="images/Success1.PNG" class="dialog-art" alt="Game Complete Art">
+            <img src="images/gameComplete.PNG" class="dialog-art" alt="Game Complete Art">
+
+            <!-- Game Statistics -->
 
             <!-- Action Buttons -->
             <div class="dialog-buttons">

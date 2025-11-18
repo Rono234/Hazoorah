@@ -1,3 +1,22 @@
+/* ============================================================================
+   TABLE OF CONTENTS
+   1. Font Declarations
+   2. Base Styles
+   3. Layout & Background
+   4. Header & Title Section
+   5. Game Board & Grid
+   6. Item Tray
+   7. Controls & Buttons
+   8. Clues Section
+   9. Notes Panel
+   10. Timer & Attempts
+   11. Dialogs
+   12. Responsive Design
+============================================================================ */
+
+/* ============================================================================
+   1. FONT DECLARATIONS
+============================================================================ */
 @font-face {
     font-family: 'Arial Rounded MT Bold';
     src: url('fonts/arialroundedmtbold.ttf');
@@ -8,6 +27,9 @@
     src: url('fonts/Jack Armstrong.ttf');
 }
 
+/* ============================================================================
+   2. BASE STYLES
+============================================================================ */
 html {
     height: 100%;
 }
@@ -23,6 +45,9 @@ body {
     padding: 20px;
 }
 
+/* ============================================================================
+   3. LAYOUT & BACKGROUND
+============================================================================ */
 .bg {
     position: fixed;
     inset: 0;
@@ -32,9 +57,28 @@ body {
     z-index: -1;
 }
 
-/* ==============================
-   TITLE & LEVEL BANNER
-============================== */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(1px);
+    z-index: 5000;
+    transition: all 0.3s ease;
+}
+
+/* ============================================================================
+   4. HEADER & TITLE SECTION
+============================================================================ */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .title {
     margin: 0 0 10px 0;
     position: relative;
@@ -44,42 +88,7 @@ body {
 
 .title img {
     width: 230px;
-
     height: auto;
-}
-
-.level-banner {
-    position: relative;
-    display: inline-block;
-    margin: 0 auto 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-family: 'Arial Rounded MT Bold', sans-serif;
-    z-index: 1;
-}
-
-.level-banner .level {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-weight: 700;
-    font-size: 35px;
-}
-
-.level-banner img {
-    width: 390px;
-    height: auto;
-}
-
-/* Header bar: place Enable Sound on left and Settings on right */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
 }
 
 h1 {
@@ -110,25 +119,31 @@ h2 img {
     height: auto;
 }
 
-#gameContainer {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-sizing: border-box;
+.level-banner {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    z-index: 1;
 }
 
-#board {
-    display: grid;
-    width: fit-content;
-    margin: 0 auto;
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 10px;
+.level-banner .level {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.level-banner img {
+    width: 330px;
+    ;
+    height: auto;
 }
 
 .level {
@@ -144,6 +159,323 @@ h2 img {
     font-family: 'Arial Rounded MT Bold';
 }
 
+/* ============================================================================
+   5. GAME BOARD & GRID
+============================================================================ */
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#board {
+    display: grid;
+    width: fit-content;
+    margin: 0 auto 10px;
+    justify-content: center;
+    align-content: center;
+}
+
+#grid {
+    display: flex;
+    gap: 10px;
+    margin: 20px;
+}
+
+.slot {
+    width: 100px;
+    height: 100px;
+    background: rgba(230, 230, 230, 0.85);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    border: 2px dashed #bbb;
+}
+
+/* ============================================================================
+   6. ITEM TRAY
+============================================================================ */
+#itemTray {
+    width: 340px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    scrollbar-width: thin;
+    scrollbar-color: #bbb #f5f5f5;
+}
+
+#itemTray::-webkit-scrollbar {
+    height: 8px;
+}
+
+#itemTray::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 4px;
+}
+
+#itemTray::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+#items {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.item {
+    flex: 0 0 auto;
+    width: 90px;
+    height: 90px;
+    background: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 90px;
+    font-weight: bold;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s;
+}
+
+.item:active {
+    transform: scale(0.95);
+    cursor: grabbing;
+}
+
+.slot .item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    margin: 0 auto;
+    font-size: 80px;
+    border-radius: 10px;
+    gap: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================================================
+   7. CONTROLS & BUTTONS
+============================================================================ */
+#controls {
+    margin-top: 5px;
+    text-align: center;
+}
+
+#controls p {
+    font-family: 'Arial Rounded MT Bold';
+    font-size: 17px;
+}
+
+#feedback {
+    font-weight: bold;
+    margin: 15px;
+    color: #444;
+}
+
+/* Submit Button */
+#submitBtn {
+    background: #9ACF7C;
+    color: white;
+    border: none;
+    padding: 4px 18px;
+    margin-top: 15px;
+    border-radius: 11px;
+    cursor: pointer;
+    font-size: 28px;
+    font-family: 'Arial Rounded MT Bold';
+    box-shadow: 2px 5px 10px #4c5661;
+}
+
+#submitBtn:hover {
+    background: #43a047;
+    transform: scale(1.05);
+}
+
+/* Settings Button */
+#settBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#settBtn img {
+    width: 130%;
+    height: 130%;
+    object-fit: contain;
+}
+
+#settBtn:hover img {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Utility Buttons (Clear, Shuffle, Hint) */
+#clearBtn,
+#hintBtn,
+#shufBtn {
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#hintBtn {
+    position: absolute;
+    left: 220px;
+    top: 620px;
+    z-index: 4000;
+}
+
+#clearBtn,
+#shufBtn {
+    position: absolute;
+    right: 50px;
+    z-index: 1000;
+}
+
+#clearBtn {
+    top: 660px;
+    right: 120px;
+}
+
+#shufBtn {
+    top: 660px;
+    right: 200px;
+}
+
+#clearBtn:hover,
+#shufBtn:hover,
+#hintBtn:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+#clearBtn img,
+#shufBtn img,
+#hintBtn img {
+    margin: 0;
+    width: 55px;
+    height: 55px;
+}
+
+/* Enable Sound Button */
+#enableSoundBtn {
+    position: static;
+    margin-top: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+}
+
+#enableSoundBtn:hover {
+    background: #43a047;
+}
+
+/* Icon Button (Generic) */
+.iconBtn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.iconBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.1s ease-in-out;
+}
+
+.iconBtn:hover img {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+/* Info Button */
+#infoBtn {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 100;
+    width: 40px;
+    height: 45px;
+}
+
+/* Navigation Buttons */
+#navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 20px;
+}
+
+#navigation button {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.3s;
+}
+
+#navigation button:hover {
+    background: #1976D2;
+}
+
+#navigation span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* ============================================================================
+   8. CLUES SECTION
+============================================================================ */
 #clues {
     position: absolute;
     left: 50px;
@@ -151,12 +483,10 @@ h2 img {
     width: 250px;
     height: 615px;
     padding: 0 30px;
-
     background: url(images/hintSection.png) no-repeat center center;
     background-size: cover;
     background-color: transparent;
     border-radius: 12px;
-
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -237,203 +567,132 @@ body[data-town="2"][data-level="5"] #cluesContent p {
     font-size: clamp(10px, 1.7vw, 13px);
 }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-    #clues {
-        width: 220px;
-        height: auto;
-        min-height: 500px;
-        left: 20px;
-        padding: 0 20px;
-    }
-
-    #storySentence {
-        top: 15px;
-        max-width: 180px;
-    }
-
-    #cluesContent {
-        top: 100px;
-        max-width: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    #clues {
-        position: static;
-        width: 90%;
-        max-width: 300px;
-        margin: 20px auto;
-        height: auto;
-    }
-
-    #storySentence,
-    #cluesContent {
-        position: static;
-        transform: none;
-        left: auto;
-        top: auto;
-        width: 100%;
-        max-width: 100%;
-        margin: 10px 0;
-    }
-}
-
-#grid {
+/* ============================================================================
+   9. NOTES PANEL
+============================================================================ */
+#notesContainer {
     display: flex;
-    gap: 10px;
-    margin: 20px;
-}
-
-.slot {
-    width: 100px;
-    height: 100px;
-    background: rgba(230, 230, 230, 0.85);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-    border: 2px dashed #bbb;
-}
-
-/* --- Item Tray --- */
-#itemTray {
-    width: 340px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    background: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    scrollbar-width: thin;
-    scrollbar-color: #bbb #f5f5f5;
-}
-
-/* Scrollbar Styling */
-#itemTray::-webkit-scrollbar {
-    height: 8px;
-}
-
-#itemTray::-webkit-scrollbar-thumb {
-    background: #bbb;
-    border-radius: 4px;
-}
-
-#itemTray::-webkit-scrollbar-track {
-    background: #f5f5f5;
-}
-
-#items {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    margin: 0 auto;
-}
-
-.item {
-    flex: 0 0 auto;
-    width: 90px;
-    height: 90px;
-    background: #ffffff;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 90px;
-    font-weight: bold;
-    cursor: grab;
-    user-select: none;
-    transition: transform 0.2s;
-}
-
-.item:active {
-    transform: scale(0.95);
-    cursor: grabbing;
-}
-
-.slot .item {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    margin: 0 auto;
-
-    font-size: 80px;
-    border-radius: 10px;
-    gap: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    right: 50px;
+    top: 100px;
+    margin-top: 40px;
+    width: 297px;
+    max-width: 35vw;
+    overflow: auto;
     box-sizing: border-box;
-}
-
-#feedback {
-    font-weight: bold;
-    margin: 15px;
-    color: #444;
-}
-
-/* --- Navigation --- */
-#navigation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-#navigation button {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 8px 16px;
+    padding: 12px;
+    background: url(images/notesBackground.png) no-repeat center center;
+    background-size: cover;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background 0.3s;
+    z-index: 1000;
+    align-items: flex-end;
 }
 
-#navigation button:hover {
-    background: #1976D2;
-}
-
-#navigation span {
-    font-weight: bold;
+#notesContainer h3 {
+    font-family: 'Jack Armstrong';
+    font-size: 18px;
+    margin: 10px;
     color: #333;
 }
 
-/* --- Controls --- */
-#controls {
-    margin-top: 5px;
-    text-align: center;
+#notesChild {
+    margin-right: 13px;
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 6px;
+    width: 80%;
 }
 
-#controls p {
-    font-family: 'Arial Rounded MT Bold';
-    font-size: 17px;
-}
-
-#submitBtn {
-    background: #9ACF7C;
-    color: white;
+#levelNotes {
+    width: 100%;
+    min-height: 400px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: 'Jack Armstrong';
+    background: transparent;
     border: none;
-    padding: 4px 18px;
-    margin-top: 15px;
-    border-radius: 11px;
-    cursor: pointer;
-    font-size: 28px;
-    font-family: 'Arial Rounded MT Bold';
-    box-shadow: 2px 5px 10px #4c5661;
 }
 
-#submitBtn:hover {
-    background: #43a047;
-    transform: scale(1.05);
+.noteButtons {
+    margin-top: 8px;
+}
+
+.noteButtons button {
+    color: white;
+    margin-right: 8px;
+    padding: 6px 10px;
+    background-color: #aabed7;
+    border-radius: 30px;
+    font-size: 15px;
+    border: none;
+    font-family: 'Arial Rounded MT Bold';
+    cursor: pointer;
+}
+
+.noteButtons:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+#noteStatus {
+    margin-top: 6px;
+    color: #2b7a2b;
+    font-size: 0.9rem;
+}
+
+/* ============================================================================
+   10. TIMER & ATTEMPTS
+============================================================================ */
+#timerControls {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+}
+
+#pauseBtn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 3px;
+}
+
+#pauseBtn img {
+    width: 65px;
+    height: auto;
+}
+
+#pauseBtn:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+.stopwatch {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+    margin-bottom: -5px;
+    margin-top: -5px;
+}
+
+.digit {
+    font-size: 24px;
+    color: black;
+    font-family: 'Arial Rounded MT Bold';
 }
 
 #attempts {
@@ -455,107 +714,33 @@ body[data-town="2"][data-level="5"] #cluesContent p {
     margin: 0;
 }
 
-#settBtn {
-    /* position: absolute;
-    top: 20px;
-    right: 20px; */
+/* ============================================================================
+   11. DIALOGS
+============================================================================ */
 
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
+/* Common Dialog Styles */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+}
 
+.dialog-buttons {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
 }
 
-#settBtn img {
-    width: 130%;
-    height: 130%;
-    object-fit: contain;
-}
-
-#settBtn:hover img {
-    opacity: 0.7;
-    transform: scale(1.1);
-    transition: transform 0.1s ease-in-out;
-}
-
-#clearBtn,
-#hintBtn,
-#shufBtn {
-    margin-left: auto;
-    border-radius: 50%;
-    background: transparent;
+.dialog-buttons button {
+    padding: 10px 20px;
     border: none;
-    padding: 0;
-    margin-top: 15px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-#hintBtn {
-    position: absolute;
-    left: 220px;
-    top: 613px;
-    border-radius: 50%;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    z-index: 4000;
-}
-
-#hintBtn:hover {
-    opacity: 0.7;
-    transform: scale(1.1);
-    transition: transform 0.1s ease-in-out;
-}
-
-
-
-#clearBtn,
-#shufBtn {
-    position: absolute;
-    right: 50px;
-    border-radius: 50%;
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-#clearBtn {
-    top: 660px;
-    right: 120px;
-}
-
-#shufBtn {
-    top: 660px;
-    right: 200px;
-}
-
-#clearBtn:hover,
-#shufBtn:hover {
-    opacity: 0.7;
-    transform: scale(1.1);
-    transition: transform 0.1s ease-in-out;
-}
-
-#clearBtn img,
-#shufBtn img,
-#hintBtn img {
-    margin: 0;
-    width: 55px;
-    height: 55px;
-}
-
-/* Settings Dialog Styles */
+/* Settings Dialog */
 dialog#settingsDialog {
     padding: 24px;
     border: none;
@@ -581,7 +766,6 @@ dialog#settingsDialog::backdrop {
     color: #888;
     font-size: 0.9em;
     font-style: italic;
-    /* Make subheading lighter and less bold */
     font-weight: 400;
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
@@ -613,7 +797,6 @@ dialog#settingsDialog::backdrop {
     border-radius: 2px;
     background: #e0e0e0;
     outline: none;
-    /*-webkit-appearance: none;*/
 }
 
 .volume-control input[type="range"]::-webkit-slider-thumb {
@@ -642,23 +825,6 @@ dialog#settingsDialog::backdrop {
     cursor: pointer;
 }
 
-.dialog-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 24px;
-}
-
-.dialog-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
 #saveSettingsBtn {
     background: #4CAF50;
     color: white;
@@ -679,7 +845,7 @@ dialog#settingsDialog::backdrop {
     transform: translateY(-1px);
 }
 
-/* Settings Dialog Styles */
+/* Settings Overlay (fallback) */
 #settingsOverlay {
     position: fixed;
     top: 0;
@@ -688,801 +854,141 @@ dialog#settingsDialog::backdrop {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: none;
-    /* Hidden by default */
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
 }
 
-#settingsDialog {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-#settingsDialog h3 {
-    margin: 0 0 15px 0;
-    color: #333;
-}
-
-.settings-content {
-    margin-bottom: 20px;
-}
-
-.settings-content label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
-.dialog-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.dialog-buttons button {
-    padding: 8px 16px;
+/* Info Dialog */
+dialog#infoDialog {
+    width: 50vw;
+    height: 75vh;
+    padding: 24px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    background: white;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-#saveSettingsBtn {
-    background: #4CAF50;
-    color: white;
+dialog#infoDialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
 }
 
-#closeSettingsBtn {
+#infoDialog h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+.h4 {
+    margin-top: 22px;
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding-left: 8px;
+}
+
+#infoDialog p {
+    line-height: 1.45;
+    color: #575757;
+    font-size: 0.97em;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    padding: 10px 0;
+}
+
+.feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid #afadad;
+    background: #fafafa;
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: scale(1.02);
+    background: #ffffff;
+}
+
+/* Feature card colors */
+.feature-card:nth-child(1) {
+    border-left: 6px solid #766c65;
+}
+
+.feature-card:nth-child(2) {
+    border-left: 6px solid #8e8df0;
+}
+
+.feature-card:nth-child(3) {
+    border-left: 6px solid #5ab1e4;
+}
+
+.feature-card:nth-child(4) {
+    border-left: 6px solid #f29c38;
+}
+
+.feature-card:nth-child(5) {
+    border-left: 6px solid #90c97d;
+}
+
+.feature-card:nth-child(6) {
+    border-left: 6px solid #ce6ad3;
+}
+
+.feature-card:nth-child(7) {
+    border-left: 6px solid #e86a6a;
+}
+
+.feature-card:nth-child(8) {
+    border-left: 6px solid #6ac7c2;
+}
+
+.feature-card:nth-child(9) {
+    border-left: 6px solid #ebd773;
+}
+
+.feature-card:nth-child(10) {
+    border-left: 6px solid #9b7df0;
+}
+
+.feature-card:nth-child(11) {
+    border-left: 6px solid #ffa4cf;
+}
+
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.feature-card:nth-child(7) .feature-icon,
+.feature-card:nth-child(8) .feature-icon,
+.feature-card:nth-child(9) .feature-icon {
+    width: 120px;
+    height: 80px;
+}
+
+#closeInfoBtn {
     background: #f5f5f5;
     color: #333;
 }
 
-#saveSettingsBtn:hover {
-    background: #45a049;
-}
-
-#closeSettingsBtn:hover {
+#closeInfoBtn:hover {
     background: #e0e0e0;
+    transform: scale(1.03);
 }
 
-/* Enable Sound Button */
-#enableSoundBtn {
-    /* Let it flow with the page (not fixed to viewport) */
-    position: static;
-    margin-top: 12px;
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    font-weight: 600;
-}
-
-#enableSoundBtn:hover {
-    background: #43a047;
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(1px);
-    z-index: 5000;
-    transition: all 0.3s ease;
-}
-
-#timerControls {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 9999;
-}
-
-#pauseBtn {
-    cursor: pointer;
-    /* margin-left: 0; */
-    background-color: transparent;
-    border: none;
-    padding: 3px;
-    /* position: static; */
-}
-
-#pauseBtn img {
-    width: 65px;
-    height: auto;
-}
-
-#pauseBtn:hover {
-    opacity: 0.7;
-    transform: scale(1.1);
-    transition: transform 0.1s ease-in-out;
-}
-
-.stopwatch {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-
-.digit {
-    font-size: 24px;
-    color: black;
-    font-family: 'Arial Rounded MT Bold';
-}
-
-/* Notes panel */
-#notesContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: absolute;
-    right: 50px;
-    top: 100px;
-    margin-top: 40px;
-    width: 297px;
-    max-width: 35vw;
-    overflow: auto;
-    overflow-x: auto;
-    overflow-y: auto;
-    box-sizing: border-box;
-    padding: 12px;
-    background: url(images/notesBackground.png) no-repeat center center;
-    background-size: cover;
-    border-radius: 8px;
-    z-index: 1000;
-    align-items: flex-end;
-}
-
-#notesContainer h3 {
-    font-family: 'Jack Armstrong';
-    font-size: 18px;
-    margin: 10px;
-    color: #333;
-}
-
-#notesChild {
-    margin-right: 13px;
-    display: flex;
-    align-content: space-around;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: center;
-    padding: 10px;
-    border-radius: 6px;
-    width: 80%;
-}
-
-/* Add a semi-transparent overlay to ensure text is readable
-#notesContainer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    border-radius: 8px;
-} */
-
-/* Update textarea style to be more transparent */
-#levelNotes {
-    background: transparent;
-    border: none;
-}
-
-/* Update small-screen fallback */
-@media (max-width: 900px) {
-    #notesContainer {
-        position: static;
-        width: auto;
-        max-width: none;
-        max-height: none;
-        margin: 12px;
-        background: url('images/notesBackground.png') no-repeat center center;
-        background-size: cover;
-    }
-}
-
-#levelNotes {
-    width: 100%;
-    min-height: 400px;
-    padding: 8px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    resize: vertical;
-    font-family: 'Jack Armstrong';
-}
-
-.noteButtons {
-    margin-top: 8px;
-}
-
-.noteButtons button {
-    color: white;
-    margin-right: 8px;
-    padding: 6px 10px;
-    background-color: #aabed7;
-    border-radius: 30px;
-    font-size: 15px;
-    border: none;
-    font-family: 'Arial Rounded MT Bold';
-    cursor: pointer;
-}
-
-.noteButtons:hover {
-    opacity: 0.7;
-    transform: scale(1.1);
-    transition: transform 0.1s ease-in-out;
-}
-
-#noteStatus {
-    margin-top: 6px;
-    color: #2b7a2b;
-    font-size: 0.9rem;
-}
-
-/* .level-end-dialog {
-    padding: 24px;
-    border: none;
-    border-radius: 12px;
-
-    max-width: 400px;
-    margin: auto;
-    background: #E0EDEF;
-    text-align: center;
-} */
-
-.level-end-dialog .dialog-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.level-end-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.level-end-dialog h1 {
-    margin: 0 0 20px 0;
-    text-align: center;
-    color: #00695C;
-    font-weight: bold;
-    font-size: 2em;
-    font-family: "Arial Rounded MT Bold";
-}
-
-.level-end-dialog h3 {
-    margin: 0 0 20px 0;
-    text-align: center;
-    color: #000000;
-    font-weight: normal;
-    font-size: 1.5em;
-    font-family: "Arial Rounded MT Bold";
-}
-
-.level-end-dialog button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 17px;
-    font-weight: 500;
-    transition: background-color 0.2s, transform 0.1s;
-    color: white;
-    font-family: "Arial Rounded MT Bold";
-    /* box-shadow: 2px 5px 10px #74777a; */
-}
-
-.level-end-dialog #endBtn {
-    background: #FFC517;
-}
-
-.level-end-dialog #endBtn:hover {
-    background: #d6a410;
-    transform: translateY(-1px);
-}
-
-.level-end-dialog #retryBtn {
-    background: #D26665;
-}
-
-.level-end-dialog #retryBtn:hover {
-    background: #a83a38;
-    transform: translateY(-1px);
-}
-
-.level-end-dialog #nextLevelBtn {
-    background: #9ACF7C;
-}
-
-.level-end-dialog #nextLevelBtn:hover {
-    background: #69c733;
-    transform: translateY(-1px);
-}
-
-/* Level End Dialog Styles */
-dialog#levelEndDialog {
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    max-width: min(600px, 90vw);
-    max-height: min(80vh, 80vh);
-    width: auto;
-    height: auto;
-    background-image: url('images/Success.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    position: relative;
-    text-align: center;
-    overflow: visible;
-}
-
-/* Content wrapper to maintain spacing inside the dialog */
-dialog#levelEndDialog form {
-    padding: 40px 40px 20px 40px;
-    min-width: 400px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#levelEndDialog h1 {
-    margin-top: 41px;
-    margin-bottom: 0;
-    margin-left: 8px;
-    font-size: 35px;
-    color: #ffffff;
-    font-family: "Arial Rounded MT Bold";
-}
-
-#levelEndDialog h3 {
-    display: none;
-}
-
-#levelEndDialog .dialog-buttons {
-    display: flex;
-    position: absolute;
-    bottom: 10%;
-    gap: 12px;
-    margin-bottom: 27px;
-    width: 100%;
-    max-width: 375px;
-}
-
-#levelEndDialog .dialog-buttons button {
-    padding: 12px 24px;
-    font-size: 30px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 2px 5px 10px #74777a;
-    font-family: "Arial Rounded MT Bold";
-}
-
-dialog#levelEndDialog::before {
-    display: none;
-}
-
-/* 1. MacBook Air 13" (2560×1664) and MacBook Pro 13" (2560×1600) */
-@media (min-width: 1280px) and (max-width: 1440px) {
-    @media (min-height: 800px) and (max-height: 900px) {
-        dialog#levelEndDialog {
-            max-width: min(550px, 85vw);
-            max-height: 68vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 380px;
-            padding: 38px 30px 20px 30px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 32px;
-            margin: 38px 0 0 15px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 15%;
-            max-width: 350px;
-            gap: 11px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 28px;
-            padding: 11px 22px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 32%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 18%;
-        }
-    }
-}
-
-/* 2. Dell XPS 13 (1920×1080) - Common FHD laptop */
-@media (min-width: 1366px) and (max-width: 1920px) {
-    @media (min-height: 768px) and (max-height: 1080px) {
-        dialog#levelEndDialog {
-            max-width: min(520px, 82vw);
-            max-height: 77vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 360px;
-            padding: 36px 28px 20px 28px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 30px;
-            margin: 36px 0 0 18px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 9%;
-            max-width: 340px;
-            gap: 10px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 32px;
-            padding: 10px 13px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 25%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 22%;
-        }
-    }
-}
-
-/* 3. HP Pavilion/Lenovo IdeaPad (1366×768) - Most common budget laptop resolution */
-@media (min-width: 1024px) and (max-width: 1366px) {
-    @media (min-height: 600px) and (max-height: 768px) {
-        dialog#levelEndDialog {
-            max-width: min(480px, 80vw);
-            max-height: 80vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 330px;
-            padding: 32px 24px 18px 24px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 27px;
-            margin: 32px 0 0 16px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 10%;
-            max-width: 310px;
-            gap: 10px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 25px;
-            padding: 10px 19px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 25%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 20%;
-        }
-    }
-}
-
-/* 4. MacBook Pro 14" (3024×1964) and 15"/16" models */
-@media (min-width: 1440px) and (max-width: 1920px) {
-    @media (min-height: 900px) and (max-height: 1200px) {
-        dialog#levelEndDialog {
-            max-width: min(580px, 88vw);
-            max-height: 70vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 400px;
-            padding: 40px 32px 22px 32px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 34px;
-            margin: 40px 0 0 12px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 16%;
-            max-width: 370px;
-            gap: 12px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 29px;
-            padding: 12px 23px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 33%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 19%;
-        }
-    }
-}
-
-/* 5. ASUS/Acer Gaming Laptops (1920×1080) - 15.6" standard */
-@media (min-width: 1600px) and (max-width: 1920px) {
-    @media (min-height: 900px) and (max-height: 1080px) {
-        dialog#levelEndDialog {
-            max-width: min(560px, 86vw);
-            max-height: 68vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 390px;
-            padding: 38px 30px 20px 30px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 32px;
-            margin: 38px 0 0 14px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 15%;
-            max-width: 360px;
-            gap: 11px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 28px;
-            padding: 11px 22px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 32%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 18%;
-        }
-    }
-}
-
-/* Tablets: 601px - 1024px width */
-@media (min-width: 601px) and (max-width: 1024px) {
-    @media (min-height: 500px) and (max-height: 800px) {
-        dialog#levelEndDialog {
-            max-width: min(450px, 85vw);
-            max-height: 62vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 300px;
-            padding: 28px 20px 18px 20px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 25px;
-            margin: 28px 0 0 18px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 12%;
-            max-width: 280px;
-            gap: 10px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 23px;
-            padding: 9px 18px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 29%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 17%;
-        }
-    }
-}
-
-/* Small tablets/large phones: 481px - 600px width */
-@media (min-width: 481px) and (max-width: 600px) {
-    @media (min-height: 450px) and (max-height: 750px) {
-        dialog#levelEndDialog {
-            max-width: min(400px, 90vw);
-            max-height: 55vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 220px;
-            padding: 20px 12px 12px 12px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 20px;
-            margin: 20px 0 0 12px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 10%;
-            max-width: 220px;
-            gap: 8px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 19px;
-            padding: 7px 14px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 27%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 16%;
-        }
-    }
-}
-
-/* Large phones: 376px - 480px width */
-@media (min-width: 376px) and (max-width: 480px) {
-    @media (min-height: 400px) and (max-height: 700px) {
-        dialog#levelEndDialog {
-            max-width: min(350px, 95vw);
-            max-height: 50vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 180px;
-            padding: 15px 8px 8px 8px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 17px;
-            margin: 15px 0 0 10px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 8%;
-            max-width: 180px;
-            gap: 6px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 16px;
-            padding: 6px 10px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 25%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 15%;
-        }
-    }
-}
-
-/* Small phones: up to 375px width */
-@media (max-width: 375px) {
-    @media (min-height: 350px) and (max-height: 700px) {
-        dialog#levelEndDialog {
-            max-width: 95vw;
-            max-height: 45vh;
-        }
-
-        dialog#levelEndDialog form {
-            min-width: 160px;
-            padding: 12px 6px 6px 6px;
-        }
-
-        #levelEndDialog h1 {
-            font-size: 15px;
-            margin: 12px 0 0 8px;
-        }
-
-        #levelEndDialog .dialog-buttons {
-            bottom: 6%;
-            max-width: 150px;
-            gap: 5px;
-        }
-
-        #levelEndDialog .dialog-buttons button {
-            font-size: 14px;
-            padding: 5px 8px;
-        }
-
-        #levelEndDialog #starsContainer {
-            top: 24%;
-        }
-
-        #levelEndDialog #starsContainer .star {
-            width: 14%;
-        }
-    }
-}
-
-/* Very short screens (landscape orientation) */
-@media (max-height: 500px) {
-    dialog#levelEndDialog {
-        max-height: 80vh;
-    }
-
-    dialog#levelEndDialog form {
-        padding: 10px;
-        min-width: 150px;
-    }
-
-    #levelEndDialog h1 {
-        font-size: 14px;
-        margin: 10px 0 0 8px;
-    }
-
-    #levelEndDialog .dialog-buttons {
-        bottom: 5%;
-        max-width: 140px;
-    }
-
-    #levelEndDialog .dialog-buttons button {
-        font-size: 13px;
-        padding: 4px 8px;
-    }
-
-    #levelEndDialog #starsContainer {
-        top: 22%;
-    }
-
-    #levelEndDialog #starsContainer .star {
-        width: 13%;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
+/* Pause Dialog */
 #pauseDialog {
     border: none;
     border-radius: 0;
@@ -1504,7 +1010,6 @@ dialog#levelEndDialog::before {
     backdrop-filter: blur(5px);
 }
 
-/* Match the structure of level end dialog */
 #pauseDialog .dialog-content {
     padding: 2rem;
     text-align: center;
@@ -1523,7 +1028,6 @@ dialog#levelEndDialog::before {
     flex-direction: column;
     position: absolute;
     left: 24%;
-
     top: 26%;
     gap: 12px;
     margin-bottom: 27px;
@@ -1589,6 +1093,148 @@ dialog#levelEndDialog::before {
     transform: scale(1.05);
 }
 
+/* Level End Dialog */
+.level-end-dialog {
+    text-align: center;
+}
+
+.level-end-dialog .dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.level-end-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.level-end-dialog h1 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #00695C;
+    font-weight: bold;
+    font-size: 2em;
+    font-family: "Arial Rounded MT Bold";
+}
+
+.level-end-dialog h3 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: #000000;
+    font-weight: normal;
+    font-size: 1.5em;
+    font-family: "Arial Rounded MT Bold";
+}
+
+.level-end-dialog button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+    color: white;
+    font-family: "Arial Rounded MT Bold";
+}
+
+.level-end-dialog #endBtn {
+    background: #FFC517;
+}
+
+.level-end-dialog #endBtn:hover {
+    background: #d6a410;
+    transform: translateY(-1px);
+}
+
+.level-end-dialog #retryBtn {
+    background: #D26665;
+}
+
+.level-end-dialog #retryBtn:hover {
+    background: #a83a38;
+    transform: translateY(-1px);
+}
+
+.level-end-dialog #nextLevelBtn {
+    background: #9ACF7C;
+}
+
+.level-end-dialog #nextLevelBtn:hover {
+    background: #69c733;
+    transform: translateY(-1px);
+}
+
+dialog#levelEndDialog {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    max-width: min(600px, 90vw);
+    max-height: min(80vh, 80vh);
+    width: auto;
+    height: auto;
+    background-image: url('images/Success.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: relative;
+    text-align: center;
+    overflow: visible;
+}
+
+dialog#levelEndDialog form {
+    padding: 40px 40px 20px 40px;
+    min-width: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#levelEndDialog h1 {
+    margin-top: 41px;
+    margin-bottom: 0;
+    margin-left: 8px;
+    font-size: 35px;
+    color: #ffffff;
+    font-family: "Arial Rounded MT Bold";
+}
+
+#levelEndDialog h3 {
+    display: none;
+}
+
+#levelEndDialog .dialog-buttons {
+    display: flex;
+    position: absolute;
+    bottom: 10%;
+    gap: 12px;
+    margin-bottom: 27px;
+    width: 100%;
+    max-width: 375px;
+}
+
+#levelEndDialog .dialog-buttons button {
+    padding: 12px 24px;
+    font-size: 30px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 2px 5px 10px #74777a;
+    font-family: "Arial Rounded MT Bold";
+}
+
+dialog#levelEndDialog::before {
+    display: none;
+}
+
+/* Stars Animation */
 #starsContainer {
     display: flex;
     justify-content: center;
@@ -1605,7 +1251,6 @@ dialog#levelEndDialog::before {
 
 #starsContainer .star {
     width: 19%;
-
     opacity: 0;
     animation: starPop 0.4s ease 0.2s both;
 }
@@ -1634,286 +1279,623 @@ dialog#levelEndDialog::before {
     }
 }
 
-.iconBtn {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: transparent;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Game Complete Dialog */
+dialog#gameCompleteDialog {
     border: none;
-    cursor: pointer;
-    transition: transform 0.1s ease-in-out;
-}
-
-.iconBtn img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.1s ease-in-out;
-}
-
-.iconBtn:hover img {
-    opacity: 0.7;
-    transform: scale(1.1);
-}
-
-#infoBtn {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    background: transparent;
-    border: none;
+    border-radius: 0;
     padding: 0;
-    cursor: pointer;
-    z-index: 100;
-    width: 40px;
-    height: 45px;
-}
-
-/* Info Dialog Styles */
-dialog#infoDialog {
-    width: 50vw;
-    /* 50% of screen width */
-    height: 75vh;
-    /* 75% of screen height */
-    padding: 24px;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-    background: white;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-dialog#infoDialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-#infoDialog h3 {
-    margin: 0 0 20px 0;
-    color: #333;
-    font-size: 1.6em;
+    max-width: min(600px, 90vw);
+    max-height: min(80vh, 80vh);
+    width: auto;
+    height: auto;
+    background-image: url('images/gameComplete.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: relative;
     text-align: center;
+    overflow: visible;
 }
 
-/* Section header */
-.h4 {
-    margin-top: 22px;
-    margin-bottom: 10px;
-    color: #444;
-    font-size: 1.1em;
-    font-weight: 600;
-
-    padding-left: 8px;
-}
-
-#infoDialog p {
-    line-height: 1.45;
-    color: #575757;
-    font-size: 0.97em;
-    margin-bottom: 12px;
-    text-align: left;
-}
-
-/* Feature Grid Layout */
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 16px;
-    padding: 10px 0;
-}
-
-/* Feature Card Styles */
-.feature-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 16px 20px;
-    border-radius: 12px;
-    border: 1px solid #afadad;
-    background: #fafafa;
-    transition: transform 0.15s ease, background 0.2s ease;
-}
-
-/* Hover effect */
-.feature-card:hover {
-    transform: scale(1.02);
-    background: #ffffff;
-}
-
-/* Colored left borders for 11 cards */
-.feature-card:nth-child(1) { 
-    border-left: 6px solid #766c65; 
-} 
-/* brown */
-
-.feature-card:nth-child(2) {
-    border-left: 6px solid #8e8df0;
-}
-/* purple */
-
-.feature-card:nth-child(3) {
-    border-left: 6px solid #5ab1e4;
-}
-/* blue */
-
-.feature-card:nth-child(4) {
-    border-left: 6px solid #f29c38;
-}
-/* orange */
-
-.feature-card:nth-child(5) {
-    border-left: 6px solid #90c97d;
-}
-/* green */
-
-.feature-card:nth-child(6) {
-    border-left: 6px solid #ce6ad3;
-}
-/* pink-purple */
-
-.feature-card:nth-child(7) {
-    border-left: 6px solid #e86a6a;
-}
-/* red */
-
-.feature-card:nth-child(8) {
-    border-left: 6px solid #6ac7c2;
-}
-/* teal */
-
-.feature-card:nth-child(9) {
-    border-left: 6px solid #ebd773;
-}
-/* gold */
-
-.feature-card:nth-child(10) {
-    border-left: 6px solid #9b7df0;
-}
-/* violet */
-
-.feature-card:nth-child(11) {
-    border-left: 6px solid #ffa4cf;
-}
-/* soft pink */
-
-/* Default small icons */
-.feature-icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-/* Larger icons ONLY for the last 4 feature cards */
-.feature-card:nth-child(7) .feature-icon,
-.feature-card:nth-child(8) .feature-icon,
-.feature-card:nth-child(9) .feature-icon {
-    width: 120px;
-    height: 80px;
-}
-
-.feature-icon
-
-/* Dialog buttons */
-.dialog-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.dialog-buttons button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: 0.2s ease-in-out;
-}
-
-#closeInfoBtn {
-    background: #f5f5f5;
-    color: #333;
-}
-
-#closeInfoBtn:hover {
-    background: #e0e0e0;
-    transform: scale(1.03);
-}
-
-
-/*Game End dialog styles*/
-
-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.55);
-}
-
-.dialog-full img {
-    width: 100%;
-    max-width: 350px;
-}
-
-.dialog-buttons {
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
-
-.game-complete-dialog {
-    position: fixed;
-    inset: 0;
+dialog#gameCompleteDialog::backdrop {
     background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+    backdrop-filter: blur(5px);
 }
 
-.game-complete-dialog.hidden {
+dialog#gameCompleteDialog form {
+    padding: 40px 40px 20px 40px;
+    min-width: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+dialog#gameCompleteDialog .dialog-art {
     display: none;
 }
 
-.dialog-box {
-    position: relative;
-    width: 340px;
-    height: 480px;
+dialog#gameCompleteDialog .dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: absolute;
+    bottom: -72%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+}
+
+dialog#gameCompleteDialog .dialog-buttons button {
+    padding: 14px 28px;
+    font-size: 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Arial Rounded MT Bold';
+    transition: all 0.3s ease;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+    min-width: 140px;
+    border: none;
+}
+
+dialog#gameCompleteDialog .yellow-btn {
+    background: #FFD029;
+    color: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+dialog#gameCompleteDialog .yellow-btn:hover {
+    background: #FFC517;
+    transform: scale(1.05);
+}
+
+dialog#gameCompleteDialog .red-btn {
+    background: #D56A6A;
+    color: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+dialog#gameCompleteDialog .red-btn:hover {
+    background: #C44B4B;
+    transform: scale(1.05);
+}
+
+/* Game Complete Dialog - stats */
+dialog#gameCompleteDialog #gameStats {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+
+    max-width: 365px;
+    /* background: rgba(255, 255, 255, 0.9); */
+    padding: 10px 14px;
+    border-radius: 12px;
+    /* box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); */
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
+    z-index: 10;
 }
 
-
-/* Buttons */
-.yellow-btn,
-.red-btn {
-    padding: 14px 22px;
-    font-size: 30x;
-    border-radius: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    font-weight: bold;
-    min-width: 120px;
+dialog#gameCompleteDialog .stats-text {
     font-family: 'Arial Rounded MT Bold';
-    transition: background-color 0.2s, transform 0.1s;
-    /* box-shadow: 2px 5px 10px #74777a; */
+    color: #333;
+    font-size: 18px;
+    letter-spacing: 0.3px;
 }
 
-.yellow-btn {
-    background: #FFD029;
-    color: #ffffff;
+.star-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    max-width: 100%;
+    overflow: auto;
+    padding: 4px 0;
 }
 
-.yellow-btn:hover {
-    background: #ffe177;
-    transform: scale(1.05);
+.tiny-star {
+    width: 30px;
+    height: 25px;
+
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
 }
 
-.red-btn {
-    background: #D56A6A;
-    color: white;
+/* Responsive adjustments for Game Complete Dialog */
+@media (max-width: 768px) {
+    dialog#gameCompleteDialog form {
+        min-width: 300px;
+        padding: 30px 20px 20px 20px;
+    }
+
+    dialog#gameCompleteDialog .dialog-buttons {
+        flex-direction: column;
+        gap: 12px;
+        max-width: 250px;
+    }
+
+    dialog#gameCompleteDialog .dialog-buttons button {
+        font-size: 24px;
+        padding: 12px 24px;
+        width: 100%;
+    }
+
+    dialog#gameCompleteDialog #gameStats {
+        top: 15%;
+        max-width: 90%;
+    }
 }
 
-.red-btn:hover {
-    background: #fe9f9f;
-    transform: scale(1.05);
+@media (max-width: 480px) {
+    dialog#gameCompleteDialog {
+        max-width: 95vw;
+    }
+
+    dialog#gameCompleteDialog form {
+        min-width: 250px;
+        padding: 20px 15px 15px 15px;
+    }
+
+    dialog#gameCompleteDialog .dialog-buttons button {
+        font-size: 20px;
+        padding: 10px 20px;
+    }
+
+    .tiny-star {
+        width: 16px;
+        height: 16px;
+    }
+
+    dialog#gameCompleteDialog .stats-text {
+        font-size: 15px;
+    }
+
+    dialog#gameCompleteDialog #gameStats {
+        top: 12%;
+        max-width: 90%;
+    }
+}
+
+/* ============================================================================
+   12. RESPONSIVE DESIGN
+============================================================================ */
+
+/* Clues Panel - Mobile */
+@media (max-width: 768px) {
+    #clues {
+        width: 220px;
+        height: auto;
+        min-height: 500px;
+        left: 20px;
+        padding: 0 20px;
+    }
+
+    #storySentence {
+        top: 15px;
+        max-width: 180px;
+    }
+
+    #cluesContent {
+        top: 100px;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    #clues {
+        position: static;
+        width: 90%;
+        max-width: 300px;
+        margin: 20px auto;
+        height: auto;
+    }
+
+    #storySentence,
+    #cluesContent {
+        position: static;
+        transform: none;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0;
+    }
+}
+
+/* Notes Panel - Mobile */
+@media (max-width: 900px) {
+    #notesContainer {
+        position: static;
+        width: auto;
+        max-width: none;
+        max-height: none;
+        margin: 12px;
+        background: url('images/notesBackground.png') no-repeat center center;
+        background-size: cover;
+    }
+}
+
+/* Level End Dialog - Laptop Breakpoints */
+@media (min-width: 1280px) and (max-width: 1440px) and (min-height: 800px) and (max-height: 900px) {
+    dialog#levelEndDialog {
+        max-width: min(550px, 85vw);
+        max-height: 68vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 380px;
+        padding: 38px 30px 20px 30px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 32px;
+        margin: 38px 0 0 15px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 15%;
+        max-width: 350px;
+        gap: 11px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 28px;
+        padding: 11px 22px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 32%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 18%;
+    }
+}
+
+@media (min-width: 1366px) and (max-width: 1920px) and (min-height: 768px) and (max-height: 1080px) {
+    dialog#levelEndDialog {
+        max-width: min(520px, 82vw);
+        max-height: 77vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 360px;
+        padding: 36px 28px 20px 28px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 30px;
+        margin: 36px 0 0 18px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 9%;
+        max-width: 340px;
+        gap: 10px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 32px;
+        padding: 10px 13px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 25%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 22%;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) and (min-height: 600px) and (max-height: 768px) {
+    dialog#levelEndDialog {
+        max-width: min(480px, 80vw);
+        max-height: 80vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 330px;
+        padding: 32px 24px 18px 24px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 27px;
+        margin: 32px 0 0 16px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 10%;
+        max-width: 310px;
+        gap: 10px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 25px;
+        padding: 10px 19px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 25%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 20%;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1920px) and (min-height: 900px) and (max-height: 1200px) {
+    dialog#levelEndDialog {
+        max-width: min(580px, 88vw);
+        max-height: 70vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 400px;
+        padding: 40px 32px 22px 32px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 34px;
+        margin: 40px 0 0 12px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 16%;
+        max-width: 370px;
+        gap: 12px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 29px;
+        padding: 12px 23px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 33%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 19%;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1920px) and (min-height: 900px) and (max-height: 1080px) {
+    dialog#levelEndDialog {
+        max-width: min(560px, 86vw);
+        max-height: 68vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 390px;
+        padding: 38px 30px 20px 30px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 32px;
+        margin: 38px 0 0 14px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 15%;
+        max-width: 360px;
+        gap: 11px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 28px;
+        padding: 11px 22px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 32%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 18%;
+    }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) and (min-height: 500px) and (max-height: 800px) {
+    dialog#levelEndDialog {
+        max-width: min(450px, 85vw);
+        max-height: 62vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 300px;
+        padding: 28px 20px 18px 20px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 25px;
+        margin: 28px 0 0 18px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 12%;
+        max-width: 280px;
+        gap: 10px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 23px;
+        padding: 9px 18px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 29%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 17%;
+    }
+}
+
+/* Small Tablets/Large Phones */
+@media (min-width: 481px) and (max-width: 600px) and (min-height: 450px) and (max-height: 750px) {
+    dialog#levelEndDialog {
+        max-width: min(400px, 90vw);
+        max-height: 55vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 220px;
+        padding: 20px 12px 12px 12px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 20px;
+        margin: 20px 0 0 12px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 10%;
+        max-width: 220px;
+        gap: 8px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 19px;
+        padding: 7px 14px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 27%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 16%;
+    }
+}
+
+/* Large Phones */
+@media (min-width: 376px) and (max-width: 480px) and (min-height: 400px) and (max-height: 700px) {
+    dialog#levelEndDialog {
+        max-width: min(350px, 95vw);
+        max-height: 50vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 180px;
+        padding: 15px 8px 8px 8px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 17px;
+        margin: 15px 0 0 10px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 8%;
+        max-width: 180px;
+        gap: 6px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 25%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 15%;
+    }
+}
+
+/* Small Phones */
+@media (max-width: 375px) and (min-height: 350px) and (max-height: 700px) {
+    dialog#levelEndDialog {
+        max-width: 95vw;
+        max-height: 45vh;
+    }
+
+    dialog#levelEndDialog form {
+        min-width: 160px;
+        padding: 12px 6px 6px 6px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 15px;
+        margin: 12px 0 0 8px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 6%;
+        max-width: 150px;
+        gap: 5px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 24%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 14%;
+    }
+}
+
+/* Landscape Orientation */
+@media (max-height: 500px) {
+    dialog#levelEndDialog {
+        max-height: 80vh;
+    }
+
+    dialog#levelEndDialog form {
+        padding: 10px;
+        min-width: 150px;
+    }
+
+    #levelEndDialog h1 {
+        font-size: 14px;
+        margin: 10px 0 0 8px;
+    }
+
+    #levelEndDialog .dialog-buttons {
+        bottom: 5%;
+        max-width: 140px;
+    }
+
+    #levelEndDialog .dialog-buttons button {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+
+    #levelEndDialog #starsContainer {
+        top: 22%;
+    }
+
+    #levelEndDialog #starsContainer .star {
+        width: 13%;
+    }
 }

@@ -37,7 +37,7 @@ const puzzles = [
     level: 'medium',
     story: 'Books are everywhere! Help Gerold shelve them correctly before the librarian arrives.',
     clues: ['The math books should be before the science books.',
-      'The story books are between science and art books.',
+      'The story books are on opposite ends from the art books.',
       'The geography books belong at the far right.'
     ],
     items: [
@@ -72,27 +72,27 @@ const puzzles = [
   {
     level: 'hard',
     story: "The school doors are locked! Help Principal Gerold find the right keypad code!!",
-    clues: ["The number in the center of all keypads are 5's",
+    clues: ["The number in the center of the keypads is 5",
       "The sum of each row, column, and diagonal are the same",
-      "The number in the bottom-left of all keypads are 8's",
-      "The number above the bottom-right corner of all keypads are 7's",
+      "The number in the bottom-left of the keypads is 8",
+      "The number above the bottom-right corner of the keypads is 7",
       "The bottom-left number is double the top-left number."
     ],
 
     items: [
-      { id: "4's", img:'school/4_redNumber.PNG' },
-      { id: "9's", img: 'school/9_redNumber.PNG' },
-      { id: "2's", img: 'school/2_redNumber.PNG' },
-      { id: "3's", img: 'school/3_redNumber.PNG' },
-      { id: "5's", img: 'school/5_redNumber.PNG' },
-      { id: "7's", img: 'school/7_redNumber.PNG' },
-      { id: "8's", img: 'school/8_redNumber.PNG'},
-      { id: "1's", img: 'school/1_redNumber.PNG' },
-      { id: "6's", img: 'school/6_redNumber.PNG' }
+      { id: "4", img:'school/4_redNumber.PNG' },
+      { id: "9", img: 'school/9_redNumber.PNG' },
+      { id: "2", img: 'school/2_redNumber.PNG' },
+      { id: "3", img: 'school/3_redNumber.PNG' },
+      { id: "5", img: 'school/5_redNumber.PNG' },
+      { id: "7", img: 'school/7_redNumber.PNG' },
+      { id: "8", img: 'school/8_redNumber.PNG'},
+      { id: "1", img: 'school/1_redNumber.PNG' },
+      { id: "6", img: 'school/6_redNumber.PNG' }
     ],
     correctOrder: [
-      "4's", "9's", "2's", "3's", "5's",
-      "7's", "8's", "1's", "6's"
+      "4", "9", "2", "3", "5",
+      "7", "8", "1", "6"
     ]
   },
 

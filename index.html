@@ -1,467 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Hazoorah - Main Menu</title>
-        <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <style>
-         @font-face {
-         font-family: "MyCustomFont";
-         src: url("fonts/arialroundedmtbold.ttf") format("truetype");}
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "MyCustomFont", sans-serif;
-            text-align: center;
-            overflow: hidden;
-        }
 
-        .bg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
+<head>
+    <meta charset="UTF-8">
+    <title>Hazoorah - Main Menu</title>
+    <link rel="icon" type="image/x-icon" href="images/transparentBear.PNG">
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    @font-face {
+        font-family: "MyCustomFont";
+        src: url("fonts/arialroundedmtbold.ttf") format("truetype");
+    }
 
-        .logo {
-            margin-top: 60px;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "MyCustomFont", sans-serif;
+        text-align: center;
+        overflow: hidden;
+    }
 
-        .menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-       
-        .menu button {
-            color: white;              
-            padding: 18px 24px;        
-            border: none;              
-            border-radius: 10px;   
-            font-family: "MyCustomFont";     
-            font-size: 24px;           
-            cursor: pointer;
-            width: 200px;
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
-            transition: transform 0.1s ease-in-out;         
-        }
+    .bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
 
-        #newGameBtn{ background-color: #D26665; }
-        #startBtn{ background-color:#9ACF7C;}
-        #townBtn{background-color:#FFC517;}
+    .logo {
+        margin-top: 60px;
+    }
 
-        #newGameBtn:hover {
-            background-color: #e8a2a1;
-            transform: scale(1.1);
-            transition: transform 0.1s ease-in-out;
-        }
+    .menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 40px;
+    }
 
-        #startBtn:hover {
-            background-color: #bcdfa7;
-            transform: scale(1.1);
-            transition: transform 0.1s ease-in-out;
-        }
+    .menu button {
+        color: white;
+        padding: 18px 24px;
+        border: none;
+        border-radius: 26px;
+        font-family: "MyCustomFont";
+        font-size: 24px;
+        cursor: pointer;
+        width: 300px;
+        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+        transition: transform 0.1s ease-in-out;
+    }
+    .logo img {
+        width: 600px;
+        height: auto;
+    }
 
-        #townBtn:hover {
-            background-color: #edd07b;
-            transform: scale(1.1);
-            transition: transform 0.1s ease-in-out;
-        }
+    #newGameBtn {
+        background-color: #D26665;
+    }
 
-        .iconBtn{
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.1s ease-in-out;
-        }
-        
-        #infoBtn {
-            position: absolute;
-            left : 40px;
-            top: 30px;
-            background: transparent;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            z-index: 100;
-            width: 50px;
-            height: 50px;
-        }
+    #startBtn {
+        background-color: #9ACF7C;
+    }
 
-        /* Info Dialog Styles */
-        dialog#infoDialog {
-            width: 50vw;           /* 50% of screen width */
-            height: 75vh;          /* 75% of screen height */
-            padding: 24px;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-            background: white;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+    #townBtn {
+        background-color: #FFC517;
+    }
 
-        dialog#infoDialog::backdrop {
-            background: rgba(0, 0, 0, 0.5);
-        }
+    #newGameBtn:hover {
+        background-color: #e8a2a1;
+        transform: scale(1.1);
+        transition: transform 0.1s ease-in-out;
+    }
 
-        #infoDialog h3 {
-            margin: 0 0 20px 0;
-            color: #333;
-            font-size: 1.6em;
-            text-align: center;
-        }
+    #startBtn:hover {
+        background-color: #bcdfa7;
+        transform: scale(1.1);
+        transition: transform 0.1s ease-in-out;
+    }
 
-        /* Section header */
-        .h4 {
-            margin-top: 22px;
-            margin-bottom: 10px;
-            color: #444;
-            font-size: 1.1em;
-            font-weight: 600;
-            
-            padding-left: 8px;
-        }
+    #townBtn:hover {
+        background-color: #edd07b;
+        transform: scale(1.1);
+        transition: transform 0.1s ease-in-out;
+    }
 
-        #infoDialog p {
-            line-height: 1.45;
-            color: #575757;
-            font-size: 0.97em;
-            margin-bottom: 12px;
-            text-align: left;
-        }
+    .iconBtn {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.1s ease-in-out;
+    }
 
-        /* Feature Grid Layout */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 16px;
-            padding: 10px 0;
-        }
+    #infoBtn {
+        position: absolute;
+        left: 40px;
+        top: 30px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        z-index: 100;
+        width: 50px;
+        height: 50px;
+    }
 
-        /* Feature Card Styles */
-        .feature-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 16px 20px;
-            border-radius: 12px;
-            border: 1px solid #afadad;
-            background: #fafafa;
-            transition: transform 0.15s ease, background 0.2s ease;
-        }
+    /* Info Dialog Styles */
+    dialog#infoDialog {
+        width: 50vw;
+        /* 50% of screen width */
+        height: 75vh;
+        /* 75% of screen height */
+        padding: 24px;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        background: white;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 
-        /* Hover effect */
-        .feature-card:hover {
-            transform: scale(1.02);
-            background: #ffffff;
-        }
+    dialog#infoDialog::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+    }
 
-        /* Colored left borders for 11 cards */
-        .feature-card:nth-child(1) { border-left: 6px solid #766c65; } /* brown */
-        .feature-card:nth-child(2)  { border-left: 6px solid #8e8df0; } /* purple */
-        .feature-card:nth-child(3)  { border-left: 6px solid #5ab1e4; } /* blue */
-        .feature-card:nth-child(4)  { border-left: 6px solid #f29c38; } /* orange */
-        .feature-card:nth-child(5)  { border-left: 6px solid #90c97d; } /* green */
-        .feature-card:nth-child(6)  { border-left: 6px solid #ce6ad3; } /* pink-purple */
-        .feature-card:nth-child(7)  { border-left: 6px solid #e86a6a; } /* red */
-        .feature-card:nth-child(8)  { border-left: 6px solid #6ac7c2; } /* teal */
-        .feature-card:nth-child(9)  { border-left: 6px solid #ebd773; } /* gold */
-        .feature-card:nth-child(10)  { border-left: 6px solid #9b7df0; } /* violet */
-        .feature-card:nth-child(11) { border-left: 6px solid #ffa4cf; } /* soft pink */
+    #infoDialog h3 {
+        margin: 0 0 20px 0;
+        color: #333;
+        font-size: 1.6em;
+        text-align: center;
+    }
+
+    /* Section header */
+    .h4 {
+        margin-top: 22px;
+        margin-bottom: 10px;
+        color: #444;
+        font-size: 1.1em;
+        font-weight: 600;
+
+        padding-left: 8px;
+    }
+
+    #infoDialog p {
+        line-height: 1.45;
+        color: #575757;
+        font-size: 0.97em;
+        margin-bottom: 12px;
+        text-align: left;
+    }
+
+    /* Feature Grid Layout */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+        padding: 10px 0;
+    }
+
+    /* Feature Card Styles */
+    .feature-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 20px;
+        border-radius: 12px;
+        border: 1px solid #afadad;
+        background: #fafafa;
+        transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    /* Hover effect */
+    .feature-card:hover {
+        transform: scale(1.02);
+        background: #ffffff;
+    }
+
+    /* Colored left borders for 11 cards */
+    .feature-card:nth-child(1) {
+        border-left: 6px solid #766c65;
+    }
+
+    /* brown */
+    .feature-card:nth-child(2) {
+        border-left: 6px solid #8e8df0;
+    }
+
+    /* purple */
+    .feature-card:nth-child(3) {
+        border-left: 6px solid #5ab1e4;
+    }
+
+    /* blue */
+    .feature-card:nth-child(4) {
+        border-left: 6px solid #f29c38;
+    }
+
+    /* orange */
+    .feature-card:nth-child(5) {
+        border-left: 6px solid #90c97d;
+    }
+
+    /* green */
+    .feature-card:nth-child(6) {
+        border-left: 6px solid #ce6ad3;
+    }
+
+    /* pink-purple */
+    .feature-card:nth-child(7) {
+        border-left: 6px solid #e86a6a;
+    }
+
+    /* red */
+    .feature-card:nth-child(8) {
+        border-left: 6px solid #6ac7c2;
+    }
+
+    /* teal */
+    .feature-card:nth-child(9) {
+        border-left: 6px solid #ebd773;
+    }
+
+    /* gold */
+    .feature-card:nth-child(10) {
+        border-left: 6px solid #9b7df0;
+    }
+
+    /* violet */
+    .feature-card:nth-child(11) {
+        border-left: 6px solid #ffa4cf;
+    }
+
+    /* soft pink */
 
 
-        /* Default small icons */
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
+    /* Default small icons */
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
 
-        /* Larger icons ONLY for the last 4 feature cards */
-        .feature-card:nth-child(7) .feature-icon,
-        .feature-card:nth-child(8) .feature-icon,
-        .feature-card:nth-child(9) .feature-icon {
-            width: 120px;
-            height: 80px;
-        }
+    /* Larger icons ONLY for the last 4 feature cards */
+    .feature-card:nth-child(7) .feature-icon,
+    .feature-card:nth-child(8) .feature-icon,
+    .feature-card:nth-child(9) .feature-icon {
+        width: 120px;
+        height: 80px;
+    }
 
-        /* Dialog buttons */
-        .dialog-buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
+    /* Dialog buttons */
+    .dialog-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
 
-        .dialog-buttons button {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s ease-in-out;
-        }
+    .dialog-buttons button {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.2s ease-in-out;
+    }
 
-        #closeInfoBtn {
-            background: #f5f5f5;
-            color: #333;
-        }
+    #closeInfoBtn {
+        background: #f5f5f5;
+        color: #333;
+    }
 
-        #closeInfoBtn:hover {
-            background: #e0e0e0;
-            transform: scale(1.03);
-        }
+    #closeInfoBtn:hover {
+        background: #e0e0e0;
+        transform: scale(1.03);
+    }
 
-        #settingsBtn {
-            top: 20px;
-            right: 20px;
-        }
+    #settingsBtn {
+        top: 20px;
+        right: 20px;
+    }
 
-        .iconBtn img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.1s ease-in-out;
-        }
+    .iconBtn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform 0.1s ease-in-out;
+    }
 
-        .iconBtn:hover img{
-            opacity: 0.7;
-            transform: scale(1.1);
-        }
+    .iconBtn:hover img {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
 
-        #settBtn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+    #settBtn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
 
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: transparent;
-            border: none;
-            padding: 0;
-            margin: 0;
-            cursor: pointer;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        #settBtn img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+    #settBtn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 
-        #settBtn:hover img {
-            opacity: 0.7;
-            transform: scale(1.1);
-            transition: transform 0.1s ease-in-out;
-        }
+    #settBtn:hover img {
+        opacity: 0.7;
+        transform: scale(1.1);
+        transition: transform 0.1s ease-in-out;
+    }
+</style>
 
-    </style>
+<body>
+    <img class="bg" src="images/Background.png" alt="">
 
-    <body>
-        <img class = "bg" src ="images/Background.png" alt = "">
+    <button id="infoBtn" class="iconBtn" title="Info">
+        <img src="images/InfoBtn.png" alt="Info">
+    </button>
 
-        <button id="infoBtn" class="iconBtn" title="Info">
-            <img src="images/InfoBtn.png" alt="Info">
-        </button>
+    <!-- Info Dialog -->
+    <dialog id="infoDialog">
+        <form method="dialog">
+            <h3>About Hazoorah</h3>
+            <div class="gameOverview">
+                <h4>Game Overview</h4>
+                <p><strong>Hazoorah</strong> is an interactive puzzle game where players arrange images in the correct
+                    order using logic and clues. Drag and drop items onto the grid to organize them properly, then click
+                    <strong>Submit</strong> to check your solution.</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <img src="images/transparentBear.PNG" alt="Bear Back Button" class="feature-icon">
+                        <p><strong>Back Button:</strong> Click on the bear to go back to previous page.</p>
+                    </div>
 
-        <!-- Info Dialog -->
-        <dialog id="infoDialog">
-            <form method="dialog">
-                <h3>About Hazoorah</h3>
-                <div class="gameOverview">
-                    <h4>Game Overview</h4>
-                    <p><strong>Hazoorah</strong> is an interactive puzzle game where players arrange images in the correct order using logic and clues. Drag and drop items onto the grid to organize them properly, then click <strong>Submit</strong> to check your solution.</p>
-                    <div class="feature-grid">
-                        <div class="feature-card">
-                            <img src="images/transparentBear.PNG" alt="Bear Back Button" class="feature-icon">
-                            <p><strong>Back Button:</strong> Click on the bear to go back to previous page.</p>
+                    <div class="feature-card">
+                        <img src="images/shuffleBtn.png" alt="Shuffle Icon" class="feature-icon">
+                        <p><strong>Shuffle Button:</strong> Randomizes items for a fresh start.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/clearBtn.png" alt="Clear Icon" class="feature-icon">
+                        <p><strong>Clear Button:</strong> Resets the entire grid so you can begin again.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/hintBtn.png" alt="Hint Icon" class="feature-icon">
+                        <p><strong>Hint Button:</strong> The hint button provides the user feedback on their placement
+                            of the images. (1 hint for Easy, 2 for Medium, 3 for Hard).</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/InfoBtn.png" alt="Grid Icon" class="feature-icon">
+                        <p><strong>Information Button:</strong> This button opens the Information Panel, where you can
+                            read the game overview, rules, feature explanations, and helpful instructions before
+                            playing.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/settingBtn.png" alt="Settings Icon" class="feature-icon">
+                        <p><strong>Settings Menu:</strong> Adjust music and toggle the hint system.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <img src="images/pauseBtn.png" alt="Pause Icon" class="feature-icon">
+                        <p><strong>Pause Button:</strong> Freezes the game and stops the timer.</p>
+                    </div>
+
+                    <!-- Note-Taking Journal -->
+                    <div class="feature-card">
+                        <img src="images/notesBackground.png" class="feature-icon" alt="Note Taking">
+                        <div>
+                            <h4>Note-Taking Journal</h4>
+                            <p>A built-in journal where players can write down ideas, clues, or strategies on a virtual
+                                notepad.</p>
                         </div>
+                    </div>
 
-                        <div class="feature-card">
-                            <img src="images/shuffleBtn.png" alt="Shuffle Icon" class="feature-icon">
-                            <p><strong>Shuffle Button:</strong> Randomizes items for a fresh start.</p>
+                    <!-- Start Game Button -->
+                    <div class="feature-card">
+                        <img src="images/startNewGameBtn.png" class="feature-icon" alt="New Game">
+                        <div>
+                            <h4>New Game Button</h4>
+                            <p>Begins a brand-new game session, sending the player directly into Level 1.</p>
                         </div>
+                    </div>
 
-                        <div class="feature-card">
-                            <img src="images/clearBtn.png" alt="Clear Icon" class="feature-icon">
-                            <p><strong>Clear Button:</strong> Resets the entire grid so you can begin again.</p>
+                    <!-- Resume Button -->
+                    <div class="feature-card">
+                        <img src="images/ResumeBtn.png" class="feature-icon" alt="Resume Game">
+                        <div>
+                            <h4>Resume Button</h4>
+                            <p>Lets the user continue the exact level where they previously left off.</p>
                         </div>
+                    </div>
 
-                        <div class="feature-card">
-                            <img src="images/hintBtn.png" alt="Hint Icon" class="feature-icon">
-                            <p><strong>Hint Button:</strong> The hint button provides the user feedback on their placement of the images. (1 hint for Easy, 2 for Medium, 3 for Hard).</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <img src="images/InfoBtn.png" alt="Grid Icon" class="feature-icon">
-                            <p><strong>Information Button:</strong> This button opens the Information Panel, where you can read the game overview, rules, feature explanations, and helpful instructions before playing.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <img src="images/settingBtn.png" alt="Settings Icon" class="feature-icon">
-                            <p><strong>Settings Menu:</strong> Adjust music and toggle the hint system.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <img src="images/pauseBtn.png" alt="Pause Icon" class="feature-icon">
-                            <p><strong>Pause Button:</strong> Freezes the game and stops the timer.</p>
-                        </div>
-
-                        <!-- Note-Taking Journal -->
-                        <div class="feature-card">
-                            <img src="images/notesBackground.png" class="feature-icon" alt="Note Taking">
-                            <div>
-                                <h4>Note-Taking Journal</h4>
-                                <p>A built-in journal where players can write down ideas, clues, or strategies on a virtual notepad.</p>
-                            </div>
-                        </div>
-
-                        <!-- Start Game Button -->
-                        <div class="feature-card">
-                            <img src="images/startNewGameBtn.png" class="feature-icon" alt="New Game">
-                            <div>
-                                <h4>New Game Button</h4>
-                                <p>Begins a brand-new game session, sending the player directly into Level 1.</p>
-                            </div>
-                        </div>
-
-                        <!-- Resume Button -->
-                        <div class="feature-card">
-                            <img src="images/ResumeBtn.png" class="feature-icon" alt="Resume Game">
-                            <div>
-                                <h4>Resume Button</h4>
-                                <p>Lets the user continue the exact level where they previously left off.</p>
-                            </div>
-                        </div>
-
-                        <!-- Stars Feature -->
-                        <div class="feature-card">
-                            <div>
-                                <h4>Stars System</h4>
-                                <p>Players earn stars based on attempts:
-                                    <br>• 1 attempt → ⭐⭐⭐
-                                    <br>• 2 attempts → ⭐⭐
-                                    <br>• 3 attempts → ⭐
-                                </p>
-                            </div>
+                    <!-- Stars Feature -->
+                    <div class="feature-card">
+                        <div>
+                            <h4>Stars System</h4>
+                            <p>Players earn stars based on attempts:
+                                <br>• 1 attempt → ⭐⭐⭐
+                                <br>• 2 attempts → ⭐⭐
+                                <br>• 3 attempts → ⭐
+                            </p>
                         </div>
                     </div>
                 </div>
-        </section>
-              </div>
-                <div class="section">
-                    <h4>Game Objective & Description</h4>
-                    <p>
-                        Travel through three unique towns in the world of Hazoorah:
-                        <br>🏫 <strong>Gerold’s Elementary</strong>
-                        <br>🌿 <strong>The Garden</strong>
-                        <br>🐴 <strong>The Barn</strong>
-                    </p>
-                    <p>
-                        Each town includes five levels:<br>
-                        • Levels 1 & 2 – Easy  
-                        • Levels 3 & 4 – Medium  
-                        • Level 5 – Hard
-                    </p>
-                    <p>
-                        Your goal is to arrange items in the correct order using clues and logical reasoning. 
-                        Stay focused, use your tools wisely, and complete all puzzles to finish your journey!
-                    </p>
-                </div>
+            </div>
+            </section>
+            </div>
+            <div class="section">
+                <h4>Game Objective & Description</h4>
+                <p>
+                    Travel through three unique towns in the world of Hazoorah:
+                    <br>🏫 <strong>Gerold’s Elementary</strong>
+                    <br>🌿 <strong>The Garden</strong>
+                    <br>🐴 <strong>The Barn</strong>
+                </p>
+                <p>
+                    Each town includes five levels:<br>
+                    • Levels 1 & 2 – Easy
+                    • Levels 3 & 4 – Medium
+                    • Level 5 – Hard
+                </p>
+                <p>
+                    Your goal is to arrange items in the correct order using clues and logical reasoning.
+                    Stay focused, use your tools wisely, and complete all puzzles to finish your journey!
+                </p>
+            </div>
 
-                <div class="section">
-                    <h4>Team Info</h4>
+            <div class="section">
+                <h4>Team Info</h4>
 
-                    <p><strong>Raneen – UI Designer:</strong> Raneen was responsible for designing Hazoorah’s visual interface and overall user experience.
-                     She created the game’s layout, color scheme, and interactive elements to make the puzzles engaging and intuitive for players.</p>
+                <p><strong>Raneen – UI Designer:</strong> Raneen was responsible for designing Hazoorah’s visual
+                    interface and overall user experience.
+                    She created the game’s layout, color scheme, and interactive elements to make the puzzles engaging
+                    and intuitive for players.</p>
 
-                    <p><strong>Taya – Developer:</strong> Taya focused on the game’s functionality and structure,
-                      helping to code key gameplay mechanics and ensure smooth transitions between levels and puzzles.</p>
+                <p><strong>Taya – Developer:</strong> Taya focused on the game’s functionality and structure,
+                    helping to code key gameplay mechanics and ensure smooth transitions between levels and puzzles.</p>
 
-                    <p><strong>Hala – Developer:</strong>  Hala helped bring the game to life through coding and logic implementation. 
-                      She worked on building the game’s core features and ensuring the riddles functioned smoothly.</p>
+                <p><strong>Hala – Developer:</strong> Hala helped bring the game to life through coding and logic
+                    implementation.
+                    She worked on building the game’s core features and ensuring the riddles functioned smoothly.</p>
 
-                    <p><strong>Sumaya – Developer:</strong> Sumaya contributed to the technical side of Hazoorah, helping implement game logic and manage interactions between the user interface and the underlying code.</p>
-              </div>
+                <p><strong>Sumaya – Developer:</strong> Sumaya contributed to the technical side of Hazoorah, helping
+                    implement game logic and manage interactions between the user interface and the underlying code.</p>
+            </div>
 
-                <!-- Dialog Buttons -->
-                <div class="dialog-buttons">
+            <!-- Dialog Buttons -->
+            <div class="dialog-buttons">
                 <button type="button" id="closeInfoBtn">Close</button>
-              </div>
+            </div>
         </form>
     </dialog>
-         
-        <button id="settBtn" aria-label="Open settings">
-            <img src="images/settingBtn.png" alt="Settings" width="50px" height="40px">
-        </button>
-        
-        <div class = "logo">
-            <img src ="images/titleLogo.PNG" alt="Hazoorah Logo" width="500"> 
+
+    <button id="settBtn" aria-label="Open settings">
+        <img src="images/settingBtn.png" alt="Settings" width="50px" height="40px">
+    </button>
+
+    <div class="logo">
+        <img src="images/titleLogo.PNG" alt="Hazoorah Logo" width="500">
+    </div>
+
+    <div class="menu">
+        <button id="newGameBtn">New Game</button>
+        <button id="startBtn">Resume</button>
+        <button id="townBtn" onclick="location.href='towns.html'">Towns</button>
+    </div>
+
+    <!-- Confirm New Game Dialog -->
+    <dialog id="confirmNewGameDialog"
+        style="padding: 30px; border-radius: 15px; border: 2px solid #D26665; font-family: 'MyCustomFont', sans-serif; text-align: center; max-width: 400px;">
+        <h2 style="color: #D26665; margin-top: 0;">⚠️ Reset Progress?</h2>
+        <p style="font-size: 18px; margin: 20px 0;">Starting a new game will erase all your current progress. Are you
+            sure?</p>
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
+            <button id="confirmYesBtn"
+                style="background-color: #D26665; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">Yes,
+                Reset</button>
+            <button id="confirmNoBtn"
+                style="background-color: #888; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">No,
+                Cancel</button>
         </div>
+    </dialog>
 
-        <div class="menu">
-            <button id="newGameBtn">New Game</button>
-            <button id="startBtn">Resume</button>
-            <button id="townBtn" onclick="location.href='towns.html'">Towns</button>
-        </div>
+    <script>
+        document.getElementById('startBtn').addEventListener('click', function () {
+            const lastLevel = parseInt(localStorage.getItem('lastLevel'), 10);
 
-        <!-- Confirm New Game Dialog -->
-        <dialog id="confirmNewGameDialog" style="padding: 30px; border-radius: 15px; border: 2px solid #D26665; font-family: 'MyCustomFont', sans-serif; text-align: center; max-width: 400px;">
-            <h2 style="color: #D26665; margin-top: 0;">⚠️ Reset Progress?</h2>
-            <p style="font-size: 18px; margin: 20px 0;">Starting a new game will erase all your current progress. Are you sure?</p>
-            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
-                <button id="confirmYesBtn" style="background-color: #D26665; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">Yes, Reset</button>
-                <button id="confirmNoBtn" style="background-color: #888; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-family: 'MyCustomFont'; font-size: 18px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);">No, Cancel</button>
-            </div>
-        </dialog>
+            if (!lastLevel || lastLevel < 1) {
+                window.location.href = "game.html?town=1&level=1";
+                return;
+            }
 
-        <script>
-            document.getElementById('startBtn').addEventListener('click', function() {
-                const lastLevel = parseInt(localStorage.getItem('lastLevel'), 10);
+            const levelsPerTown = 5;
+            const town = Math.floor((lastLevel - 1) / levelsPerTown) + 1;
+            const level = ((lastLevel - 1) % levelsPerTown) + 1;
 
-                if (!lastLevel || lastLevel < 1) {
-                    window.location.href = "game.html?town=1&level=1";
-                    return;
-                }
+            window.location.href = `game.html?town=${town}&level=${level}`;
+        });
 
-                const levelsPerTown = 5;
-                const town = Math.floor((lastLevel - 1) / levelsPerTown) + 1;
-                const level = ((lastLevel - 1) % levelsPerTown) + 1;
+        document.getElementById('levelsBtn').addEventListener('click', function () {
+            const lastTown = parseInt(localStorage.getItem('lastTown'), 10);
 
-                window.location.href = `game.html?town=${town}&level=${level}`;
-            });
+            if (!lastTown || lastTown < 1) {
+                window.location.href = "levels.html?town=1";
+                return;
+            }
 
-            document.getElementById('levelsBtn').addEventListener('click', function() {
-                const lastTown = parseInt(localStorage.getItem('lastTown'), 10);
+            window.location.href = `levels.html?town=${lastTown}`;
+        });
+    </script>
 
-                if (!lastTown || lastTown < 1) {
-                    window.location.href = "levels.html?town=1";
-                    return;
-                }
+    <script src="infoDialog.js"></script>
+    <script src="newGameBtn.js"></script>
+    <script src="soundfx.js"></script>
+    <script src="settings.js"></script>
+</body>
 
-                window.location.href = `levels.html?town=${lastTown}`;
-            });
-        </script>
-        
-        <script src="infoDialog.js"></script>
-        <script src="newGameBtn.js"></script>
-        <script src="soundfx.js"></script>
-        <script src="settings.js"></script>
-    </body>
 </html>

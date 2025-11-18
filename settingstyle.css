@@ -1,0 +1,379 @@
+/* Settings Dialog */
+dialog#settingsDialog[open] {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90vw;
+    max-height: 80vh;
+    margin: auto;
+    background-image: url('images/settingsDialog.PNG');
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+dialog#settingsDialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+dialog#settingsDialog form {
+    padding: 60px 50px 40px 50px;
+    width: 77%;
+    height: 86%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 67px;
+}
+
+#settingsDialog h3 {
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+    font-size: 1.8em;
+    font-family: 'Arial Rounded MT Bold';
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+}
+
+#settingsDialog h4 {
+    margin: 15px 0 10px 0;
+    color: #34495e;
+    font-size: 1em;
+    font-weight: 600;
+    font-family: 'Arial Rounded MT Bold';
+    text-align: left;
+}
+
+.settings-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.settings-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-content::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 3px;
+}
+
+.settings-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.settings-group {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.settings-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 0.95em;
+    font-family: 'Arial Rounded MT Bold';
+}
+
+/* Checkbox Grid Container - for horizontal layout */
+dialog#settingsDialog .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+dialog#settingsDialog .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+dialog#settingsDialog .checkbox-item:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+dialog#settingsDialog .checkbox-item label {
+    margin: 0;
+    cursor: pointer;
+    flex: 1;
+}
+
+/* Custom Range Slider for Settings Dialog */
+dialog#settingsDialog .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+dialog#settingsDialog .volume-control input[type="range"] {
+    flex: 1;
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #e0e0e0 0%, #e0e0e0 100%);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+dialog#settingsDialog .volume-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+dialog#settingsDialog .volume-control input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
+dialog#settingsDialog .volume-control input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+}
+
+/* Firefox */
+dialog#settingsDialog .volume-control input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+dialog#settingsDialog .volume-control input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
+dialog#settingsDialog .volume-control input[type="range"]::-moz-range-thumb:active {
+    transform: scale(1.1);
+}
+
+/* Track styling for filled portion */
+dialog#settingsDialog .volume-control input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #667eea 0%, #764ba2 var(--value, 50%), #e0e0e0 var(--value, 50%), #e0e0e0 100%);
+}
+
+dialog#settingsDialog .volume-control input[type="range"]::-moz-range-track {
+    height: 8px;
+    border-radius: 10px;
+    background: #e0e0e0;
+}
+
+dialog#settingsDialog .volume-control input[type="range"]::-moz-range-progress {
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Custom Checkbox for Settings Dialog */
+dialog#settingsDialog input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #cbd5e0;
+    background: white;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+dialog#settingsDialog input[type="checkbox"]:hover {
+    border-color: #667eea;
+    transform: scale(1.1);
+}
+
+dialog#settingsDialog input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+}
+
+dialog#settingsDialog input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+dialog#settingsDialog input[type="checkbox"]:focus {
+    outline: 2px solid rgba(102, 126, 234, 0.4);
+    outline-offset: 2px;
+}
+
+/* Volume Display Text */
+dialog#settingsDialog .volume-control span {
+    min-width: 40px;
+    text-align: right;
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: 'Arial Rounded MT Bold';
+    font-size: 0.9em;
+}
+
+/* Settings Dialog Buttons */
+dialog#settingsDialog .dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    flex-shrink: 0;
+}
+
+dialog#settingsDialog .dialog-buttons button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Arial Rounded MT Bold';
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 110px;
+}
+
+dialog#settingsDialog #saveSettingsBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+dialog#settingsDialog #saveSettingsBtn:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+dialog#settingsDialog #saveSettingsBtn:active {
+    transform: translateY(0);
+}
+
+dialog#settingsDialog #closeSettingsBtn {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #2c3e50;
+}
+
+dialog#settingsDialog #closeSettingsBtn:hover {
+    background: linear-gradient(135deg, #c3cfe2 0%, #f5f7fa 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+dialog#settingsDialog #closeSettingsBtn:active {
+    transform: translateY(0);
+}
+
+/* Settings Icon Decorations (Optional) */
+dialog#settingsDialog .settings-group::before {
+    display: none;
+}
+
+/* Settings Dialog Responsive */
+@media (max-width: 768px) {
+    dialog#settingsDialog[open] {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+
+    dialog#settingsDialog form {
+        padding: 40px 30px 30px 30px;
+    }
+
+    #settingsDialog h3 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    dialog#settingsDialog .settings-group {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    dialog#settingsDialog .checkbox-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    dialog#settingsDialog .dialog-buttons {
+        gap: 10px;
+    }
+
+    dialog#settingsDialog .dialog-buttons button {
+        padding: 9px 20px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    dialog#settingsDialog form {
+        padding: 30px 20px 20px 20px;
+    }
+
+    #settingsDialog h3 {
+        font-size: 1.3em;
+    }
+
+    #settingsDialog h4 {
+        font-size: 0.95em;
+    }
+
+    dialog#settingsDialog .settings-group label {
+        font-size: 0.9em;
+    }
+
+    dialog#settingsDialog .dialog-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    dialog#settingsDialog .dialog-buttons button {
+        width: 100%;
+    }
+}

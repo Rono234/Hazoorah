@@ -5,7 +5,7 @@
       dialog.id = 'settingsDialog';
       dialog.innerHTML = `
         <form method="dialog">
-          <h3>Settings</h3>
+       
           <div class="settings-content">
             <div class="settings-group">
               <label for="soundToggle">Sound Effects</label>
@@ -24,15 +24,16 @@
             </div>
             -->
             <div class="settings-group">
-              <label for="hintToggle">Hints</label>
-              <div class="volume-control">
-                <input type="checkbox" id="hintToggle">
-              </div>
-            </div>
-            <div class="settings-group">
-              <label for="timerToggle">Timer</label>
-              <div class="volume-control">
-                <input type="checkbox" id="timerToggle" checked>
+              <h4>Game Features</h4>
+              <div class="checkbox-grid">
+                  <div class="checkbox-item">
+                      <input type="checkbox" id="hintCheckbox">
+                      <label for="hintCheckbox">Enable Hints</label>
+                  </div>
+                  <div class="checkbox-item">
+                      <input type="checkbox" id="timerCheckbox">
+                      <label for="timerCheckbox">Show Timer</label>
+                  </div>
               </div>
             </div>
             <h4>*Adjust volume bar after turning audio on</h4>
@@ -280,4 +281,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });//end DOMContentLoaded
 
 //TO ADD AUTOPLAY TO EDGE BROWSER: EDGE SETTINGS > SITE PERMISSIONS > MEDIA AUTOPLAY > ALLOW (OR SPECIFIC SITES)
-// FOR GOOOGLE CHROME: GO TO chrome://settings/content/autoplay AND ALLOW SITES TO AUTOMATICALLY PLAY MEDIA 
+// FOR GOOOGLE CHROME: GO TO chrome://settings/content/autoplay AND ALLOW SITES TO AUTOMATICALLY PLAY MEDIA

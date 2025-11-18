@@ -981,6 +981,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function showGameCompleteDialog() {
     const dialog = document.getElementById("gameCompleteDialog");
 
+    // update stats before showing
+    updateGameStatsDisplay();
+
     if (typeof dialog.showModal === "function") {
         dialog.showModal();
     } else {
@@ -1000,3 +1003,58 @@ document.getElementById("newGameBtn").addEventListener("click", () => {
     localStorage.clear(); // Optional if new game resets progress
     window.location.href = "index.html";
 });
+
+// helper: compute total stars from localStorage progress
+function getTotalStars() {
+  const progress = JSON.parse(localStorage.getItem('townProgress') || '{}');
+  let total = 0;
+  // town{n}_stars stored as objects of level->stars
+  for (let t = 1; t <= 3; t++) {
+    const key = `town${t}_stars`;
+    const starObj = progress[key] || {};
+    for (const lvl in starObj) {
+      total += Number(starObj[lvl]) || 0;
+    }
+  }
+  return total;
+}
+
+function updateGameStatsDisplay() {
+  const total = getTotalStars();
+  const max = max_levels * 3; // 3 stars per level
+  const totalEl = document.getElementById('totalStars');
+  const maxEl = document.getElementById('maxStars');
+  const icons = document.getElementById('totalStarsIcons');
+
+  if (totalEl) totalEl.textContent = total;
+  if (maxEl) maxEl.textContent = max;
+
+  if (icons) {
+    icons.innerHTML = '';
+    // show up to max small star icons (keeps visuals aligned; images exist as star-filled/star-empty)
+    for (let i = 0; i < max; i++) {
+      const img = document.createElement('img');
+      img.className = 'tiny-star';
+      img.src = i < total ? 'images/star-filled.png' : 'images/star-empty.png';
+      img.alt = '';
+      icons.appendChild(img);
+    }
+  }
+}
+
+// integrate into game-complete flow
+function showGameCompleteDialog() {
+    const dialog = document.getElementById("gameCompleteDialog");
+
+    // update stats before showing
+    updateGameStatsDisplay();
+
+    if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+    } else {
+        dialog.classList.remove("hidden"); // fallback if dialog not supported
+    }
+
+    document.getElementById("townBtn").style.display = "inline-block";
+    document.getElementById("newGameBtn").style.display = "inline-block";
+}
