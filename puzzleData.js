@@ -224,14 +224,14 @@ const puzzles = [
       'There is at least one wheel in the corner.'
     ],
     items: [
-      { id: 'wheels', img: 'barn/1_Tractor.PNG' },
-      { id: 'axles', img: 'barn/2_Tractor.PNG' },
-      { id: 'engines', img: 'barn/3_Tractor.PNG' },
-      { id: 'seats', img: 'barn/4_Tractor.PNG' },
-      { id: 'levers', img: 'barn/5_Tractor.PNG' },
-      { id: 'exhausts', img: 'barn/6_Tractor.PNG' }
+      { id: 'seats', img: 'barn/1_Tractor.PNG' },
+      { id: 'steering wheels', img: 'barn/2_Tractor.PNG' },
+      { id: 'hoods', img: 'barn/3_Tractor.PNG' },
+      { id: 'big wheels', img: 'barn/4_Tractor.PNG' },
+      { id: 'axels', img: 'barn/5_Tractor.PNG' },
+      { id: 'small wheels', img: 'barn/6_Tractor.PNG' }
     ],
-    correctOrder: ['wheels','axles' ,'engines', 'seats', 'levers','exhausts']
+    correctOrder: ['seats','steering wheels' ,'hoods', 'big wheels', 'axels','small wheels']
   },
 
   {
