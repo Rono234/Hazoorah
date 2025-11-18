@@ -697,7 +697,7 @@ function showLevelEndMessage(success, currentLevel, attemptsLeft) {
       return;
     }
 
-    window.location.href = `levels.html?town=${lastTown}`
+    window.location.href = `levels.html?town=${lastTown}`;
   };
 }
 
@@ -978,6 +978,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // End Game Dialog 
 //================================================================================
+// let confettiAnimation = null;
+
 function showGameCompleteDialog() {
     const dialog = document.getElementById("gameCompleteDialog");
 
@@ -987,11 +989,52 @@ function showGameCompleteDialog() {
     if (typeof dialog.showModal === "function") {
         dialog.showModal();
     } else {
-        dialog.classList.remove("hidden"); // fallback if dialog not supported
+        dialog.classList.remove("hidden");
     }
+
+    // Load and play confetti animation
+    const confettiContainer = document.getElementById('confettiAnimation');
+    console.log('Confetti container:', confettiContainer); // Debug
+    console.log('Lottie available:', typeof lottie !== 'undefined'); // Debug
+    
+    // if (confettiContainer && typeof lottie !== 'undefined') {
+    //     // Clear any existing animation
+    //     if (confettiAnimation) {
+    //         confettiAnimation.destroy();
+    //     }
+
+    //     // Load the confetti JSON file
+    //     try {
+    //         confettiAnimation = lottie.loadAnimation({
+    //             container: confettiContainer,
+    //             renderer: 'svg',
+    //             loop: false,
+    //             autoplay: true,
+    //             path: 'animation/Confetti - Full Screen.json' // Update if path is different
+    //         });
+            
+    //         console.log('Confetti animation loaded:', confettiAnimation); // Debug
+    //     } catch (error) {
+    //         console.error('Error loading confetti:', error);
+    //     }
+    // } else {
+    //     console.log('Missing container or lottie library');
+    // }
 
     document.getElementById("townBtn").style.display = "inline-block";
     document.getElementById("newGameBtn").style.display = "inline-block";
+}
+
+// Clean up confetti when dialog closes
+const gameCompleteDialog = document.getElementById("gameCompleteDialog");
+if (gameCompleteDialog) {
+    gameCompleteDialog.addEventListener('close', () => {
+        if (confettiAnimation) {
+            confettiAnimation.stop();
+            confettiAnimation.destroy();
+            confettiAnimation = null;
+        }
+    });
 }
 
 // Buttons actions
@@ -1000,7 +1043,7 @@ document.getElementById("townBtn").addEventListener("click", () => {
 });
 
 document.getElementById("newGameBtn").addEventListener("click", () => {
-    localStorage.clear(); // Optional if new game resets progress
+    localStorage.clear();
     window.location.href = "index.html";
 });
 
@@ -1008,7 +1051,6 @@ document.getElementById("newGameBtn").addEventListener("click", () => {
 function getTotalStars() {
   const progress = JSON.parse(localStorage.getItem('townProgress') || '{}');
   let total = 0;
-  // town{n}_stars stored as objects of level->stars
   for (let t = 1; t <= 3; t++) {
     const key = `town${t}_stars`;
     const starObj = progress[key] || {};
@@ -1021,7 +1063,7 @@ function getTotalStars() {
 
 function updateGameStatsDisplay() {
   const total = getTotalStars();
-  const max = max_levels * 3; // 3 stars per level
+  const max = max_levels * 3;
   const totalEl = document.getElementById('totalStars');
   const maxEl = document.getElementById('maxStars');
   const icons = document.getElementById('totalStarsIcons');
@@ -1031,7 +1073,6 @@ function updateGameStatsDisplay() {
 
   if (icons) {
     icons.innerHTML = '';
-    // show up to max small star icons (keeps visuals aligned; images exist as star-filled/star-empty)
     for (let i = 0; i < max; i++) {
       const img = document.createElement('img');
       img.className = 'tiny-star';
@@ -1040,21 +1081,4 @@ function updateGameStatsDisplay() {
       icons.appendChild(img);
     }
   }
-}
-
-// integrate into game-complete flow
-function showGameCompleteDialog() {
-    const dialog = document.getElementById("gameCompleteDialog");
-
-    // update stats before showing
-    updateGameStatsDisplay();
-
-    if (typeof dialog.showModal === "function") {
-        dialog.showModal();
-    } else {
-        dialog.classList.remove("hidden"); // fallback if dialog not supported
-    }
-
-    document.getElementById("townBtn").style.display = "inline-block";
-    document.getElementById("newGameBtn").style.display = "inline-block";
 }
